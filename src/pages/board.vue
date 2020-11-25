@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="board">
     <div>Board name: {{ board.title }}</div>
     <div>
       <input type="text" placeholder=" + Add List" v-model="listName" />
@@ -28,10 +28,13 @@ export default {
     cardDetails,
     list,
   },
-
+  computed:{
+    board(){
+      return this.$store.getters.boards[0]
+    }
+  },
   data() {
     return {
-      board: null,
       isShowDetails: false,
       cardDetailsToShow: null,
       listName: ''
@@ -59,9 +62,6 @@ export default {
       this.isShowDetails = false;
     },
   },
-  created() {
-    this.board = this.$store.getters.boards[0];
-  }
 };
 </script>
 <style lang="scss" scoped >

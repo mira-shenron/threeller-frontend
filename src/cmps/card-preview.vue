@@ -1,5 +1,5 @@
 <template>
-    <section class="card">
+    <section class="card ">
         <button>e</button>
     <h3> {{card.title}} </h3>
     </section>
