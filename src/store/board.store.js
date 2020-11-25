@@ -3,7 +3,7 @@ import { boardService } from '../services/board.service.js'
 export default {
     strict: true,
     state: {
-        boards: []
+        boards: [],
     },
     getters: {
         boards(state) {
@@ -17,6 +17,7 @@ export default {
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
+            state.board = boards[0]
         },
         // updateBoardWithList(state, { board }) {
            

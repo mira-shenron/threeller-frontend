@@ -37,12 +37,6 @@
 export default {
   name: "home-page",
   components: {},
-
-  created() {
-    this.$store.dispatch({
-      type: "loadBoards",
-    });
-  },
   computed: {},
 };
 </script>
