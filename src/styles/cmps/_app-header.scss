@@ -1,0 +1,39 @@
+.app-header {
+    background-color: $clr1;
+    height: rem(40px);
+    justify-content: space-between;
+    padding: 2px;
+
+    svg{
+        fill:black;
+    }
+
+    .logo {
+        margin: 0;
+        color: $clr4;
+        font-family: Pattaya, sans-serif;
+        font-size: rem(24px);
+        &:hover{
+            color: $clr5;
+        }
+    }
+
+    nav{
+        &>:not(:last-child) {
+            margin-right: 2px;
+        }
+    }
+
+    .nav-btn {
+        width: rem(32px);
+        height: rem(32px);
+        border-radius: 5px;
+        padding: rem(6px);
+        background-color: darken($clr3, 4%);
+        cursor: pointer;
+        &:hover{
+            background-color: lighten($clr2, 4%);
+        }
+    }
+
+}
