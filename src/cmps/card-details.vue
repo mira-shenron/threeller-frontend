@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="editCmp" v-if="showEdit">
-            <card-edit/>
+            <card-edit :feature="featureToShow"/>
         </div>
     </div>
 </template>
@@ -47,10 +47,12 @@ export default {
     methods: {
         isShowDetails() {
             this.$emit("closeModal");
+            this.showEdit=false
         },
         edit(feature){
           console.log("feature: ", feature)
           this.showEdit=true
+          this.featureToShow=feature
         }
     },
     created() {},
