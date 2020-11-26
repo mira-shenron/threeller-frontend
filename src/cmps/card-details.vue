@@ -10,36 +10,48 @@
                 <div>{{ card.description }}</div>
             </div>
             <div class="nav">
-                <a href="">Join</a>
-                <a href="">Members</a>
-                <a href="">Labels</a>
-                <a href="">Checklist</a>
-                <a href="">Due Date</a>
-                <a href="">Attachment</a>
-                <a href="">Cover</a>
-                <a href="">Move</a>
-                <a href="">Copy</a>
+                <a @click="edit('join')" >Join</a>
+                <a @click="edit('members')" >Members</a>
+                <a @click="edit('labels')">Labels</a>
+                <a @click="edit('checklist')" >Checklist</a>
+                <a @click="edit('due Date')" >Due Date</a>
+                <a @click="edit('attachment')" >Attachment</a>
+                <a @click="edit('cover')" >Cover</a>
+                <a @click="edit('move')" >Move</a>
+                <a @click="edit('copy')" >Copy</a>
             </div>
+        </div>
+        <div class="editCmp" v-if="showEdit">
+            <card-edit/>
         </div>
     </div>
 </template>
 
 <script>
+import cardEdit from './card-edit.vue';
 // @ is an alias to /src
 export default {
     name: "card-details",
     props: {
         card: Object,
     },
-    components: {},
+    components: {
+        cardEdit
+        },
     data() {
-        return {};
+        return {
+            showEdit:null,
+            featureToShow:null
+        };
     },
     methods: {
         isShowDetails() {
             this.$emit("closeModal");
-            console.log('X')
         },
+        edit(feature){
+          console.log("feature: ", feature)
+          this.showEdit=true
+        }
     },
     created() {},
 };
@@ -67,5 +79,8 @@ export default {
             flex-direction: column;
         }
     }
+}
+.editCmp{
+    background-color: #a2cffa;
 }
 </style>

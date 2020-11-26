@@ -1,11 +1,13 @@
-import httpService from './http.service'
+import httpService from './http.service';
+import utilService from './util.service';
 
 export const boardService = {
     query,
     getById,
     remove,
     save,
-    getEmptyBoard
+    getEmptyBoard,
+    getEmptyList
 }
 
 function query() {
@@ -36,6 +38,15 @@ function add(board) {
 function getEmptyBoard() {
     return {
         //TODO
+    }
+}
+
+function getEmptyList(listName) {
+    return             {
+        'id': utilService.makeId(),
+        'title': listName,
+        'cards': [],
+        'style': {}
     }
 }
 

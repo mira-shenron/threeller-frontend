@@ -1,93 +1,76 @@
 <template>
-    <section class="flex column list">
-        <div class="name">List name: {{ list.title }}</div>
-        <ul v-for="card in list.cards" :key="card.id">
-            <li >
-                <card-preview
-                    @click.native="showCardDetails(card)"
-                    :card="card"
-                ></card-preview>
-            </li>
-        </ul>
-        <li>
-            <form @submit.prevent="saveCard">
-                <input
-                    type="text"
-                    v-model="newCard.title"
-                    placeholder="title od the card"
-                />
-                <!-- <input
+  <section class="flex column list">
+    <div class="name">List name: {{ list.title }}</div>
+    <ul v-for="card in list.cards" :key="card.id">
+      <li>
+        <card-preview
+          @click.native="showCardDetails(card)"
+          @emitDelete="deleteCard"
+          :card="card"
+        ></card-preview>
+      </li>
+    </ul>
+    <li>
+      <form @submit.prevent="addCard">
+        <input type="text" v-model="txt" placeholder="title of the card" />
+        <!-- <input
                     type="text"
                     v-model="newCard.id"
                     placeholder="id of the card"
                 /> -->
-                <button>save</button>
-            </form>
-        </li>
-      
-
-    </section>
+        <button>save</button>
+      </form>
+    </li>
+  </section>
 </template>
 
 <script>
 // @ is an alias to /src
 import cardPreview from "@/cmps/card-preview.vue";
+import utilService from "@/services/util.service.js";
 
 export default {
-    props: ["list"],
-    components: {
-      cardPreview,
+  props: ["list"],
+  components: {
+    cardPreview,
+  },
+  data() {
+    return {
+      txt: "",
+    };
+  },
+  methods: {
+    addCard() {
+      const title = this.txt;
+      const card = {
+        title,
+        id: utilService.makeId(),
+      };
+      this.list.cards.push(card);
+      this.txt = "";
+      this.$emit("emitSaveBoard");
     },
-    data() {
-        return {
-            cards: [
-                {
-                    id: "11",
-                    title: "aaa",
-                    description:
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ipsa doloribus maxime harum soluta unde perspiciatis sequi ducimus atque, quod facilis fugit magni, aliquam vel fuga veritatis natus repellendus illo!",
-                },
-                {
-                    id: "12",
-                    title: "bbb",
-                    description:
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ipsa doloribus maxime harum soluta unde perspiciatis sequi ducimus atque, quod facilis fugit magni, aliquam vel fuga veritatis natus repellendus illo!",
-                },
-            ],
-            newCard: {
-                id: "",
-                title: "",
-            },
-            
-        };
+    deleteCard(cardId) {
+      const idx = this.list.cards.findIndex((card) => card.id === cardId);
+      this.list.cards.splice(idx, 1);
+      this.$emit("emitSaveBoard");
     },
-    methods: {
-        saveCard() {
-            this.cards.push(this.newCard);
-            this.newCard = {
-                id: "",
-                title: "",
-            };
-        },
-        showCardDetails(card){
-          this.$emit('showCardDetails',card)
-          
-        }
+    showCardDetails(card) {
+      this.$emit("showCardDetails", card);
     },
-    created() {
-        console.log(this.list);
-    },
+  },
+  created() {
+    console.log(this.list);
+  },
 };
 </script>
 <style lang="scss" scoped>
 .list {
-    height: 200px;
-    width: 300px;
-    border: 1px solid black;
-    background-color: rgb(243, 174, 174);
+  width: 300px;
+  border: 1px solid black;
 }
 
 .name {
-    font-weight: bold;
+  font-weight: bold;
 }
 </style>
