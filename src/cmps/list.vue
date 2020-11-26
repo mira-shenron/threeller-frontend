@@ -84,6 +84,7 @@ export default {
     height: 200px;
     width: 300px;
     border: 1px solid black;
+    background-color: rgb(243, 174, 174);
 }
 
 .name {
