@@ -1,71 +1,90 @@
 <template>
-    <div class="cardDetails">
-        <div class="header-card">
-            <button>🎫</button>
-            <span>{{ card.title }}</span>
-            <button @click="isShowDetails">X</button>
-        </div>
-        <div class="main-card">
-            <div class="main-contsnt">
-                <div>{{ card.description }}</div>
-            </div>
-            <div class="nav">
-                <a href="">Join</a>
-                <a href="">Members</a>
-                <a href="">Labels</a>
-                <a href="">Checklist</a>
-                <a href="">Due Date</a>
-                <a href="">Attachment</a>
-                <a href="">Cover</a>
-                <a href="">Move</a>
-                <a href="">Copy</a>
-            </div>
-        </div>
+  <div class="cardDetails">
+    <div class="header-card flex space-between">
+      <div>
+        <button>🎫</button>
+        <span>{{ card.title }}</span>
+      </div>
+      <button @click="isShowDetails">X</button>
     </div>
+    <div class="main-card flex space-between">
+      <div class="main-contsnt">
+        <div>Descrition{{ card.description }}</div>
+        <div>Activity</div>
+      </div>
+      <div class="nav clickable">
+        <a @click="edit('join')">Join</a>
+        <a @click="edit('members')">Members</a>
+        <a @click="edit('labels')">Labels</a>
+        <a @click="edit('checklist')">Checklist</a>
+        <a @click="edit('due Date')">Due Date</a>
+        <a @click="edit('attachment')">Attachment</a>
+        <a @click="edit('cover')">Cover</a>
+        <a @click="edit('move')">Move</a>
+        <a @click="edit('copy')">Copy</a>
+      </div>
+    </div>
+    <div class="editCmp" v-if="showEdit">
+      <card-edit :feature="featureToShow" />
+    </div>
+  </div>
 </template>
 
 <script>
+import cardEdit from './card-edit.vue';
 // @ is an alias to /src
 export default {
-    name: "card-details",
-    props: {
-        card: Object,
+  name: "card-details",
+  props: {
+    card: Object,
+  },
+  components: {
+    cardEdit
+  },
+  data() {
+    return {
+      showEdit: null,
+      featureToShow: null
+    };
+  },
+  methods: {
+    isShowDetails() {
+      this.$emit("closeModal");
+      this.showEdit = false
     },
-    components: {},
-    data() {
-        return {};
-    },
-    methods: {
-        isShowDetails() {
-            this.$emit("closeModal");
-            console.log('X')
-        },
-    },
-    created() {},
+    edit(feature) {
+      console.log("feature: ", feature)
+      this.showEdit = true
+      this.featureToShow = feature
+    }
+  },
+  created() { },
 };
 </script>
 <style lang="scss" scoped>
 .cardDetails {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  margin: 100 auto;
+  top: 100px;
+  width: 80vw;
+  left: 10vw;
+  .header-card {
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    position: relative;
-    padding: 20px;
-    text-align: center;
-    margin: 100 auto;
-    top: 100px;
-    width: 80vw;
-    left: 10vw;
-    .header-card{
+  }
+  .main-card {
     display: flex;
-
+    & > * {
+      display: flex;
+      flex-direction: column;
     }
-    .main-card {
-        display: flex;
-        & > * {
-            display: flex;
-            flex-direction: column;
-        }
-    }
+  }
+}
+.editCmp {
+  background-color: #a2cffa;
 }
 </style>
