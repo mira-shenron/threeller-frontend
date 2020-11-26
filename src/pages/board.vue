@@ -20,6 +20,8 @@
 // @ is an alias to /src
 import list from "@/cmps/list.vue";
 import cardDetails from "@/cmps/card-details.vue";
+import { boardService } from '../services/board.service.js';
+
 
 export default {
   name: "board",
@@ -42,10 +44,14 @@ export default {
   },
   methods: {
     addList() {
-      this.$store.dispatch({
-        type: 'addList',
-        listName: this.listName
-      })
+      var list = boardService.getEmptyList(this.listName); 
+      this.board.groups.push(list);
+      console.log('add list', this.board);
+      this.saveBoard();
+      // this.$store.dispatch({
+      //   type: 'addList',
+      //   listName: this.listName
+      // })
     },
     showCardDetails(card) {
       console.log(" board  ~ card", card);
@@ -59,6 +65,7 @@ export default {
     },
     saveBoard(){
       const board = this.board
+      console.log('save board')
       this.$store.dispatch({
         type: 'saveBoard',
         board
