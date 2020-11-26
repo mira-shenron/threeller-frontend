@@ -13,6 +13,7 @@
         <div>Activity</div>
       </div>
       <div class="nav clickable">
+        <p>Add to card</p>
         <a @click="edit('join')">Join</a>
         <a @click="edit('members')">Members</a>
         <a @click="edit('labels')">Labels</a>
@@ -20,6 +21,7 @@
         <a @click="edit('due Date')">Due Date</a>
         <a @click="edit('attachment')">Attachment</a>
         <a @click="edit('cover')">Cover</a>
+        <p>Actions</p>
         <a @click="edit('move')">Move</a>
         <a @click="edit('copy')">Copy</a>
       </div>
