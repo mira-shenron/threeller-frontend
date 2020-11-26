@@ -1,6 +1,5 @@
 <template>
   <section class="card">
-    <button>e</button>
     <h3>{{ card.title }}</h3>
     <button @click.stop="onEmitDeleteCard">X</button>
   </section>
@@ -26,8 +25,3 @@ export default {
   created() {},
 };
 </script>
-<style lang="scss">
-.card {
-  background-color: rgb(236, 103, 103);
-}
-</style>

@@ -5,8 +5,14 @@
       <input type="text" placeholder=" + Add List" v-model="listName" />
       <button @click="addList">Save</button>
     </div>
-    <div v-for="list in board.groups" :key="list.id">
-      <list @emitSaveBoard="saveBoard" @showCardDetails="showCardDetails" :list="list"></list>
+    <div class="board flex">
+      <div class="list-wrapper" v-for="list in board.groups" :key="list.id">
+      <list
+        @emitSaveBoard="saveBoard"
+        @showCardDetails="showCardDetails"
+        :list="list"
+      ></list>
+      </div>
     </div>
     <div class="popup-details" v-if="isShowDetails">
       <card-details @closeModal="closeModal" :card="cardDetailsToShow">
@@ -30,16 +36,16 @@ export default {
     cardDetails,
     list,
   },
-  computed:{
-    board(){
+  computed: {
+    board() {
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    }
+    },
   },
   data() {
     return {
       isShowDetails: false,
       cardDetailsToShow: null,
-      listName: ''
+      listName: "",
     };
   },
   methods: {
@@ -67,10 +73,10 @@ export default {
       const board = this.board
       console.log('save board')
       this.$store.dispatch({
-        type: 'saveBoard',
-        board
-      })
-    }
+        type: "saveBoard",
+        board,
+      });
+    },
   },
 };
 </script>
