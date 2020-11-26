@@ -52,12 +52,7 @@ export default {
     addList() {
       var list = boardService.getEmptyList(this.listName); 
       this.board.groups.push(list);
-      console.log('add list', this.board);
       this.saveBoard();
-      // this.$store.dispatch({
-      //   type: 'addList',
-      //   listName: this.listName
-      // })
     },
     showCardDetails(card) {
       console.log(" board  ~ card", card);
