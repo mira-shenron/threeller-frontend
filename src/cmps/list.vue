@@ -1,16 +1,16 @@
 <template>
   <section class="flex column list">
-    <div class="name">List name: {{ list.title }}</div>
-    <ul v-for="card in list.cards" :key="card.id">
-      <li>
+    <div class="name">{{ list.title }}</div>
+    <div class="card-container flex column">
+      <div v-for="card in list.cards" :key="card.id">
         <card-preview
           @click.native="showCardDetails(card)"
           @emitDelete="deleteCard"
           :card="card"
         ></card-preview>
-      </li>
-    </ul>
-    <li>
+      </div>
+    </div>
+    <div>
       <form @submit.prevent="addCard">
         <input type="text" v-model="txt" placeholder="title of the card" />
         <!-- <input
@@ -20,7 +20,7 @@
                 /> -->
         <button>save</button>
       </form>
-    </li>
+    </div>
   </section>
 </template>
 
@@ -64,13 +64,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.list {
-  width: 300px;
-  border: 1px solid black;
-}
-
-.name {
-  font-weight: bold;
-}
-</style>

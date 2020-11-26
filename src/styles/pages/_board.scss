@@ -1,0 +1,18 @@
+.board {
+    gap: 4px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 700px;
+
+    &>:first-child {
+        margin-left: 4px;
+    }
+
+    &>:last-child {
+        margin-right: 4px;
+    }
+    // .list-wrapper{
+    //     height: 100%;
+    // }
+}

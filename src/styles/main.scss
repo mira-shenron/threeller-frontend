@@ -9,6 +9,11 @@
 @import 'basics/base';
 @import 'basics/layout';
 
+//PAGES
+@import 'pages/home-page';
+@import 'pages/board';
+
 // COMPONENTS
 @import 'cmps/app-header';
-@import 'cmps/home-page';
+@import 'cmps/list';
+@import 'cmps/card';
