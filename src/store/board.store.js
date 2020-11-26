@@ -1,5 +1,6 @@
 import { boardService } from '../services/board.service.js';
 
+
 export default {
     strict: true,
     state: {
@@ -22,9 +23,6 @@ export default {
         setCurrBoard(state, { boardId }) {
             state.currBoard = state.boards.find(board => board._id === boardId);
         },
-        updateCurrBoardWithList(state, { list }) {
-            state.currBoard.groups.push(list);
-        },
         saveBoard(state, { board }) {
             state.currBoard = board;
         }
@@ -39,16 +37,6 @@ export default {
             commit({ type: 'saveBoard', board });
             boardService.save(board);
         },
-        async addList({ state, commit }, { listName }) {
-            var list = await boardService.getEmptyList(listName);
-            //on purpose this name, different types of  updates will come later
-            commit({ type: 'updateCurrBoardWithList', list });
-
-            const updatedBoard = await boardService.save(state.currBoard);
-            console.log(updatedBoard);
-
-            //if he didn`t succeed to save?? rollback??
-        }
     }
 
 };
