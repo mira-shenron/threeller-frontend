@@ -5,12 +5,13 @@
       <li>
         <card-preview
           @click.native="showCardDetails(card)"
+          @emitDelete="deleteCard"
           :card="card"
         ></card-preview>
       </li>
     </ul>
     <li>
-      <form @submit.prevent="saveCard">
+      <form @submit.prevent="addCard">
         <input type="text" v-model="txt" placeholder="title of the card" />
         <!-- <input
                     type="text"
@@ -26,6 +27,7 @@
 <script>
 // @ is an alias to /src
 import cardPreview from "@/cmps/card-preview.vue";
+import utilService from "@/services/util.service.js";
 
 export default {
   props: ["list"],
@@ -38,17 +40,20 @@ export default {
     };
   },
   methods: {
-    saveCard() {
+    addCard() {
       const title = this.txt;
-      const groupId = this.list.id;
-      this.$store.dispatch({
-        type: "saveCard",
-        card:{
-            title
-        },
-        groupId,
-      });
+      const card = {
+        title,
+        id: utilService.makeId(),
+      };
+      this.list.cards.push(card);
       this.txt = "";
+      this.$emit("emitSaveBoard");
+    },
+    deleteCard(cardId) {
+      const idx = this.list.cards.findIndex((card) => card.id === cardId);
+      this.list.cards.splice(idx, 1);
+      this.$emit("emitSaveBoard");
     },
     showCardDetails(card) {
       this.$emit("showCardDetails", card);

@@ -10,30 +10,23 @@ export default {
         boards(state) {
             return state.boards;
         },
-        currBoard(state){
-            console.log(state)
+        currBoard(state) {
+            console.log(state);
             return state.currBoard;
         }
     },
     mutations: {
         setBoards(state, { boards }) {
-            state.boards = boards
+            state.boards = boards;
         },
-        setCurrBoard(state, {boardId}){
+        setCurrBoard(state, { boardId }) {
             state.currBoard = state.boards.find(board => board._id === boardId);
         },
-        updateCurrBoardWithList(state, {list}) {
-           state.currBoard.groups.push(list);
+        updateCurrBoardWithList(state, { list }) {
+            state.currBoard.groups.push(list);
         },
-        addCard(state, { card, groupId }) {
-            const group = state.boards[0].groups.find(group => groupId === group.id);
-            group.cards.push(card);
-        //add util.make id
-        },
-        updateCard(state, { card, groupId }) {
-            const group = state.boards[0].groups.find(group => groupId === group.id);
-            const idx = group.cards.findIndex(currCard => currCard.id === card.id);
-            group.cards.splice(idx, 1, card);
+        saveBoard(state, { board }) {
+            state.currBoard = board;
         }
     },
     actions: {
@@ -42,21 +35,15 @@ export default {
             commit({ type: 'setBoards', boards });
             commit({ type: 'setIsLoading', isLoading: false });
         },
-        async saveBoard({ state }) {
-            boardService.save(state.boards[0]);
+        async saveBoard({ commit }, { board }) {
+            commit({ type: 'saveBoard', board });
+            boardService.save(board);
         },
-        async saveCard({ dispatch, commit }, { card, groupId }) {
-            const type = (card.id) ? 'updateCard' : 'addCard';
-            commit({ type, card, groupId });
-            //ask asaf if it can save before updating card
-            dispatch({ type: 'saveBoard' });
-        },
-
-        async addList({state, commit}, {listName}) {
+        async addList({ state, commit }, { listName }) {
             var list = await boardService.getEmptyList(listName);
             //on purpose this name, different types of  updates will come later
-            commit({ type: 'updateCurrBoardWithList', list});
-            
+            commit({ type: 'updateCurrBoardWithList', list });
+
             const updatedBoard = await boardService.save(state.currBoard);
             console.log(updatedBoard);
 
