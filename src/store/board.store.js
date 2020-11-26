@@ -4,24 +4,27 @@ export default {
     strict: true,
     state: {
         boards: [],
+        currBoard: null
     },
     getters: {
         boards(state) {
             return state.boards;
         },
-        getBoardById(boardId) {
-            return this.boards.filter(board => board._id === boardId);
+        currBoard(state){
+            console.log(state)
+            return state.currBoard;
         }
-
     },
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
-            state.board = boards[0]
         },
-        // updateBoardWithList(state, { board }) {
-           
-        // },
+        setCurrBoard(state, {boardId}){
+            state.currBoard = state.boards.find(board => board._id === boardId);
+        },
+        updateCurrBoardWithList(state, {list}) {
+           state.currBoard.groups.push(list);
+        },
     },
     actions: {
         async loadBoards({ commit }) {
@@ -29,15 +32,17 @@ export default {
             commit({ type: 'setBoards', boards })
             commit({ type: 'setIsLoading', isLoading: false })
         },
-        // async addList({commit}, {listName, boardId}) {
-        //     var emptyList = await boardService.getEmptyList(listName);
-        //     var currBoard = state.getBoardById(boardId);
-        //     currBoard.groups.push(emptyList);
+        async addList({state, commit}, {listName}) {
+            var list = await boardService.getEmptyList(listName);
 
-        //     const updatedBoard = await boardService.update(currBoard)
+            //on purpose this name, different types of  updates will come later
+            commit({ type: 'updateCurrBoardWithList', list});
+            
+            const updatedBoard = await boardService.save(state.currBoard);
+            console.log(updatedBoard);
 
-        //     commit({ type: 'updateBoardWithList', updatedBoard});
-        // }
+            //if he didn`t succeed to save?? rollback??
+        }
     }
 
 }

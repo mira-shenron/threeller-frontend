@@ -30,7 +30,7 @@ export default {
   },
   computed:{
     board(){
-      return this.$store.getters.boards[0]
+      return this.$store.getters.currBoard;
     }
   },
   data() {
@@ -42,11 +42,8 @@ export default {
   },
   methods: {
     addList() {
-      console.log(this.listName)
-      console.log(this.board._id)
       this.$store.dispatch({
         type: 'addList',
-        boardId: this.board._id,
         listName: this.listName
       })
     },

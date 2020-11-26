@@ -28,15 +28,37 @@
         >
       </el-row>
     </div>
+    <div>
+      <h2>Boards</h2>
+      <div v-for="board in boards" :key="board._id">
+        <board-preview
+          @click.native="openBoard(board._id)"
+          :board="board"
+        ></board-preview>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 // @ is an alias to /src
+import boardPreview from "@/cmps/board-preview.vue";
 
 export default {
   name: "home-page",
-  components: {},
-  computed: {},
+  components: {
+    boardPreview
+  },
+  computed: {
+    boards() {
+      return this.$store.getters.boards;
+    }
+  },
+  methods: {
+    openBoard(boardId){
+      this.$store.commit({type: 'setCurrBoard', boardId});
+      this.$router.push(`/board/${boardId}`);
+    }
+  }
 };
 </script>
