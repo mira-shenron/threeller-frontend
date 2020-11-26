@@ -1,101 +1,76 @@
 <template>
-    <div class="cardDetails">
-        <div class="header-card flex space-between">
-            <div>
-                <button>🎫</button>
-                <span>{{ card.title }}</span>
-            </div>
-            <button @click="isShowDetails">X</button>
-        </div>
-        <div class="main-card flex space-between">
-            <div class="main-contsnt">
-                <div>Descrition{{ card.description }}</div>
-                <div>Activity</div>
-            </div>
-            <div class="nav clickable">
-                <a @click="edit('join')">Join</a>
-                <a @click="edit('members')">Members</a>
-                <a @click="edit('labels')">Labels</a>
-                <a @click="edit('checklist')">Checklist</a>
-                <a @click="edit('due Date')">Due Date</a>
-                <a @click="edit('attachment')">Attachment</a>
-                <a @click="edit('cover')">Cover</a>
-                <a @click="edit('move')">Move</a>
-                <a @click="edit('copy')">Copy</a>
-            </div>
-        </div>
-        <div class="editCmp" v-if="showEdit">
-            <!-- <card-edit slot="edit" :feature="featureToShow"> -->
-                   <card-labels />
-                   <!-- <h2 v-else> hii iam not label</h2> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
-            <!-- </card-edit> -->
-        </div>
+  <div class="card-details">
+    <div class="header-card flex space-between">
+      <div>
+        <button>🎫</button>
+        <span>{{ card.title }}</span>
+      </div>
+      <button @click="isShowDetails">X</button>
     </div>
+    <div class="main-card flex space-between">
+      <div class="main-contsnt">
+        <div>Descrition{{ card.description }}</div>
+        <div>Activity</div>
+      </div>
+      <div class="nav clickable">
+        <a @click="edit('join')">Join</a>
+        <a @click="edit('members')">Members</a>
+        <a @click="edit('labels')">Labels</a>
+        <a @click="edit('checklist')">Checklist</a>
+        <a @click="edit('due Date')">Due Date</a>
+        <a @click="edit('attachment')">Attachment</a>
+        <div class="relative" @click="edit('cover')">
+          <a>Cover</a>
+          <edit-container :feature="'Cover-Card'" v-if="currEdit === 'cover'">
+            <input type="text" slot="edit-body" />
+          </edit-container>
+        </div>
+        <div class="relative" @click="edit('move')">
+          <a>Move</a>
+          <edit-container :feature="'Move-Card'" v-if="currEdit === 'move'">
+            <card-move slot="edit-body" />
+          </edit-container>
+        </div>
+        <a @click="edit('copy')">Copy</a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-// import cardEdit from "./card-edit.vue";
-import cardLabels from './card-labels.vue';
 // @ is an alias to /src
+import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
+import editContainer from "./edit-container.vue";
+import cardMove from "./card-move.vue";
+
 export default {
-    name: "card-details",
-    props: {
-        card: Object,
+  name: "card-details",
+  props: {
+    card: Object,
+  },
+  data() {
+    return {
+      currEdit: null,
+    };
+  },
+  methods: {
+    isShowDetails() {
+      this.$emit("closeModal");
     },
-    components: {
-        // cardEdit,
-        cardLabels,
+    edit(feature) {
+      this.currEdit = feature;
     },
-    data() {
-        return {
-            showEdit: null,
-            featureToShow: null,
-        };
-    },
-    methods: {
-        isShowDetails() {
-            this.$emit("closeModal");
-            this.showEdit = false;
-        },
-        edit(feature) {
-            console.log("feature: ", feature);
-            this.showEdit = true;
-            this.featureToShow = feature;
-        },
-    },
-    created() {},
+  },
+  components: {
+    cardMove,
+    editContainer,
+  },
+  created() {
+    eventBus.$on(CLOSE_EDIT, () => {
+      this.currEdit = null;
+      console.log(this.currEdit);
+    });
+  },
 };
 </script>
-<style lang="scss" scoped>
-.cardDetails {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    position: relative;
-    padding: 20px;
-    text-align: center;
-    margin: 100 auto;
-    top: 100px;
-    width: 80vw;
-    left: 10vw;
-    .header-card {
-        display: flex;
-    }
-    .main-card {
-        display: flex;
-        & > * {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-}
-.editCmp {
-    background-color: #a2cffa;
-}
-</style>
+

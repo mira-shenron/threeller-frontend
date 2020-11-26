@@ -1,17 +1,48 @@
-.nav > *{
-    height: 50px;
-    width:200px;
-    background-color: rgb(245, 239, 239);
-    padding-inline-start: 20px;
-    margin-top: 5px;
-    text-align: left;
-    border-radius: 5px;
-}
+.card-details {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    margin: 100 auto;
+    top: 100px;
+    width: 80vw;
+    left: 10vw;
 
-.nav > *:hover{
-    background-color: rgb(219, 218, 218);
-}
+    .header-card {
+        display: flex;
+    }
 
-.main-card > *{
-    margin-top:20px;
+    .main-card {
+        display: flex;
+
+        &>* {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+    }
+
+    .editCmp {
+        background-color: #a2cffa;
+    }
+
+    .nav>* {
+        height: 50px;
+        width: 200px;
+        background-color: rgb(245, 239, 239);
+        padding-inline-start: 20px;
+        margin-top: 5px;
+        text-align: left;
+        border-radius: 5px;
+    }
+
+    .nav>*:hover {
+        background-color: rgb(219, 218, 218);
+    }
+
+    .relative{
+        position: relative;
+    }
 }
