@@ -1,11 +1,12 @@
 <template>
-    <div class="">
-    
-      labels
-    </div>
+    <card-edit >
+
+    </card-edit>
+   
 </template>
 
 <script>
+import cardEdit from './card-edit.vue';
 // import 
 // @ is an alias to /src
 export default {
@@ -13,7 +14,7 @@ export default {
     props: {
       
     },
-    components: {},
+    components: {cardEdit},
     data() {
         return {};
     },

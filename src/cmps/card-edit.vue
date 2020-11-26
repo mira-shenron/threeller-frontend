@@ -1,17 +1,12 @@
 <template>
-    <div class="main-edit">i am edit cmp- {{ feature }}
-    <card-labels v-if="'labels'===feature"/>
-        <!-- -->
-        <!--  -->
-        <!--  -->
-        <!--  -->
-        <!--  -->
-        <!--  -->
+    <div class="main-edit">
+        <h1>{{feature}}</h1>
+        <slot name="edit"></slot>
     </div>
 </template>
 
 <script>
-import cardLabels from './card-labels.vue';
+// import cardLabels from './card-labels.vue';
 
 // @ is an alias to /src
 export default {
@@ -20,7 +15,7 @@ export default {
         feature: String,
     },
     components: {
-        cardLabels
+        // cardLabels
     },
     data() {
         return {};
@@ -30,7 +25,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.main-edit{
 
-}
 </style>

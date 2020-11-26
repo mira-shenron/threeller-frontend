@@ -1,90 +1,101 @@
 <template>
-  <div class="cardDetails">
-    <div class="header-card flex space-between">
-      <div>
-        <button>🎫</button>
-        <span>{{ card.title }}</span>
-      </div>
-      <button @click="isShowDetails">X</button>
+    <div class="cardDetails">
+        <div class="header-card flex space-between">
+            <div>
+                <button>🎫</button>
+                <span>{{ card.title }}</span>
+            </div>
+            <button @click="isShowDetails">X</button>
+        </div>
+        <div class="main-card flex space-between">
+            <div class="main-contsnt">
+                <div>Descrition{{ card.description }}</div>
+                <div>Activity</div>
+            </div>
+            <div class="nav clickable">
+                <a @click="edit('join')">Join</a>
+                <a @click="edit('members')">Members</a>
+                <a @click="edit('labels')">Labels</a>
+                <a @click="edit('checklist')">Checklist</a>
+                <a @click="edit('due Date')">Due Date</a>
+                <a @click="edit('attachment')">Attachment</a>
+                <a @click="edit('cover')">Cover</a>
+                <a @click="edit('move')">Move</a>
+                <a @click="edit('copy')">Copy</a>
+            </div>
+        </div>
+        <div class="editCmp" v-if="showEdit">
+            <!-- <card-edit slot="edit" :feature="featureToShow"> -->
+                   <card-labels />
+                   <!-- <h2 v-else> hii iam not label</h2> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+                   <!-- <card-labels v-if="'labels' === featureToShow" /> -->
+            <!-- </card-edit> -->
+        </div>
     </div>
-    <div class="main-card flex space-between">
-      <div class="main-contsnt">
-        <div>Descrition{{ card.description }}</div>
-        <div>Activity</div>
-      </div>
-      <div class="nav clickable">
-        <a @click="edit('join')">Join</a>
-        <a @click="edit('members')">Members</a>
-        <a @click="edit('labels')">Labels</a>
-        <a @click="edit('checklist')">Checklist</a>
-        <a @click="edit('due Date')">Due Date</a>
-        <a @click="edit('attachment')">Attachment</a>
-        <a @click="edit('cover')">Cover</a>
-        <a @click="edit('move')">Move</a>
-        <a @click="edit('copy')">Copy</a>
-      </div>
-    </div>
-    <div class="editCmp" v-if="showEdit">
-      <card-edit :feature="featureToShow" />
-    </div>
-  </div>
 </template>
 
 <script>
-import cardEdit from './card-edit.vue';
+// import cardEdit from "./card-edit.vue";
+import cardLabels from './card-labels.vue';
 // @ is an alias to /src
 export default {
-  name: "card-details",
-  props: {
-    card: Object,
-  },
-  components: {
-    cardEdit
-  },
-  data() {
-    return {
-      showEdit: null,
-      featureToShow: null
-    };
-  },
-  methods: {
-    isShowDetails() {
-      this.$emit("closeModal");
-      this.showEdit = false
+    name: "card-details",
+    props: {
+        card: Object,
     },
-    edit(feature) {
-      console.log("feature: ", feature)
-      this.showEdit = true
-      this.featureToShow = feature
-    }
-  },
-  created() { },
+    components: {
+        // cardEdit,
+        cardLabels,
+    },
+    data() {
+        return {
+            showEdit: null,
+            featureToShow: null,
+        };
+    },
+    methods: {
+        isShowDetails() {
+            this.$emit("closeModal");
+            this.showEdit = false;
+        },
+        edit(feature) {
+            console.log("feature: ", feature);
+            this.showEdit = true;
+            this.featureToShow = feature;
+        },
+    },
+    created() {},
 };
 </script>
 <style lang="scss" scoped>
 .cardDetails {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  position: relative;
-  padding: 20px;
-  text-align: center;
-  margin: 100 auto;
-  top: 100px;
-  width: 80vw;
-  left: 10vw;
-  .header-card {
     display: flex;
-  }
-  .main-card {
-    display: flex;
-    & > * {
-      display: flex;
-      flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    margin: 100 auto;
+    top: 100px;
+    width: 80vw;
+    left: 10vw;
+    .header-card {
+        display: flex;
     }
-  }
+    .main-card {
+        display: flex;
+        & > * {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
 .editCmp {
-  background-color: #a2cffa;
+    background-color: #a2cffa;
 }
 </style>
