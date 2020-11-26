@@ -22,16 +22,21 @@
         <div class="relative" @click="edit('cover')">
           <a>Cover</a>
           <edit-container :feature="'Cover-Card'" v-if="currEdit === 'cover'">
-            <input type="text" slot="edit-body" />
+            <!-- <input type="text" slot="edit-body" /> -->
           </edit-container>
         </div>
         <div class="relative" @click="edit('move')">
           <a>Move</a>
           <edit-container :feature="'Move-Card'" v-if="currEdit === 'move'">
-            <card-move slot="edit-body" />
+            <card-move slot="edit-body" :currCard="card" />
           </edit-container>
         </div>
-        <a @click="edit('copy')">Copy</a>
+        <div class="relative" @click="edit('copy')">
+          <a>Copy</a>
+          <edit-container :feature="'Copy-Card'" v-if="currEdit === 'copy'">
+            <card-copy slot="edit-body" :currCard="card" />
+          </edit-container>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +47,7 @@
 import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
 import editContainer from "./edit-container.vue";
 import cardMove from "./card-move.vue";
+import cardCopy from "./card-copy.vue";
 
 export default {
   name: "card-details",
@@ -63,10 +69,12 @@ export default {
   },
   components: {
     cardMove,
+    cardCopy,
     editContainer,
   },
   created() {
     eventBus.$on(CLOSE_EDIT, () => {
+      console.log("close!");
       this.currEdit = null;
       console.log(this.currEdit);
     });

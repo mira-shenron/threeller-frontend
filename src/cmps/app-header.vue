@@ -11,10 +11,10 @@
     <h1 class="logo clickable">Threeller</h1>
     <nav class="right-nav flex">
       <div class="nav-btn">
-        <img src="@/assets/svgs/home-solid.svg" />
+        <img src="@/assets/svgs/alarm.svg" />
       </div>
       <div class="nav-btn flex align-center">
-        <img src="@/assets/svgs/home-solid.svg" />
+        <img src="@/assets/svgs/alarm.svg" />
       </div>
     </nav>
   </header>

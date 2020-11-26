@@ -14,7 +14,10 @@ export default {
         currBoard(state) {
             console.log(state);
             return state.currBoard;
-        }
+        },
+        getLists(state) {
+            return state.currBoard.groups;
+        },
     },
     mutations: {
         setBoards(state, { boards }) {
