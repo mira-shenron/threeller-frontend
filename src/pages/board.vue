@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="popup-details" v-if="isShowDetails">
-      <card-details @closeModal="closeModal" :card="cardDetailsToShow">
+      <card-details @emitSaveBoard="saveBoard" @closeModal="closeModal" :card="cardDetailsToShow">
       </card-details>
     </div>
   </section>

@@ -1,92 +1,148 @@
 <template>
-  <div class="cardDetails">
+  <div class="card-details">
     <div class="header-card flex space-between">
-      <div>
-        <button>🎫</button>
-        <span>{{ card.title }}</span>
+      <div class="flex align-center">
+        <img width="45px" src="../assets/card-icons/card.png" alt="" />
+        <span class="card-title">{{ card.title }}</span>
       </div>
-      <button @click="isShowDetails">X</button>
+      <span class="clickable" @click="isShowDetails">X</span>
     </div>
     <div class="main-card flex space-between">
-      <div class="main-contsnt">
-        <div>Descrition{{ card.description }}</div>
-        <div>Activity</div>
+      <div class="main-content">
+        <div class="card-descrp">
+          <div class="flex align-center">
+            <img width="40px" src="../assets/card-icons/description.png" alt=""/>
+            <div>Description</div>
+          </div>
+          <div v-if="showDesc" class="description clickable" @click.stop="openShowDesc">
+            {{ descriptionOnDiv }}
+          </div>
+          <div v-else>
+            <textarea rows="10" cols="80" v-model="descriptionOnText" placeholder="Add new description"></textarea>
+            <div>
+              <button class="clickable" @click="saveDescription">Save</button>
+              <span class="clickable" @click.stop="closeDescriptionEdit">X</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-activities">
+            <div class="flex align-center">
+              <img
+                width="40px"
+                src="../assets/card-icons/activities.png"
+                alt=""
+              />
+              <div>Activity</div>
+            </div>
+            <div class="activities-list">
+              <div class="flex align-center">
+                <vue-initials-img class="avatar" :name="currUser" />
+                <input
+                  class="comment-input"
+                  placeholder="Write a comment"
+                  type="text"
+                />
+              </div>
+
+              <div v-for="activity in acts" :key="activity.id">
+                <activity-details :activity="activity"></activity-details>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nav clickable">
-        <p>Add to card</p>
         <a @click="edit('join')">Join</a>
         <a @click="edit('members')">Members</a>
         <a @click="edit('labels')">Labels</a>
         <a @click="edit('checklist')">Checklist</a>
         <a @click="edit('due Date')">Due Date</a>
         <a @click="edit('attachment')">Attachment</a>
-        <a @click="edit('cover')">Cover</a>
-        <p>Actions</p>
-        <a @click="edit('move')">Move</a>
+        <div class="relative" @click="edit('cover')">
+          <a>Cover</a>
+          <edit-container :feature="'Cover-Card'" v-if="currEdit === 'cover'">
+            <input type="text" slot="edit-body" />
+          </edit-container>
+        </div>
+        <div class="relative" @click="edit('move')">
+          <a>Move</a>
+          <edit-container :feature="'Move-Card'" v-if="currEdit === 'move'">
+            <card-move slot="edit-body" />
+          </edit-container>
+        </div>
         <a @click="edit('copy')">Copy</a>
       </div>
-    </div>
-    <div class="editCmp" v-if="showEdit">
-      <card-edit :feature="featureToShow" />
     </div>
   </div>
 </template>
 
 <script>
-import cardEdit from './card-edit.vue';
 // @ is an alias to /src
+import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
+import editContainer from "./edit-container.vue";
+import cardMove from "./card-move.vue";
+import activityDetails from "./activity-details.vue";
+
 export default {
   name: "card-details",
   props: {
     card: Object,
   },
-  components: {
-    cardEdit
-  },
   data() {
     return {
-      showEdit: null,
-      featureToShow: null
+      currEdit: null,
+      descriptionOnDiv: '',
+      descriptionOnText:'',
+      activities: [],
+      currUser: "Abi Abambi", //temp,
+      showDesc: true
     };
   },
   methods: {
+    openShowDesc() {
+      this.showDesc = !this.showDesc;
+      this.descriptionOnText = this.card.description ? (this.card.description) : '';
+    },
+    closeDescriptionEdit(){
+      this.descriptionOnDiv = this.card.description ? (this.card.description) : 'Add something here';
+      this.descriptionOnText = this.card.description ? (this.card.description) : '';
+      this.showDesc = !this.showDesc;
+    },
     isShowDetails() {
       this.$emit("closeModal");
-      this.showEdit = false
     },
     edit(feature) {
-      console.log("feature: ", feature)
-      this.showEdit = true
-      this.featureToShow = feature
+      this.currEdit = feature;
+    },
+    saveDescription() {
+      this.card.description = this.descriptionOnText;
+      this.descriptionOnDiv = this.descriptionOnText;
+      this.$emit("emitSaveBoard");
+      this.showDesc = !this.showDesc;
     }
   },
-  created() { },
-};
-</script>
-<style lang="scss" scoped>
-.cardDetails {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  position: relative;
-  padding: 20px;
-  text-align: center;
-  margin: 100 auto;
-  top: 100px;
-  width: 80vw;
-  left: 10vw;
-  .header-card {
-    display: flex;
-  }
-  .main-card {
-    display: flex;
-    & > * {
-      display: flex;
-      flex-direction: column;
+  components: {
+    cardMove,
+    editContainer,
+    activityDetails
+  },
+  computed: {
+    acts() {
+      var board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+      var res = board.activities.filter(actv => actv.card.id === this.card.id);
+      return res;
     }
-  }
+  },
+  created() {
+    eventBus.$on(CLOSE_EDIT, () => {
+      this.currEdit = null;
+      console.log(this.currEdit);
+    });
+
+    this.descriptionOnDiv = this.card.description ? (this.card.description) : 'Add something here';
+  },
 }
-.editCmp {
-  background-color: #a2cffa;
-}
-</style>
+
+</script>
+

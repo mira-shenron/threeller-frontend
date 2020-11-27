@@ -4,10 +4,6 @@
     justify-content: space-between;
     padding: 2px;
 
-    svg{
-        fill:black;
-    }
-
     .logo {
         margin: 0;
         color: $clr4;
@@ -29,6 +25,7 @@
         height: rem(32px);
         border-radius: 5px;
         padding: rem(6px);
+        position: relative;
         background-color: darken($clr3, 4%);
         cursor: pointer;
         &:hover{
@@ -36,4 +33,14 @@
         }
     }
 
+}
+
+.app-header {
+    img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top:0;
+        transform: translateX(-50%, 0) ;
+    }
 }

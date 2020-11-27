@@ -1,23 +1,5 @@
-.nav a{
-    height: 50px;
-    width:200px;
-    background-color: rgb(245, 239, 239);
-    padding-inline-start: 20px;
-    margin-top: 5px;
-    text-align: left;
-    border-radius: 5px;
-}
-
-.nav > *:hover{
-    background-color: rgb(219, 218, 218);
-}
-
-.main-card > *{
-    margin-top:20px;
-}
-
-.cardDetails {
-    display: flex;
+.card-details {
+    // display: flex;
     flex-direction: column;
     background-color: #fff;
     position: relative;
@@ -27,11 +9,65 @@
     top: 100px;
     width: 80vw;
     left: 10vw;
-    .header-card {
-      display: flex;
+
+
+    .main-card {
+        & > * {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
     }
 
-  }
-  .editCmp {
-    background-color: #a2cffa;
-  }
+    .editCmp {
+        background-color: #a2cffa;
+    }
+
+    .nav>* {
+        height: 50px;
+        width: 200px;
+        background-color: rgb(245, 239, 239);
+        padding-inline-start: 20px;
+        margin-top: 5px;
+        text-align: left;
+        border-radius: 5px;
+    }
+
+    .nav>*:hover {
+        background-color: rgb(219, 218, 218);
+    }
+
+    .relative{
+        position: relative;
+    }
+}
+
+.card-title{
+    font-weight: bold;
+    font-size: larger;
+}
+
+.description{
+    background-color:  rgb(245, 239, 239);
+    text-align: left;
+    margin-inline-start: 40px;
+    width: 90%;
+}
+
+.main-content{
+    flex:1;
+}
+
+textarea {
+    resize:none;
+    outline: none;
+}
+
+.activities-list{
+    text-align: left;
+}
+
+.activities-list > *{
+    width: 100%;
+    height: 35px;
+}
