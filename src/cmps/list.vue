@@ -1,6 +1,6 @@
 <template>
   <section class="flex column list">
-    <div class="name">{{ list.title }}</div>
+    <div class="list-header">{{ list.title }}</div>
     <div class="card-container flex column">
       <div v-for="card in list.cards" :key="card.id">
         <card-preview

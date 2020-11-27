@@ -90,8 +90,6 @@ export default {
     },
     saveBoard() {
       const board = JSON.parse(JSON.stringify(this.board));
-      console.log('save card', board.groups[0].cards[0]);
-
       this.$store.dispatch({
         type: "saveBoard",
         board,
