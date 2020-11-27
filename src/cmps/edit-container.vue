@@ -19,9 +19,6 @@ export default {
           eventBus.$emit(CLOSE_EDIT)
       }
   },
-  created(){
-      console.log(this.feature);
-  }
 };
 </script>
 <style lang="scss" scoped>

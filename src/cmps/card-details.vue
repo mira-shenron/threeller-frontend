@@ -1,16 +1,56 @@
 <template>
   <div class="card-details">
     <div class="header-card flex space-between">
-      <div>
-        <button>🎫</button>
-        <span>{{ card.title }}</span>
+      <div class="flex align-center">
+        <img width="45px" src="../assets/card-icons/card.png" alt="" />
+        <span class="card-title">{{ card.title }}</span>
       </div>
-      <button @click="isShowDetails">X</button>
+      <span class="clickable" @click="isShowDetails">X</span>
     </div>
     <div class="main-card flex space-between">
-      <div class="main-contsnt">
-        <div>Descrition{{ card.description }}</div>
-        <div>Activity</div>
+      <div class="main-content">
+        <div class="card-descrp">
+          <div class="flex align-center">
+            <img width="40px" src="../assets/card-icons/description.png" alt=""/>
+            <div>Description</div>
+          </div>
+          <div v-if="showDesc" class="description clickable" @click.stop="openShowDesc">
+            {{ descriptionOnDiv }}
+          </div>
+          <div v-else>
+            <textarea rows="10" cols="80" v-model="descriptionOnText" placeholder="Add new description"></textarea>
+            <div>
+              <button class="clickable" @click="saveDescription">Save</button>
+              <span class="clickable" @click.stop="closeDescriptionEdit">X</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-activities">
+            <div class="flex align-center">
+              <img
+                width="40px"
+                src="../assets/card-icons/activities.png"
+                alt=""
+              />
+              <div>Activity</div>
+            </div>
+            <div class="activities-list">
+              <div class="flex align-center">
+                <vue-initials-img class="avatar" :name="currUser" />
+                <input
+                  class="comment-input"
+                  placeholder="Write a comment"
+                  type="text"
+                />
+              </div>
+
+              <div v-for="activity in acts" :key="activity.id">
+                <activity-details :activity="activity"></activity-details>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="nav clickable">
         <a @click="edit('join')">Join</a>
@@ -54,6 +94,7 @@ import editContainer from "./edit-container.vue";
 import cardMove from "./card-move.vue";
 import cardCopy from "./card-copy.vue";
 import dueDate from "./due-date.vue";
+import activityDetails from "./activity-details.vue";
 
 export default {
   name: "card-details",
@@ -63,21 +104,49 @@ export default {
   data() {
     return {
       currEdit: null,
+      descriptionOnDiv: '',
+      descriptionOnText:'',
+      activities: [],
+      currUser: "Abi Abambi", //temp,
+      showDesc: true
     };
   },
   methods: {
+    openShowDesc() {
+      this.showDesc = !this.showDesc;
+      this.descriptionOnText = this.card.description ? (this.card.description) : '';
+    },
+    closeDescriptionEdit(){
+      this.descriptionOnDiv = this.card.description ? (this.card.description) : 'Add something here';
+      this.descriptionOnText = this.card.description ? (this.card.description) : '';
+      this.showDesc = !this.showDesc;
+    },
     isShowDetails() {
       this.$emit("closeModal");
     },
     edit(feature) {
       this.currEdit = feature;
     },
+    saveDescription() {
+      this.card.description = this.descriptionOnText;
+      this.descriptionOnDiv = this.descriptionOnText;
+      this.$emit("emitSaveBoard");
+      this.showDesc = !this.showDesc;
+    }
   },
   components: {
     cardMove,
     cardCopy,
     editContainer,
-    dueDate
+    dueDate,
+    activityDetails
+  },
+  computed: {
+    acts() {
+      var board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+      var res = board.activities.filter(actv => actv.card.id === this.card.id);
+      return res;
+    }
   },
   created() {
     eventBus.$on(CLOSE_EDIT, () => {
@@ -85,7 +154,10 @@ export default {
       this.currEdit = null;
       console.log(this.currEdit);
     });
+
+    this.descriptionOnDiv = this.card.description ? (this.card.description) : 'Add something here';
   },
-};
+}
+
 </script>
 

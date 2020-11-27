@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="popup-details" v-if="isShowDetails">
-      <card-details @closeModal="closeModal" :card="cardDetailsToShow">
+      <card-details @emitSaveBoard="saveBoard" @closeModal="closeModal" :card="cardDetailsToShow">
       </card-details>
     </div>
   </section>
@@ -63,12 +63,9 @@ export default {
     showCardDetails(card) {
       console.log(" board  ~ card", card);
       this.isShowDetails = true;
-      // console.log("🚀  card:", card);
       this.cardDetailsToShow = card;
-      // console.log(ev)
     },
     moveCard({ list, idx, card }) {
-      console.log(list, idx, card);
       const board = this.board;
       const oldList = board.groups.find((newList) =>
         newList.cards.find((currCard) => currCard.id === card.id)
@@ -82,7 +79,6 @@ export default {
       this.saveBoard();
     },
     copyCard({ list, idx, card }) {
-      console.log('not');
       const board = this.board;
       const newList = board.groups.find((newList) => newList.id === list.id);
       newList.cards.splice(idx, 0, card);
@@ -93,7 +89,6 @@ export default {
     },
     saveBoard() {
       const board = this.board;
-      console.log("save board");
       this.$store.dispatch({
         type: "saveBoard",
         board,

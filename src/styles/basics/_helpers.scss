@@ -48,6 +48,8 @@
     cursor: pointer;
 }
 
+
+
 //Clean
 
 ul.clean-list {
@@ -57,4 +59,8 @@ ul.clean-list {
 ​ .clean-textarea {
     margin: 0;
     padding: 0;
+}
+
+input {
+    outline: none;
 }

@@ -2,8 +2,7 @@
   <div id="app">
     <app-header />
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/board">board</router-link>
+      <router-link to="/">Home</router-link> 
     </div>
     <router-view />
   </div>

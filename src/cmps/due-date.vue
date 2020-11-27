@@ -39,7 +39,7 @@ export default {
     },
   },
   created() {
-    console.log(this.card);
+    this.card.dueDate ? this. time = this.card.dueDate : this.time = '';
   },
 };
 </script>                        

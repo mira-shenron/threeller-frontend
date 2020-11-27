@@ -2,14 +2,14 @@
   <header class="app-header flex align-center space-between">
     <nav class="left-nav flex">
       <div class="nav-btn">
-        <img src="@/assets/svgs/home-solid.svg" />
+        <img src="@/assets/card-icons/menu.png" />
       </div>
       <div class="nav-btn flex align-center">
-        <img src="@/assets/svgs/home-solid.svg" />
+        <img src="@/assets/card-icons/home.png" />
       </div>
     </nav>
     <h1 class="logo clickable">Threeller</h1>
-    <nav class="right-nav flex">
+    <nav class="right-nav flex justify-center align-center">
       <div class="nav-btn">
         <img src="@/assets/svgs/alarm.svg" />
       </div>
