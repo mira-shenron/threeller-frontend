@@ -16,12 +16,9 @@ export default {
             console.log(state);
             return state.currBoard;
         },
-<<<<<<< HEAD
-=======
         getLists(state) {
             return state.currBoard.groups;
         },
->>>>>>> d16e0d174fcefeb72d477ca591390049eae5afcf
     },
     mutations: {
         setBoards(state, { boards }) {

@@ -19,12 +19,6 @@ export default {
           eventBus.$emit(CLOSE_EDIT)
       }
   },
-<<<<<<< HEAD
-  created(){
-
-  }
-=======
->>>>>>> d16e0d174fcefeb72d477ca591390049eae5afcf
 };
 </script>
 <style lang="scss" scoped>
