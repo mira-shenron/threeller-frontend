@@ -3,7 +3,7 @@
     <div class="name">{{ list.title }}</div>
     <div class="card-container flex column">
       <div v-for="card in list.cards" :key="card.id">
-        <card-preview
+        <card-preview 
           @click.native="showCardDetails(card)"
           @emitDelete="deleteCard"
           :card="card"
@@ -58,6 +58,10 @@ export default {
     showCardDetails(card) {
       this.$emit("showCardDetails", card);
     },
+    // updatingCard(card){
+    // console.log("in list card:", card)
+      
+    // }
   },
   created() {
     

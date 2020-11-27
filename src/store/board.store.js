@@ -5,7 +5,8 @@ export default {
     strict: true,
     state: {
         boards: [],
-        currBoard: null
+        currBoard: null,
+        defultColorsLabels:[]
     },
     getters: {
         boards(state) {
@@ -14,7 +15,7 @@ export default {
         currBoard(state) {
             console.log(state);
             return state.currBoard;
-        }
+        },
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -26,6 +27,8 @@ export default {
         saveBoard(state, { board }) {
             state.currBoard = board;
         }
+        
+
     },
     actions: {
         async loadBoards({ commit }) {
