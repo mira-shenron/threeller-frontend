@@ -4,8 +4,8 @@
     justify-content: space-between;
     padding: 2px;
 
-    svg{
-        fill:black;
+    svg {
+        fill: black;
     }
 
     .logo {
@@ -13,12 +13,13 @@
         color: $clr4;
         font-family: Pattaya, sans-serif;
         font-size: rem(24px);
-        &:hover{
+
+        &:hover {
             color: $clr5;
         }
     }
 
-    nav{
+    nav {
         &>:not(:last-child) {
             margin-right: 2px;
         }
@@ -29,11 +30,32 @@
         height: rem(32px);
         border-radius: 5px;
         padding: rem(6px);
+        position: relative;
         background-color: darken($clr3, 4%);
         cursor: pointer;
-        &:hover{
-            background-color: lighten($clr2, 4%);
+
+        .kiwi {
+            fill: $clr2;
         }
+
+        &:hover {
+            background-color: lighten($clr2, 4%);
+            .kiwi {
+                fill: $clr5;
+            }
+        }
+        
+
     }
 
+}
+
+.app-header {
+    img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top:0;
+        transform: translateX(-50%, 0) ;
+    }
 }

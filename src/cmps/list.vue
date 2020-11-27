@@ -1,6 +1,6 @@
 <template>
   <section class="flex column list">
-    <div class="name">{{ list.title }}</div>
+    <div class="list-header">{{ list.title }}</div>
     <div class="card-container flex column">
       <div v-for="card in list.cards" :key="card.id">
         <card-preview 
@@ -10,14 +10,15 @@
         ></card-preview>
       </div>
     </div>
-    <div>
+    <div class="add-card-container">
       <form @submit.prevent="addCard">
-        <input type="text" v-model="txt" placeholder="title of the card" />
-        <!-- <input
-                    type="text"
-                    v-model="newCard.id"
-                    placeholder="id of the card"
-                /> -->
+        <el-input class="list-card-composer-textarea"
+          type="textarea"
+          autosize
+          resize="none"
+          placeholder="Enter title for this card..."
+          v-model="txt">
+        </el-input>
         <button>save</button>
       </form>
     </div>
@@ -45,6 +46,7 @@ export default {
       const card = {
         title,
         id: utilService.makeId(),
+        createdAt: Date.now(),
       };
       this.list.cards.push(card);
       this.txt = "";
@@ -63,8 +65,6 @@ export default {
       
     // }
   },
-  created() {
-    
-  },
+  created() {},
 };
 </script>

@@ -14,6 +14,7 @@
 @import 'pages/board';
 
 // COMPONENTS
+@import 'cmps/scrollbar';
 @import 'cmps/app-header';
 @import 'cmps/list';
 @import 'cmps/card';
@@ -21,3 +22,7 @@
 @import 'cmps/edit-container';
 @import 'cmps/card-labels';
 @import 'cmps/color-picker.scss';
+@import 'cmps/activity-details';
+
+@import 'cmps/members';
+
