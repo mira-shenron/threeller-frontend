@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="popup-details" v-if="isShowDetails">
-      <card-details @emitSaveBoard="saveBoard" @closeModal="closeModal" :card="cardDetailsToShow">
+      <card-details @emitSaveBoard="saveBoard" @closeModal="closeModal" :card="cardDetailsToShow" :members="board.members">
       </card-details>
     </div>
   </section>
@@ -33,6 +33,7 @@ import {
   CLOSE_DETAILS,
   COPY_CARD,
   SAVE_BOARD,
+  SAVE_MEMBERS
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -88,18 +89,37 @@ export default {
       this.isShowDetails = false;
     },
     saveBoard() {
-      const board = this.board;
+      const board = JSON.parse(JSON.stringify(this.board));
+      console.log('save card', board.groups[0].cards[0]);
+
       this.$store.dispatch({
         type: "saveBoard",
         board,
       });
     },
+    saveMembers(card){
+      var groupIdx = -1;
+      var cardIdx = -1;
+      for(let i=0; i < this.board.groups.length; i++){
+        for(let j=0; j < this.board.groups[i].cards.length; j++){
+          if( this.board.groups[i].cards[j].id === card.id){
+            groupIdx = i;
+            cardIdx = j;
+            break;
+          }
+        }
+      }
+      this.board.groups[groupIdx].cards.splice(cardIdx,1,card);
+      this.saveBoard();
+    }
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
+    eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+
   },
 };
 </script>
