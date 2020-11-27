@@ -88,7 +88,7 @@ export default {
       this.isShowDetails = false;
     },
     saveBoard() {
-      const board = this.board;
+      const board = JSON.parse(JSON.stringify(this.board));
       this.$store.dispatch({
         type: "saveBoard",
         board,
