@@ -17,7 +17,12 @@
         <a @click="edit('members')">Members</a>
         <a @click="edit('labels')">Labels</a>
         <a @click="edit('checklist')">Checklist</a>
-        <a @click="edit('due Date')">Due Date</a>
+        <div class="relative" @click="edit('dueDate')">
+          <a>Due Date</a>
+          <edit-container :feature="'Change Due Date'" v-if="currEdit === 'dueDate'">
+            <due-date slot="edit-body" :card="card" />
+          </edit-container>
+        </div>
         <a @click="edit('attachment')">Attachment</a>
         <div class="relative" @click="edit('cover')">
           <a>Cover</a>
@@ -48,6 +53,7 @@ import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
 import editContainer from "./edit-container.vue";
 import cardMove from "./card-move.vue";
 import cardCopy from "./card-copy.vue";
+import dueDate from "./due-date.vue";
 
 export default {
   name: "card-details",
@@ -71,6 +77,7 @@ export default {
     cardMove,
     cardCopy,
     editContainer,
+    dueDate
   },
   created() {
     eventBus.$on(CLOSE_EDIT, () => {

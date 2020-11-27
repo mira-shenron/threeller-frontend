@@ -45,6 +45,7 @@ export default {
       const card = {
         title,
         id: utilService.makeId(),
+        createdAt: Date.now(),
       };
       this.list.cards.push(card);
       this.txt = "";
@@ -59,8 +60,6 @@ export default {
       this.$emit("showCardDetails", card);
     },
   },
-  created() {
-    
-  },
+  created() {},
 };
 </script>

@@ -32,6 +32,7 @@ import {
   MOVE_CARD,
   CLOSE_DETAILS,
   COPY_CARD,
+  SAVE_BOARD,
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -103,6 +104,7 @@ export default {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
+    eventBus.$on(SAVE_BOARD, this.saveBoard);
   },
 };
 </script>
