@@ -1,19 +1,64 @@
 .board {
-    gap: 4px;
+    gap: 8px;
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     height: 70vh;
 
     &>:first-child {
-        margin-left: 4px;
+        margin-left: 8px;
     }
 
     &>:last-child {
-        margin-right: 4px;
+        margin-right: 8px;
+    }
+
+    .add-list-container {
+        height: fit-content;
+        order: 1;
+        padding: 0 4px 4px;
+
+        .list-placeholder-container {
+            width: 272px;
+            border-radius: 3px;
+            background-color: rgba(0, 0, 0, .1);
+
+            .list-placeholder {
+                padding: 6px 8px;
+                .svg-container{
+                    svg {
+                        margin-right: 4px;
+                    }
+    
+                    .plus {
+                        fill: #172b4d;
+                    }
+                }
+
+                .add-list-text{
+                    font-size: rem(16px);
+                }
+            }
+            .add-list {
+                padding: 6px 8px;
+                border-radius: 3px;
+                width: 272px;
+            }
+        }
+
     }
 
     // .list-wrapper{
     //     height: 100%;
     // }
+}
+
+.popup-details {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(8, 8, 8, 0.5);
+    height: 100%;
+    width: 100%;
 }

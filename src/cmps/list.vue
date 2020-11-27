@@ -10,14 +10,15 @@
         ></card-preview>
       </div>
     </div>
-    <div>
+    <div class="add-card-container">
       <form @submit.prevent="addCard">
-        <input type="text" v-model="txt" placeholder="title of the card" />
-        <!-- <input
-                    type="text"
-                    v-model="newCard.id"
-                    placeholder="id of the card"
-                /> -->
+        <el-input class="list-card-composer-textarea"
+          type="textarea"
+          autosize
+          resize="none"
+          placeholder="Enter title for this card..."
+          v-model="txt">
+        </el-input>
         <button>save</button>
       </form>
     </div>

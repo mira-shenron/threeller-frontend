@@ -1,10 +1,6 @@
 <template>
   <section v-if="board">
     <div>Board name: {{ board.title }}</div>
-    <div>
-      <input type="text" placeholder=" + Add List" v-model="listName" />
-      <button @click="addList">Save</button>
-    </div>
     <div class="board flex">
       <div class="list-wrapper" v-for="list in board.groups" :key="list.id">
         <list
@@ -13,9 +9,27 @@
           :list="list"
         ></list>
       </div>
+      <div class="add-list-container">
+        <div class="list-placeholder-container">
+          <span class="list-placeholder flex align-center">
+            <div class="svg-container flex align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path class="plus" d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+            </div>
+          <div class="add-list-text">Add another list</div>
+          </span>
+        </div>
+        <div class="add-list">
+          <el-input type="text" placeholder=" + Add List" v-model="listName" />
+          <button @click="addList">Add List</button>
+        </div>
+      </div>
     </div>
     <div class="popup-details" v-if="isShowDetails">
-      <card-details @emitSaveBoard="saveBoard" @closeModal="closeModal" :card="cardDetailsToShow">
+      <card-details
+        @emitSaveBoard="saveBoard"
+        @closeModal="closeModal"
+        :card="cardDetailsToShow"
+      >
       </card-details>
     </div>
   </section>
@@ -103,16 +117,5 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped >
-.popup-details {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(8, 8, 8, 0.5);
-  height: 100%;
-  width: 100%;
-}
-</style>
 
 
