@@ -13,9 +13,19 @@
         <div class="list-placeholder-container">
           <span class="list-placeholder flex align-center">
             <div class="svg-container flex align-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path class="plus" d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  class="plus"
+                  d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"
+                />
+              </svg>
             </div>
-          <div class="add-list-text">Add another list</div>
+            <div class="add-list-text">Add another list</div>
           </span>
         </div>
         <div class="add-list">
@@ -29,6 +39,7 @@
         @emitSaveBoard="saveBoard"
         @closeModal="closeModal"
         :card="cardDetailsToShow"
+        :members="board.members"
       >
       </card-details>
     </div>
@@ -47,6 +58,7 @@ import {
   CLOSE_DETAILS,
   COPY_CARD,
   SAVE_BOARD,
+  SAVE_MEMBERS,
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -108,12 +120,28 @@ export default {
         board,
       });
     },
+    saveMembers(card) {
+      var groupIdx = -1;
+      var cardIdx = -1;
+      for (let i = 0; i < this.board.groups.length; i++) {
+        for (let j = 0; j < this.board.groups[i].cards.length; j++) {
+          if (this.board.groups[i].cards[j].id === card.id) {
+            groupIdx = i;
+            cardIdx = j;
+            break;
+          }
+        }
+      }
+      this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
+      this.saveBoard();
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
+    eventBus.$on(SAVE_MEMBERS, this.saveMembers);
   },
 };
 </script>

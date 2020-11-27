@@ -9,6 +9,8 @@
     </div>
     <div class="main-card flex space-between">
       <div class="main-content">
+        <div>Members</div>
+        <div>membersToShow</div>
         <div class="card-descrp">
           <div class="flex align-center">
             <img width="40px" src="../assets/card-icons/description.png" alt=""/>
@@ -54,9 +56,19 @@
       </div>
       <div class="nav clickable">
         <a @click="edit('join')">Join</a>
-        <a @click="edit('members')">Members</a>
+
+
+        <div class="relative" @click="edit('members')">
+          <a>Members</a>
+          <edit-container :feature="'Members'" v-if="currEdit === 'members'">
+            <card-members slot="edit-body" :card="card" :members="members"/>
+          </edit-container>
+        </div>
+
+
         <a @click="edit('labels')">Labels</a>
         <a @click="edit('checklist')">Checklist</a>
+      
         <div class="relative" @click="edit('dueDate')">
           <a>Due Date</a>
           <edit-container :feature="'Change Due Date'" v-if="currEdit === 'dueDate'">
@@ -95,11 +107,13 @@ import cardMove from "./card-move.vue";
 import cardCopy from "./card-copy.vue";
 import dueDate from "./due-date.vue";
 import activityDetails from "./activity-details.vue";
+import cardMembers from "./card-members.vue";
 
 export default {
   name: "card-details",
   props: {
     card: Object,
+    members: Array
   },
   data() {
     return {
@@ -139,20 +153,22 @@ export default {
     cardCopy,
     editContainer,
     dueDate,
-    activityDetails
+    activityDetails,
+    cardMembers
   },
   computed: {
     acts() {
       var board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
       var res = board.activities.filter(actv => actv.card.id === this.card.id);
       return res;
+    },
+    membersToShow(){
+      return 'placeholder';
     }
   },
   created() {
     eventBus.$on(CLOSE_EDIT, () => {
-      console.log("close!");
       this.currEdit = null;
-      console.log(this.currEdit);
     });
 
     this.descriptionOnDiv = this.card.description ? (this.card.description) : 'Add something here';
