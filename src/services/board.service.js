@@ -8,7 +8,8 @@ export const boardService = {
     save,
     getEmptyBoard,
     getEmptyList,
-    getEmptyColorLabel
+    getEmptyColorLabel,
+    getEmptyChecklist
 }
 
 function query() {
@@ -24,7 +25,7 @@ function remove(id) {
 }
 
 function save(board) {
-    const savedBoard = (board._id) ?  update(board) : add(board);
+    const savedBoard = (board._id) ? update(board) : add(board);
     return savedBoard;
 }
 
@@ -43,22 +44,32 @@ function getEmptyBoard() {
 }
 
 function getEmptyList(listName) {
-    return             {
+    return {
         'id': utilService.makeId(),
         'title': listName,
         'cards': [],
         'style': {}
     }
 }
-function getEmptyColorLabel(color=''){
-    return {
-            id:utilService.makeId(),
-            color: color,
-            blindMode:'',
-            txt:' '
 
-        }
-    
+function getEmptyChecklist(checklistName) {
+    return {
+        id: utilService.makeId(),
+        title: checklistName,
+        todos: []
+    }
+}
+
+
+function getEmptyColorLabel(color = '') {
+    return {
+        id: utilService.makeId(),
+        color: color,
+        blindMode: '',
+        txt: ' '
+
+    }
+
 }
 
 

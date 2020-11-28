@@ -60,6 +60,7 @@ import {
   SAVE_BOARD,
   SAVE_MEMBERS,
   COPY_LIST,
+  DELETE_CARD
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -110,7 +111,9 @@ export default {
         },
 
     updatingList(card) {
-      const idx = this.list.findIndex((currCard) => currCard.id === card.id);
+      const idx = this.list.findIndex(
+        (currCard) => currCard.id === card.id
+      );
       if (!idx) return;
       this.list.splice(idx, 1, card);
     },
@@ -119,7 +122,9 @@ export default {
       const oldList = board.groups.find((newList) =>
         newList.cards.find((currCard) => currCard.id === card.id)
       );
-      const newList = board.groups.find((newList) => newList.id === list.id);
+      const newList = board.groups.find(
+        (newList) => newList.id === list.id
+      );
       const oldIdx = oldList.cards.findIndex(
         (oldCard) => oldCard.id === card.id
       );
@@ -129,7 +134,9 @@ export default {
     },
     copyCard({ list, idx, card }) {
       const board = this.board;
-      const newList = board.groups.find((newList) => newList.id === list.id);
+      const newList = board.groups.find(
+        (newList) => newList.id === list.id
+      );
       newList.cards.splice(idx, 0, card);
       this.saveBoard();
     },
@@ -148,21 +155,39 @@ export default {
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
       this.saveBoard();
     },
+    deleteCard(card) {
+      console.log('here')
+      var groupIdx = -1;
+      var cardIdx = -1;
+      for (let i = 0; i < this.board.groups.length; i++) {
+        for (let j = 0; j < this.board.groups[i].cards.length; j++) {
+          if (this.board.groups[i].cards[j].id === card.id) {
+            groupIdx = i;
+            cardIdx = j;
+            break;
+          }
+        }
+      }
+      this.closeModal();
+      this.board.groups[groupIdx].cards.splice(cardIdx, 1);
+      this.saveBoard();
+    },
     copyList({ list, currId }) {
       const board = this.board;
       const listIdx = board.groups.findIndex((list) => list.id === currId);
       if (listIdx < 0) return;
       board.groups.splice(listIdx + 1, 0, list);
       this.saveBoard();
-    },
+    }
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
-    eventBus.$on(COPY_LIST, this.copyList);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+    eventBus.$on(DELETE_CARD, this.deleteCard);
+    eventBus.$on(COPY_LIST, this.copyList);
   },
 };
 </script>

@@ -3,7 +3,6 @@
         <div v-if="style.type==='half-cover'" class="cover" :class="{[style.color]: style.type === 'half-cover' }"></div>
         <div>
         <h3>{{ card.title }}</h3>
-        <button @click.stop="onEmitDeleteCard">X</button>
         </div>
     </section>
 </template>
