@@ -38,6 +38,9 @@
     ​ &.space-around {
         justify-content: space-around;
     }
+    &.warp{
+        flex-wrap: wrap;
+    }
 }
 
 .space-between{
