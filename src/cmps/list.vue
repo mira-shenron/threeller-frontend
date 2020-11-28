@@ -1,6 +1,26 @@
 <template>
   <section class="flex column list">
-    <div class="list-header">{{ list.title }}</div>
+    <div class="list-header flex space-between align-center">
+      <h2 class="list-title">{{ list.title }}</h2>
+      <div
+        @click="toggleListMenu"
+        class="list-menu-icn flex align-center clickable"
+      >
+        <i class="el-icon-more"></i>
+      </div>
+      <div v-if="isShowListMenu" class="list-menu">
+        <div class="list-menu-header">List Actions</div>
+        <div @click="closeListMenu" class="close-btn flex align-center clickable">
+          <i class="el-icon-close"></i>
+        </div>
+        <div class="list-menu-content">
+          <ul class="clean-list list-actions">
+            <li>Copy List...</li>
+            <li>Move List...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="card-container flex column">
       <div v-for="card in list.cards" :key="card.id">
         <card-preview
@@ -12,12 +32,14 @@
     </div>
     <div class="add-card-container">
       <form @submit.prevent="addCard">
-        <el-input class="list-card-composer-textarea"
+        <el-input
+          class="list-card-composer-textarea"
           type="textarea"
           autosize
           resize="none"
           placeholder="Enter title for this card..."
-          v-model="txt">
+          v-model="txt"
+        >
         </el-input>
         <button>save</button>
       </form>
@@ -38,6 +60,7 @@ export default {
   data() {
     return {
       txt: "",
+      isShowListMenu: false,
     };
   },
   methods: {
@@ -59,6 +82,12 @@ export default {
     },
     showCardDetails(card) {
       this.$emit("showCardDetails", card);
+    },
+    toggleListMenu() {
+      this.isShowListMenu = !this.isShowListMenu;
+    },
+    closeListMenu() {
+      this.isShowListMenu = false;
     },
   },
   created() {},
