@@ -82,7 +82,7 @@
                 <span class="action-type">Suggested</span>
                 
                 <div class="flex align-center card-action clickable">
-                  <img width="25px" src="../assets/action-icons/members.png" alt="">
+                  <img src="../assets/action-icons/members.png" alt="">
                   <div class="action-name" @click="edit('join')">Join</div>
                 </div>
                 
@@ -90,7 +90,7 @@
                 
                 <div class="flex relative align-center card-action clickable" @click="edit('members')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/members.png" alt="">
+                      <img src="../assets/action-icons/members.png" alt="">
                       <div class="action-name">Members</div>
                     </div>
 
@@ -106,7 +106,7 @@
 
                 <div class="flex relative align-center card-action clickable" @click="edit('labels')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/label.png" alt="">
+                      <img src="../assets/action-icons/label.png" alt="">
                       <div class="action-name">Labels</div>
                     </div>
 
@@ -137,14 +137,14 @@
                 </div>
 
                 <div class="flex align-center card-action clickable">
-                  <img width="25px" src="../assets/action-icons/checkmarks.png" alt="">
+                  <img src="../assets/action-icons/checkmarks.png" alt="">
                   <div class="action-name" @click="edit('checklist')">Checklist</div>
                 </div>
 
                 
                 <div class="flex relative align-center card-action clickable" @click="edit('dueDate')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/dueDate.png" alt="">
+                      <img src="../assets/action-icons/dueDate.png" alt="">
                       <div class="action-name">Due Date</div>
                     </div>
 
@@ -157,14 +157,14 @@
                 </div>
                 
                 <div class="flex align-center card-action clickable">
-                  <img width="25px" src="../assets/action-icons/attachment.png" alt="">
+                  <img src="../assets/action-icons/attachment.png" alt="">
                   <div class="action-name" @click="edit('attachment')">Attachment</div>
                 </div>
                 
 
                 <div class="flex relative align-center card-action clickable" @click="edit('cover')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/covers.png" alt="">
+                      <img src="../assets/action-icons/covers.png" alt="">
                       <div class="action-name">Cover</div>
                     </div>
 
@@ -180,7 +180,7 @@
                 
                 <div class="flex relative align-center card-action clickable" @click="edit('move')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/move.png" alt="">
+                      <img src="../assets/action-icons/move.png" alt="">
                       <div class="action-name">Move</div>
                     </div>
 
@@ -194,7 +194,7 @@
                 
                 <div class="flex relative align-center card-action clickable" @click="edit('copy')">
                     <div class="flex align-center">
-                      <img width="25px" src="../assets/action-icons/copy.png" alt="">
+                      <img src="../assets/action-icons/copy.png" alt="">
                       <div class="action-name">Copy</div>
                     </div>
                 
@@ -204,6 +204,11 @@
                     >
                         <card-copy slot="edit-body" :currCard="card" />
                     </edit-container>
+                </div>
+
+                <div class="flex align-center card-action clickable">
+                  <img src="../assets/action-icons/trash.png" alt="">
+                  <div class="action-name" @click="edit('delete')">Delete</div>
                 </div>
             </div>
         </div>
