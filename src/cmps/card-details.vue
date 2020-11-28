@@ -172,6 +172,7 @@
                         :feature="'Cover'"
                         v-if="currEdit === 'cover'"
                     >
+                    <card-cover slot="edit-body" :card="card"></card-cover>
                         <!-- <input type="text" slot="edit-body" /> -->
                     </edit-container>
                 </div>
@@ -220,6 +221,9 @@ import activityDetails from "./activity-details.vue";
 import cardMembers from "./card-members.vue";
 import colorPicker from "./color-picker.vue";
 import cardLabels from "./card-labels.vue";
+import cardCover from './card-cover.vue';
+
+
 
 export default {
     name: "card-details",
@@ -291,6 +295,7 @@ export default {
         dueDate,
         activityDetails,
         cardMembers,
+        cardCover,
     },
     computed: {
         acts() {
