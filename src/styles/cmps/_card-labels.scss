@@ -1,0 +1,74 @@
+.card-labels{
+ 
+    .main-labels{
+        ul{
+            padding-inline-start :0;
+            li {
+                margin-bottom: 4px;
+                span {
+                    position: relative;
+                    padding:  6px 12px ;
+                    width: 100%;
+                    background-color: #b3bac5;
+                    border-radius: 4px;
+                    color: #fff;
+                    display: block;
+                    margin-right: 4px;
+                    max-width: 100%;
+                    overflow: hidden;
+                    padding: 4px 6px;
+                    position: relative;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    flex-grow: 1;
+                    &.card-label.green{
+                       background-color: $labelGreen;
+                     }
+                    &.card-label.yellow{
+                     background-color: $labelYellow;
+                    }
+                    &.card-label.orange{
+                     background-color: $labelOrange;
+                    }
+                    &.card-label.red{
+                     background-color: $labelRed;
+                    }
+                    &.card-label.purple{
+                     background-color: $labelPurple;
+                    }
+                    &.card-label.blue{
+                     background-color: $labelBlue;
+                    }
+                    &.card-label.lime{
+                     background-color: $labelLime;
+                    }
+                   
+                    &.card-label.sky{
+                     background-color: $labelSky;
+                    }
+                   
+                    &.card-label.pink{
+                     background-color: $labelPink;
+                    }
+                   
+                    &.card-label.black{
+                     background-color: $labelBlack;
+                    }
+               }
+            //    &span.check::after{
+            //        content:'✔' ;
+            //         position: relative;
+            //         right: -90%;
+    
+            //    }
+
+
+            }
+        }
+    }
+
+    // .card-label-green{
+    //     width: ;
+    //     background-color: $labelGreen;
+    // }
+}

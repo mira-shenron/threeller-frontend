@@ -8,18 +8,31 @@
       >
         <i class="el-icon-more"></i>
       </div>
-      <div v-if="isShowListMenu" class="list-menu">
-        <div class="list-menu-header">List Actions</div>
-        <div @click="closeListMenu" class="close-btn flex align-center clickable">
-          <i class="el-icon-close"></i>
-        </div>
-        <div class="list-menu-content">
-          <ul class="clean-list list-actions">
-            <li>Copy List...</li>
-            <li>Move List...</li>
-          </ul>
-        </div>
-      </div>
+      <list-menu
+        v-if="isShowListMenu && !listActionType"
+        v-click-outside="closeListMenu"
+        @emitCloseMenu="closeListMenu"
+        @emitChooseAction="chooseAction"
+      >
+      </list-menu>
+      <list-menu-action-container
+        v-if="isShowListMenu && listActionType === 'copyList'"
+        v-click-outside="closeListMenu"
+        @emitCloseMenu="closeListMenu"
+        @emitClearMenuAction="chooseAction"
+        :actionType="'Copy List'"
+      >
+        <list-copy slot="edit-body" :currList="list" />
+      </list-menu-action-container>
+      <list-menu-action-container
+        v-if="isShowListMenu && listActionType === 'moveList'"
+        v-click-outside="closeListMenu"
+        @emitCloseMenu="closeListMenu"
+        @emitClearMenuAction="chooseAction"
+        :actionType="'Move List'"
+      >
+        <div slot="edit-body">moveeeee</div>
+      </list-menu-action-container>
     </div>
     <div class="card-container flex column">
       <div v-for="card in list.cards" :key="card.id">
@@ -49,18 +62,30 @@
 
 <script>
 // @ is an alias to /src
+import vClickOutside from "v-click-outside";
 import cardPreview from "@/cmps/card-preview.vue";
+import listMenu from "@/cmps/list-menu.vue";
 import utilService from "@/services/util.service.js";
+import listMenuActionContainer from "./list-menu-action-container.vue";
+import listCopy from "@/cmps/list-copy.vue";
 
 export default {
-  props: ["list"],
+  props: {
+    list: {
+      type: Object,
+    },
+  },
   components: {
     cardPreview,
+    listMenu,
+    listMenuActionContainer,
+    listCopy,
   },
   data() {
     return {
       txt: "",
       isShowListMenu: false,
+      listActionType: null,
     };
   },
   methods: {
@@ -85,11 +110,23 @@ export default {
     },
     toggleListMenu() {
       this.isShowListMenu = !this.isShowListMenu;
+      this.listActionType = null;
     },
     closeListMenu() {
       this.isShowListMenu = false;
+      this.listActionType = null;
     },
+    chooseAction(type) {
+      this.listActionType = type;
+    },
+    // updatingCard(card){
+    // console.log("in list card:", card)
+
+    // }
   },
   created() {},
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
 };
 </script>

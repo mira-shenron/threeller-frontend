@@ -1,6 +1,6 @@
 <template>
   <section  @click.stop="toggleMemberToCard">
-    <vue-initials-img width="35px" class="avatar" :name="member.fullName" />
+    <vue-initials-img class="avatar" :name="member.fullName" />
     <span>{{ member.fullName }}</span>
     <span v-if="isCardMember">V</span>
   </section>

@@ -5,4 +5,5 @@ export const MOVE_CARD = 'move-card';
 export const COPY_CARD = 'copy-card';
 export const SAVE_BOARD = 'save-board';
 export const SAVE_MEMBERS = 'save-members';
+export const COPY_LIST = 'copy-list';
 export const eventBus = new Vue();

@@ -1,0 +1,121 @@
+
+
+.cover-type-btn{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 4px;
+    margin: 0 -4px;
+    overflow-x: hidden;
+    & >div{
+        border: 1px solid rgba(9,30,66,.08);
+        border-radius: 3px;
+        width: 134px;
+        height: 64px;
+        // & div:first-child{
+        //     height: 100%;
+        //     width: 100%;
+        //     border-radius: 5px 5px 0 0;
+        // }
+
+    }
+}
+div[role="button"].picked{
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0079bf;
+}
+button.color-pick{
+    display: flex;
+    cursor: pointer;
+    border-radius: 4px;
+    height: 32px;
+    width: 48px;
+    margin: 0 8px 8px 0;
+    &.green{
+        background-color: $labelGreen;
+    }
+     &.yellow{
+      background-color: $labelYellow;
+     }
+     &.orange{
+      background-color: $labelOrange;
+     }
+     &.red{
+      background-color: $labelRed;
+     }
+     &.purple{
+      background-color: $labelPurple;
+     }
+     &.blue{
+      background-color: $labelBlue;
+     }
+     &.lime{
+      background-color: $labelLime;
+     }
+    
+     &.sky{
+      background-color: $labelSky;
+     }
+    
+     &.pink{
+      background-color: $labelPink;
+     }
+    
+     &.black{
+      background-color: $labelBlack;
+     }
+     &.grey{
+      background-color: $labelGrey;
+     }
+    &.picked{
+        // outline:2px solid darkblue;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0079bf;
+    }
+
+}
+.half-cover{
+    &>*{
+        height: 50%;
+    }
+    & .fakeTxt{
+        padding:6px 4px 4px 6px ;
+        background-color: #fff;
+        &>*{
+            background-color:rgba(94, 108, 132, 0.3);
+        }
+        & .first-line{
+            width: 100%;
+            height: 5px;
+            border-radius: 2px;
+        }
+        & .second-line{
+            width: 80%;
+            height: 5px;
+            margin-top:4px ;
+            border-radius: 2px;
+        }
+    }
+}
+.full-cover{
+    &>*{
+        height: 50%;
+    }
+    & .fakeTxt{
+        padding:6px 4px 4px 6px ;
+        // background-color: #fff;
+       
+        & .first-line{
+            width: 100%;
+            height: 5px;
+            border-radius: 2px;
+            background-color: #fff;
+        }
+        & .second-line{
+            width: 80%;
+            height: 5px;
+            margin-top:4px ;
+            border-radius: 2px;
+            background-color: #fff;
+        }
+    }
+}
+

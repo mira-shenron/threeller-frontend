@@ -38,6 +38,9 @@
     ​ &.space-around {
         justify-content: space-around;
     }
+    &.warp{
+        flex-wrap: wrap;
+    }
 }
 
 .space-between{
@@ -68,5 +71,9 @@ ul.clean-list {
 }
 
 input {
+    outline: none;
+}
+button.clean-btn{
+    border:none;
     outline: none;
 }

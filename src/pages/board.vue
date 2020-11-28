@@ -59,6 +59,7 @@ import {
   COPY_CARD,
   SAVE_BOARD,
   SAVE_MEMBERS,
+  COPY_LIST,
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -86,10 +87,30 @@ export default {
       this.board.groups.push(list);
       this.saveBoard();
     },
+
     showCardDetails(card) {
-      console.log(" board  ~ card", card);
       this.isShowDetails = true;
       this.cardDetailsToShow = card;
+    },
+    closeModal() {
+      this.isShowDetails = false;
+    },
+    saveBoard(list) {
+      if (list) {
+        this.board.colorList = list;
+      }
+      const board = JSON.parse(JSON.stringify(this.board));
+      console.log("save board:", board);
+      this.$store.dispatch({
+        type: "saveBoard",
+        board,
+      });
+    },
+
+    updatingList(card) {
+      const idx = this.list.findIndex((currCard) => currCard.id === card.id);
+      if (!idx) return;
+      this.list.splice(idx, 1, card);
     },
     moveCard({ list, idx, card }) {
       const board = this.board;
@@ -110,16 +131,6 @@ export default {
       newList.cards.splice(idx, 0, card);
       this.saveBoard();
     },
-    closeModal() {
-      this.isShowDetails = false;
-    },
-    saveBoard() {
-      const board = JSON.parse(JSON.stringify(this.board));
-      this.$store.dispatch({
-        type: "saveBoard",
-        board,
-      });
-    },
     saveMembers(card) {
       var groupIdx = -1;
       var cardIdx = -1;
@@ -135,15 +146,36 @@ export default {
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
       this.saveBoard();
     },
+    copyList({ list, currId }) {
+      const board = this.board;
+      const listIdx = board.groups.findIndex((list) => list.id === currId);
+      if (listIdx < 0) return;
+      board.groups.splice(listIdx + 1, 0, list);
+      this.saveBoard();
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
+    eventBus.$on(COPY_LIST, this.copyList);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
   },
 };
 </script>
+<style lang="scss" scoped >
+.popup-details {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(8, 8, 8, 0.5);
+  height: 100%;
+  width: 100%;
+}
+</style>
+  
+
 
 

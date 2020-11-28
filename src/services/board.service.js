@@ -7,7 +7,8 @@ export const boardService = {
     remove,
     save,
     getEmptyBoard,
-    getEmptyList
+    getEmptyList,
+    getEmptyColorLabel
 }
 
 function query() {
@@ -48,6 +49,16 @@ function getEmptyList(listName) {
         'cards': [],
         'style': {}
     }
+}
+function getEmptyColorLabel(color=''){
+    return {
+            id:utilService.makeId(),
+            color: color,
+            blindMode:'',
+            txt:''
+
+        }
+    
 }
 
 
