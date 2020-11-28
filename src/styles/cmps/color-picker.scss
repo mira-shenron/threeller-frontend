@@ -10,42 +10,7 @@ span.color-pick {
     height: 32px;
     width: 48px;
     margin: 0 8px 8px 0;
-    &.green{
-        background-color: $labelGreen;
-    }
-     &.yellow{
-      background-color: $labelYellow;
-     }
-     &.orange{
-      background-color: $labelOrange;
-     }
-     &.red{
-      background-color: $labelRed;
-     }
-     &.purple{
-      background-color: $labelPurple;
-     }
-     &.blue{
-      background-color: $labelBlue;
-     }
-     &.lime{
-      background-color: $labelLime;
-     }
-    
-     &.sky{
-      background-color: $labelSky;
-     }
-    
-     &.pink{
-      background-color: $labelPink;
-     }
-    
-     &.black{
-      background-color: $labelBlack;
-     }
-     &.grey{
-      background-color: $labelGrey;
-     }
+   
     &.picked::after{
         content: '✔';
         color: aliceblue;

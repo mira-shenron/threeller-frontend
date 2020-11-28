@@ -5,5 +5,44 @@
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     color: #172b4d;
     border-radius: 3px;
-    padding: 6px 8px 2px;
+    
+    
+    &.green{
+        background-color: $labelGreen;
+    }
+    &.yellow{
+      background-color: $labelYellow;
+     }
+    &.orange{
+      background-color: $labelOrange;
+     }
+    &.red{
+      background-color: $labelRed;
+     }
+    &.purple{
+      background-color: $labelPurple;
+     }
+    &.blue{
+      background-color: $labelBlue;
+     }
+    &.lime{
+      background-color: $labelLime;
+     }
+    &.sky{
+      background-color: $labelSky;
+     }
+    &.pink{
+      background-color: $labelPink;
+     }
+    &.black{
+      background-color: $labelBlack;
+     }
+
+     & .cover{
+       height: 2rem;
+       
+     }
+     &:nth-child(2){
+      padding: 6px 8px 2px;
+     }
 }

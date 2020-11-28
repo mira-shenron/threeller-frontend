@@ -102,9 +102,11 @@ export default {
         closeModal() {
             this.isShowDetails = false;
         },
-        saveBoard(list) {
-            if (list) {
-                this.board.colorList = list;
+        saveBoard(info) {
+            if (info) {
+                if(info[0] ||info[0].blindMode){
+                    this.board.colorList = info;
+                }
             }
             const board = JSON.parse(JSON.stringify(this.board));
             console.log("save board:", board);

@@ -1,27 +1,35 @@
 <template>
-  <section class="card">
-    <h3>{{ card.title }}</h3>
-    <button @click.stop="onEmitDeleteCard">X</button>
-  </section>
+    <section class="card" :class="{[style.color]: style.type === 'full-cover' }">
+        <div v-if="style.type==='half-cover'" class="cover" :class="{[style.color]: style.type === 'half-cover' }"></div>
+        <div>
+        <h3>{{ card.title }}</h3>
+        <button @click.stop="onEmitDeleteCard">X</button>
+        </div>
+    </section>
 </template>
 
 <script>
 export default {
-  name: "card-detail",
-  props: {
-    card: Object,
-  },
-  components: {
-    // cardDetails
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    onEmitDeleteCard(){
-        this.$emit('emitDelete', this.card.id)
+    name: "card-preview",
+    props: {
+        card: Object,
+    },
+    data() {
+        return {
+            style: {
+              color:'white',
+              type:null
+            },
+            color: '',
+        };
+    },
+    methods: {
+        onEmitDeleteCard() {
+            this.$emit("emitDelete", this.card.id);
+        }
+    },
+    created() {
+        this.style = this.card.style;
     }
-  },
-  created() {},
 };
 </script>

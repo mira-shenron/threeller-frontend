@@ -55,7 +55,7 @@ function getEmptyColorLabel(color=''){
             id:utilService.makeId(),
             color: color,
             blindMode:'',
-            txt:''
+            txt:' '
 
         }
     
