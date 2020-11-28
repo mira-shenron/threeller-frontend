@@ -1,7 +1,7 @@
 <template>
   <section class="card">
     <h3>{{ card.title }}</h3>
-    <button @click.stop="onEmitDeleteCard">X</button>
+    <!-- <button @click.stop="onEmitDeleteCard">X</button> -->
   </section>
 </template>
 

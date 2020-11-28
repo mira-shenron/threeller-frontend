@@ -48,6 +48,7 @@
                 @closeModal="closeModal"
                 :card="cardDetailsToShow"
                 :members="board.members"
+                :board="board"
             >
             </card-details>
         </div>
@@ -67,6 +68,7 @@ import {
     COPY_CARD,
     SAVE_BOARD,
     SAVE_MEMBERS,
+    DELETE_CARD
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -159,6 +161,23 @@ export default {
             this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
             this.saveBoard();
         },
+        deleteCard(card){
+          console.log('here')
+            var groupIdx = -1;
+            var cardIdx = -1;
+            for (let i = 0; i < this.board.groups.length; i++) {
+                for (let j = 0; j < this.board.groups[i].cards.length; j++) {
+                    if (this.board.groups[i].cards[j].id === card.id) {
+                        groupIdx = i;
+                        cardIdx = j;
+                        break;
+                    }
+                }
+            }
+            this.closeModal();
+            this.board.groups[groupIdx].cards.splice(cardIdx, 1);
+            this.saveBoard();
+        }
     },
     created() {
         eventBus.$on(MOVE_CARD, this.moveCard);
@@ -166,6 +185,7 @@ export default {
         eventBus.$on(CLOSE_DETAILS, this.closeModal);
         eventBus.$on(SAVE_BOARD, this.saveBoard);
         eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+        eventBus.$on(DELETE_CARD, this.deleteCard);
     },
 };
 </script>

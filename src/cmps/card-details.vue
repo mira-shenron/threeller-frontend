@@ -1,221 +1,228 @@
 <template>
-    <div class="card-details">
-        <div class="header-card flex space-between">
-            <div class="flex align-center">
-                <img width="45px" src="../assets/card-icons/card.png" alt="" />
-                <span class="card-title">{{ card.title }}</span>
-            </div>
-            <span class="clickable" @click="isShowDetails">X</span>
-        </div>
-        <div class="main-card flex space-between">
-            <div class="main-content">
-                <div class="card-descrp">
-                    <div class="flex align-center">
-                        <img
-                            width="40px"
-                            src="../assets/card-icons/description.png"
-                            alt=""
-                        />
-                        <div class="second-header">Description</div>
-                    </div>
-                    <div
-                        v-if="showDesc"
-                        class="description clickable"
-                        @click.stop="openShowDesc"
-                    >
-                        {{ descriptionOnDiv }}
-                    </div>
-                    <div v-else>
-                        <textarea
-                            rows="10"
-                            cols="80"
-                            v-model="descriptionOnText"
-                            placeholder="Add new description"
-                        ></textarea>
-                        <div>
-                            <button class="clickable" @click="saveDescription">
-                                Save
-                            </button>
-                            <span
-                                class="clickable"
-                                @click.stop="closeDescriptionEdit"
-                                >X</span
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card-activities">
-                        <div class="flex align-center">
-                            <img
-                                width="40px"
-                                src="../assets/card-icons/activities.png"
-                                alt=""
-                            />
-                            <div class="second-header">Activity</div>
-                        </div>
-                        <div class="activities-list">
-                            <div class="flex align-center">
-                                <vue-initials-img
-                                    class="avatar"
-                                    :name="currUser"
-                                />
-                                <input
-                                    class="comment-input"
-                                    placeholder="Write a comment..."
-                                    type="text"
-                                />
-                            </div>
-
-                            <div v-for="activity in acts" :key="activity.id">
-                                <activity-details
-                                    :activity="activity"
-                                ></activity-details>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="nav">
-                <span class="action-type">Suggested</span>
-                
-                <div class="flex align-center card-action clickable">
-                  <img src="../assets/action-icons/members.png" alt="">
-                  <div class="action-name" @click="edit('join')">Join</div>
-                </div>
-                
-                <span class="action-type">Add to card</span>
-                
-                <div class="flex relative align-center card-action clickable" @click="edit('members')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/members.png" alt="">
-                      <div class="action-name">Members</div>
-                    </div>
-
-                    <edit-container :feature="'Members'" v-if="currEdit === 'members'">
-                        <card-members
-                            slot="edit-body"
-                            :card="card"
-                            :members="members"
-                        />
-                    </edit-container>
-                </div>
-
-
-                <div class="flex relative align-center card-action clickable" @click="edit('labels')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/label.png" alt="">
-                      <div class="action-name">Labels</div>
-                    </div>
-
-                    <edit-container
-                        v-if="currEdit === 'labels'"
-                        :feature="'Labels'"
-                    >
-                        <card-labels
-                            :chooseColor="chooseColor"
-                            @updatingCard="updatingCard"
-                            :card="card"
-                            slot="edit-body"
-                            @openColorModale="openColorModale"
-                            @updatListOfColors="updatListOfColors"
-                        />
-                    </edit-container>
-                    <edit-container
-                        v-if="currEdit === 'colorPicker'"
-                        :feature="'Created label'"
-                    >
-                        <color-picker
-                            :card="card"
-                            v-model="chooseColor"
-                            slot="edit-body"
-                            @openLabelsModal="openLabels"
-                        />
-                    </edit-container>
-                </div>
-
-                <div class="flex align-center card-action clickable">
-                  <img src="../assets/action-icons/checkmarks.png" alt="">
-                  <div class="action-name" @click="edit('checklist')">Checklist</div>
-                </div>
-
-                
-                <div class="flex relative align-center card-action clickable" @click="edit('dueDate')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/dueDate.png" alt="">
-                      <div class="action-name">Due Date</div>
-                    </div>
-
-                    <edit-container
-                        :feature="'Change Due Date'"
-                        v-if="currEdit === 'dueDate'"
-                    >
-                        <due-date slot="edit-body" :card="card" />
-                    </edit-container>
-                </div>
-                
-                <div class="flex align-center card-action clickable">
-                  <img src="../assets/action-icons/attachment.png" alt="">
-                  <div class="action-name" @click="edit('attachment')">Attachment</div>
-                </div>
-                
-
-                <div class="flex relative align-center card-action clickable" @click="edit('cover')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/covers.png" alt="">
-                      <div class="action-name">Cover</div>
-                    </div>
-
-                    <edit-container
-                        :feature="'Cover'"
-                        v-if="currEdit === 'cover'"
-                    >
-                    <card-cover slot="edit-body" :card="card"></card-cover>
-                        <!-- <input type="text" slot="edit-body" /> -->
-                    </edit-container>
-                </div>
-                <span class="action-type">Actions</span>
-                
-                <div class="flex relative align-center card-action clickable" @click="edit('move')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/move.png" alt="">
-                      <div class="action-name">Move</div>
-                    </div>
-
-                    <edit-container
-                        :feature="'Move Card'"
-                        v-if="currEdit === 'move'"
-                    >
-                        <card-move slot="edit-body" :currCard="card" />
-                    </edit-container>
-                </div>
-                
-                <div class="flex relative align-center card-action clickable" @click="edit('copy')">
-                    <div class="flex align-center">
-                      <img src="../assets/action-icons/copy.png" alt="">
-                      <div class="action-name">Copy</div>
-                    </div>
-                
-                    <edit-container
-                        :feature="'Copy Card'"
-                        v-if="currEdit === 'copy'"
-                    >
-                        <card-copy slot="edit-body" :currCard="card" />
-                    </edit-container>
-                </div>
-
-                <div class="flex align-center card-action clickable">
-                  <img src="../assets/action-icons/trash.png" alt="">
-                  <div class="action-name" @click="edit('delete')">Delete</div>
-                </div>
-            </div>
-        </div>
+  <div class="card-details">
+    <div class="header-card flex space-between">
+      <div class="flex align-center">
+        <img width="45px" src="../assets/card-icons/card.png" alt="" />
+        <span class="card-title">{{ card.title }}</span>
+      </div>
+      <span class="clickable" @click="isShowDetails">X</span>
     </div>
+    <div class="main-card flex space-between">
+      <div class="main-content">
+        <div class="card-descrp">
+          <div class="flex align-center">
+            <img
+              width="40px"
+              src="../assets/card-icons/description.png"
+              alt=""
+            />
+            <div class="second-header">Description</div>
+          </div>
+          <div
+            v-if="showDesc"
+            class="description clickable"
+            @click.stop="openShowDesc"
+          >
+            {{ descriptionOnDiv }}
+          </div>
+          <div v-else>
+            <textarea
+              rows="10"
+              cols="80"
+              v-model="descriptionOnText"
+              placeholder="Add new description"
+            ></textarea>
+            <div>
+              <button class="clickable" @click="saveDescription">Save</button>
+              <span class="clickable" @click.stop="closeDescriptionEdit"
+                >X</span
+              >
+            </div>
+          </div>
+        </div>
+        <div v-if="card.checklists">
+          <card-details-checklist
+            :checklists="card.checklists"
+          ></card-details-checklist>
+        </div>
+        <div>
+          <div class="card-activities">
+            <div class="flex align-center">
+              <img
+                width="40px"
+                src="../assets/card-icons/activities.png"
+                alt=""
+              />
+              <div class="second-header">Activity</div>
+            </div>
+            <div class="activities-list">
+              <div class="flex align-center">
+                <vue-initials-img class="avatar" :name="currUser" />
+                <input
+                  class="comment-input"
+                  placeholder="Write a comment..."
+                  type="text"
+                />
+              </div>
+
+              <div v-for="activity in acts" :key="activity.id">
+                <activity-details :activity="activity"></activity-details>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <span class="action-type">Suggested</span>
+
+        <div class="flex align-center card-action clickable">
+          <img src="../assets/action-icons/members.png" alt="" />
+          <div class="action-name" @click="edit('join')">Join</div>
+        </div>
+
+        <span class="action-type">Add to card</span>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('members')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/members.png" alt="" />
+            <div class="action-name">Members</div>
+          </div>
+
+          <edit-container :feature="'Members'" v-if="currEdit === 'members'">
+            <card-members slot="edit-body" :card="card" :members="members" />
+          </edit-container>
+        </div>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('labels')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/label.png" alt="" />
+            <div class="action-name">Labels</div>
+          </div>
+
+          <edit-container v-if="currEdit === 'labels'" :feature="'Labels'">
+            <card-labels
+              :chooseColor="chooseColor"
+              @updatingCard="updatingCard"
+              :card="card"
+              slot="edit-body"
+              @openColorModale="openColorModale"
+              @updatListOfColors="updatListOfColors"
+            />
+          </edit-container>
+          <edit-container
+            v-if="currEdit === 'colorPicker'"
+            :feature="'Created label'"
+          >
+            <color-picker
+              :card="card"
+              v-model="chooseColor"
+              slot="edit-body"
+              @openLabelsModal="openLabels"
+            />
+          </edit-container>
+        </div>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('checklist')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/checkmarks.png" alt="" />
+            <div class="action-name">Checklist</div>
+          </div>
+
+          <edit-container
+            :feature="'Checklist'"
+            v-if="currEdit === 'checklist'"
+          >
+            <checklist slot="edit-body" :card="card"> </checklist>
+          </edit-container>
+        </div>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('dueDate')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/dueDate.png" alt="" />
+            <div class="action-name">Due Date</div>
+          </div>
+
+          <edit-container
+            :feature="'Change Due Date'"
+            v-if="currEdit === 'dueDate'"
+          >
+            <due-date slot="edit-body" :card="card" />
+          </edit-container>
+        </div>
+
+        <div class="flex align-center card-action clickable">
+          <img src="../assets/action-icons/attachment.png" alt="" />
+          <div class="action-name" @click="edit('attachment')">Attachment</div>
+        </div>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('cover')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/covers.png" alt="" />
+            <div class="action-name">Cover</div>
+          </div>
+
+          <edit-container :feature="'Cover'" v-if="currEdit === 'cover'">
+            <card-cover slot="edit-body" :card="card"></card-cover>
+            <!-- <input type="text" slot="edit-body" /> -->
+          </edit-container>
+        </div>
+        <span class="action-type">Actions</span>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('move')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/move.png" alt="" />
+            <div class="action-name">Move</div>
+          </div>
+
+          <edit-container :feature="'Move Card'" v-if="currEdit === 'move'">
+            <card-move slot="edit-body" :currCard="card" />
+          </edit-container>
+        </div>
+
+        <div
+          class="flex relative align-center card-action clickable"
+          @click="edit('copy')"
+        >
+          <div class="flex align-center">
+            <img src="../assets/action-icons/copy.png" alt="" />
+            <div class="action-name">Copy</div>
+          </div>
+
+          <edit-container :feature="'Copy Card'" v-if="currEdit === 'copy'">
+            <card-copy slot="edit-body" :currCard="card" />
+          </edit-container>
+        </div>
+
+        <div class="flex align-center card-action clickable">
+          <img src="../assets/action-icons/trash.png" alt="" />
+          <div class="action-name" @click="onDeleteCard">Delete</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
+import { eventBus, CLOSE_EDIT, DELETE_CARD } from "@/services/event-bus.service.js";
 import editContainer from "./edit-container.vue";
 import cardMove from "./card-move.vue";
 import cardCopy from "./card-copy.vue";
@@ -225,104 +232,112 @@ import cardMembers from "./card-members.vue";
 import colorPicker from "./color-picker.vue";
 import cardLabels from "./card-labels.vue";
 import cardCover from './card-cover.vue';
+import checklist from './checklist.vue';
+import cardDetailsChecklist from './card-details-checklist.vue';
 
 
 
 export default {
-    name: "card-details",
-    props: {
-        card: Object,
-        members: Array,
+  name: "card-details",
+  props: {
+    card: Object,
+    members: Array
+  },
+  data() {
+    return {
+      currEdit: null,
+      descriptionOnDiv: "",
+      descriptionOnText: "",
+      activities: [],
+      currUser: "Abi Abambi", //temp,
+      showDesc: true,
+      chooseColor: {},
+      closeEditor: null,
+    };
+  },
+  methods: {
+    isShowDetails() {
+      this.$emit("closeModal");
     },
-    data() {
-        return {
-            currEdit: null,
-            descriptionOnDiv: "",
-            descriptionOnText: "",
-            activities: [],
-            currUser: "Abi Abambi", //temp,
-            showDesc: true,
-            chooseColor: {},
-            closeEditor: null,
-        };
+    onDeleteCard() {
+      console.log('card',this.card);
+      eventBus.$emit(DELETE_CARD, this.card)
     },
-    methods: {
-        isShowDetails() {
-            this.$emit("closeModal");
-        },
-        edit(feature) {
-            this.currEdit = feature;
-        },
-        updatingCard(card) {
-            this.card = card;
-            this.$emit("emitSaveBoard");
-        },
-        openColorModale() {
-            this.edit("colorPicker");
-        },
-        openLabels() {
-            this.edit("labels");
-        },
-        updatListOfColors(list) {
-            this.$emit("emitSaveBoard", list);
-        },
+    edit(feature) {
+      this.currEdit = feature;
+    },
+    updatingCard(card) {
+      this.card = card;
+      this.$emit("emitSaveBoard");
+    },
+    openColorModale() {
+      this.edit("colorPicker");
+    },
+    openLabels() {
+      this.edit("labels");
+    },
+    updatListOfColors(list) {
+      this.$emit("emitSaveBoard", list);
+    },
 
-        openShowDesc() {
-            this.showDesc = !this.showDesc;
-            this.descriptionOnText = this.card.description
-                ? this.card.description
-                : "";
-        },
-        closeDescriptionEdit() {
-            this.descriptionOnDiv = this.card.description
-                ? this.card.description
-                : "Add something here";
-            this.descriptionOnText = this.card.description
-                ? this.card.description
-                : "";
-            this.showDesc = !this.showDesc;
-        },
-        saveDescription() {
-            this.card.description = this.descriptionOnText;
-            this.descriptionOnDiv = this.descriptionOnText;
-            this.$emit("emitSaveBoard");
-            this.showDesc = !this.showDesc;
-        },
+    openShowDesc() {
+      this.showDesc = !this.showDesc;
+      this.descriptionOnText = this.card.description
+        ? this.card.description
+        : "";
     },
-    components: {
-        colorPicker,
-        cardLabels,
-        cardMove,
-        cardCopy,
-        editContainer,
-        dueDate,
-        activityDetails,
-        cardMembers,
-        cardCover,
+    closeDescriptionEdit() {
+      this.descriptionOnDiv = this.card.description
+        ? this.card.description
+        : "Add something here";
+      this.descriptionOnText = this.card.description
+        ? this.card.description
+        : "";
+      this.showDesc = !this.showDesc;
     },
-    computed: {
-        acts() {
-            var board = JSON.parse(
-                JSON.stringify(this.$store.getters.currBoard)
-            );
-            var res = board.activities.filter(
-                (actv) => actv.card.id === this.card.id
-            );
-            return res;
-        },
-        membersToShow() {
-            return "placeholder";
-        },
+    saveDescription() {
+      this.card.description = this.descriptionOnText;
+      this.descriptionOnDiv = this.descriptionOnText;
+      this.$emit("emitSaveBoard");
+      this.showDesc = !this.showDesc;
     },
-    created() {
-        eventBus.$on(CLOSE_EDIT, () => {
-            this.currEdit = null;
-        });
+  },
+  components: {
+    colorPicker,
+    cardLabels,
+    cardMove,
+    cardCopy,
+    editContainer,
+    dueDate,
+    activityDetails,
+    cardMembers,
+    cardCover,
+    checklist,
+    cardDetailsChecklist
+  },
+  computed: {
+    acts() {
+      var board = JSON.parse(
+        JSON.stringify(this.$store.getters.currBoard)
+      );
+      var res = board.activities.filter(
+        (actv) => actv.card.id === this.card.id
+      );
+      return res;
+    },
+    membersToShow() {
+      return "placeholder";
+    },
+  },
+  created() {
+    eventBus.$on(CLOSE_EDIT, () => {
+      this.currEdit = null;
+    });
 
-        this.descriptionOnDiv = this.card.description
-            ? this.card.description
-            : "Add something here";
-    },
+    this.descriptionOnDiv = this.card.description
+      ? this.card.description
+      : "Add something here";
+  },
 };
 </script>
 
