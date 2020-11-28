@@ -54,14 +54,19 @@
 }
 
 .description{
-    background-color:  rgb(245, 239, 239);
     text-align: left;
-    margin-inline-start: 40px;
+    margin-inline-start: 45px;
     width: 90%;
+    margin-bottom: 20px;
 }
 
 .main-content{
     flex:1;
+
+    .second-header{
+        font-weight: bolder;
+        margin-inline-start: 5px;
+    }
 }
 
 textarea {

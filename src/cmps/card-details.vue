@@ -9,8 +9,6 @@
         </div>
         <div class="main-card flex space-between">
             <div class="main-content">
-                <div>Members</div>
-                <div>membersToShow</div>
                 <div class="card-descrp">
                     <div class="flex align-center">
                         <img
@@ -18,7 +16,7 @@
                             src="../assets/card-icons/description.png"
                             alt=""
                         />
-                        <div>Description</div>
+                        <div class="second-header">Description</div>
                     </div>
                     <div
                         v-if="showDesc"
@@ -54,7 +52,7 @@
                                 src="../assets/card-icons/activities.png"
                                 alt=""
                             />
-                            <div>Activity</div>
+                            <div class="second-header">Activity</div>
                         </div>
                         <div class="activities-list">
                             <div class="flex align-center">
@@ -64,7 +62,7 @@
                                 />
                                 <input
                                     class="comment-input"
-                                    placeholder="Write a comment"
+                                    placeholder="Write a comment..."
                                     type="text"
                                 />
                             </div>
