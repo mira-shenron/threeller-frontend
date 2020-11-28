@@ -2,13 +2,38 @@
     width: 272px;
     background-color: #EBECF0;
     border-radius: 3px;
-    padding: 4px;
     max-height: 100%;
+    padding: 0 4px;
 
     .list-header {
         height: rem(40px);
         text-align: left;
-        padding: 4px 8px;
+        height: auto;
+        position: relative;
+
+        .list-title {
+            font-size: rem(20px);
+            padding: 10px 8px;
+            margin: 0;
+            max-width: 90%;
+            height: auto;
+            overflow-wrap: anywhere;
+        }
+
+        .list-menu-icn {
+            right: 0;
+            top: 4px;
+            position: absolute;
+            width: rem(32px);
+            height: rem(32px);
+            justify-content: center;
+            border-radius: 3px;
+
+            &:hover {
+                background: #b8b8b869;
+            }
+
+        }
     }
 
     .card-container {

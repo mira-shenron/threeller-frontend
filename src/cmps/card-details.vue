@@ -19,8 +19,6 @@
             </div>
             <div class="main-card flex space-between">
                 <div class="main-content">
-                    <div>Members</div>
-                    <div>membersToShow</div>
                     <div class="card-descrp">
                         <div class="flex align-center">
                             <img
@@ -28,7 +26,7 @@
                                 src="../assets/card-icons/description.png"
                                 alt=""
                             />
-                            <div>Description</div>
+                            <div class="second-header">Description</div>
                         </div>
                         <div
                             v-if="showDesc"
@@ -59,6 +57,11 @@
                             </div>
                         </div>
                     </div>
+                    <div v-if="card.checklists">
+                        <card-details-checklist
+                            :checklists="card.checklists"
+                        ></card-details-checklist>
+                    </div>
                     <div>
                         <div class="card-activities">
                             <div class="flex align-center">
@@ -67,7 +70,7 @@
                                     src="../assets/card-icons/activities.png"
                                     alt=""
                                 />
-                                <div>Activity</div>
+                                <div class="second-header">Activity</div>
                             </div>
                             <div class="activities-list">
                                 <div class="flex align-center">
@@ -77,11 +80,11 @@
                                     />
                                     <input
                                         class="comment-input"
-                                        placeholder="Write a comment"
+                                        placeholder="Write a comment..."
                                         type="text"
                                     />
                                 </div>
-
+                                ​
                                 <div
                                     v-for="activity in acts"
                                     :key="activity.id"
@@ -94,11 +97,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="nav clickable">
-                    <a @click="edit('join')">Join</a>
-
-                    <div class="relative" @click="edit('members')">
-                        <a>Members</a>
+                <div class="nav">
+                    <span class="action-type">Suggested</span>
+                    ​
+                    <div class="flex align-center card-action clickable">
+                        <img src="../assets/action-icons/members.png" alt="" />
+                        <div class="action-name" @click="edit('join')">
+                            Join
+                        </div>
+                    </div>
+                    ​
+                    <span class="action-type">Add to card</span>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('members')"
+                    >
+                        <div class="flex align-center">
+                            <img
+                                src="../assets/action-icons/members.png"
+                                alt=""
+                            />
+                            <div class="action-name">Members</div>
+                        </div>
+                        ​
                         <edit-container
                             :feature="'Members'"
                             v-if="currEdit === 'members'"
@@ -110,9 +132,19 @@
                             />
                         </edit-container>
                     </div>
-
-                    <div class="relative" @click="edit('labels')">
-                        <a>Labels</a>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('labels')"
+                    >
+                        <div class="flex align-center">
+                            <img
+                                src="../assets/action-icons/label.png"
+                                alt=""
+                            />
+                            <div class="action-name">Labels</div>
+                        </div>
+                        ​
                         <edit-container
                             v-if="currEdit === 'labels'"
                             :feature="'Labels'"
@@ -138,10 +170,40 @@
                             />
                         </edit-container>
                     </div>
-                    <a @click="edit('checklist')">Checklist</a>
-
-                    <div class="relative" @click="edit('dueDate')">
-                        <a>Due Date</a>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('checklist')"
+                    >
+                        <div class="flex align-center">
+                            <img
+                                src="../assets/action-icons/checkmarks.png"
+                                alt=""
+                            />
+                            <div class="action-name">Checklist</div>
+                        </div>
+                        ​
+                        <edit-container
+                            :feature="'Checklist'"
+                            v-if="currEdit === 'checklist'"
+                        >
+                            <checklist slot="edit-body" :card="card">
+                            </checklist>
+                        </edit-container>
+                    </div>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('dueDate')"
+                    >
+                        <div class="flex align-center">
+                            <img
+                                src="../assets/action-icons/dueDate.png"
+                                alt=""
+                            />
+                            <div class="action-name">Due Date</div>
+                        </div>
+                        ​
                         <edit-container
                             :feature="'Change Due Date'"
                             v-if="currEdit === 'dueDate'"
@@ -149,39 +211,84 @@
                             <due-date slot="edit-body" :card="card" />
                         </edit-container>
                     </div>
-                    <a @click="edit('attachment')">Attachment</a>
-                    <div class="relative" @click="edit('cover')">
-                        <a>Cover</a>
+                    ​
+                    <div class="flex align-center card-action clickable">
+                        <img
+                            src="../assets/action-icons/attachment.png"
+                            alt=""
+                        />
+                        <div class="action-name" @click="edit('attachment')">
+                            Attachment
+                        </div>
+                    </div>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('cover')"
+                    >
+                        <div class="flex align-center">
+                            <img
+                                src="../assets/action-icons/covers.png"
+                                alt=""
+                            />
+                            <div class="action-name">Cover</div>
+                        </div>
+                        ​
                         <edit-container
-                            :feature="'Cover-Card'"
+                            :feature="'Cover'"
                             v-if="currEdit === 'cover'"
                         >
-                            <card-cover
-                                @updatingCard="updatingCard"
-                                slot="edit-body"
-                                :card="card"
-                                @changeBgColor="changeBgColor"
-                            ></card-cover>
-                            <!-- <input type="text" slot="edit-body" /> -->
+                            <card-cover slot="edit-body" :card="card">
+                                <card-cover
+                                    @updatingCard="updatingCard"
+                                    slot="edit-body"
+                                    :card="card"
+                                    @changeBgColor="changeBgColor"
+                                ></card-cover>
+                            </card-cover>
                         </edit-container>
                     </div>
-                    <div class="relative" @click="edit('move')">
-                        <a>Move</a>
+                    <span class="action-type">Actions</span>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('move')"
+                    >
+                        <div class="flex align-center">
+                            <img src="../assets/action-icons/move.png" alt="" />
+                            <div class="action-name">Move</div>
+                        </div>
+                        ​
                         <edit-container
-                            :feature="'Move-Card'"
+                            :feature="'Move Card'"
                             v-if="currEdit === 'move'"
                         >
                             <card-move slot="edit-body" :currCard="card" />
                         </edit-container>
                     </div>
-                    <div class="relative" @click="edit('copy')">
-                        <a>Copy</a>
+                    ​
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('copy')"
+                    >
+                        <div class="flex align-center">
+                            <img src="../assets/action-icons/copy.png" alt="" />
+                            <div class="action-name">Copy</div>
+                        </div>
+                        ​
                         <edit-container
-                            :feature="'Copy-Card'"
+                            :feature="'Copy Card'"
                             v-if="currEdit === 'copy'"
                         >
                             <card-copy slot="edit-body" :currCard="card" />
                         </edit-container>
+                    </div>
+                    ​
+                    <div class="flex align-center card-action clickable">
+                        <img src="../assets/action-icons/trash.png" alt="" />
+                        <div class="action-name" @click="onDeleteCard">
+                            Delete
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,6 +308,8 @@ import cardMembers from "./card-members.vue";
 import colorPicker from "./color-picker.vue";
 import cardLabels from "./card-labels.vue";
 import cardCover from "./card-cover.vue";
+import checklist from './checklist.vue';
+import cardDetailsChecklist from './card-details-checklist.vue';
 
 export default {
     name: "card-details",
@@ -225,6 +334,10 @@ export default {
     methods: {
         isShowDetails() {
             this.$emit("closeModal");
+        },
+        onDeleteCard() {
+            console.log('card',this.card);
+            eventBus.$emit(DELETE_CARD, this.card)
         },
         edit(feature) {
             this.currEdit = feature;
@@ -267,16 +380,6 @@ export default {
         changeBgColor(cover) {
             if (!cover) return;
             this.bgColorOfCard = cover.color;
-            // console.log(
-            //     "🚀 ~ file: card-details.vue ~ line 265 ~ changeBgColor ~ this.bgColorOfCard",
-            //     this.bgColorOfCard
-            // );
-            // if (cover.type === "half-cover") {
-            //     console.log(cover.type);
-            // } else if (cover.type === "full-cover") {
-            //     console.log(cover.type);
-            // }
-            // console.log("🚀 ~ file: card-details.vue ~ line 249 ~ changeBgColor ~ color", color)
         },
     },
     components: {
@@ -289,6 +392,8 @@ export default {
         activityDetails,
         cardMembers,
         cardCover,
+        checklist,
+        cardDetailsChecklist
     },
     computed: {
         acts() {

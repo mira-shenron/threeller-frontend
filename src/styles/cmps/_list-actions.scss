@@ -1,0 +1,21 @@
+.list-menu-content {
+    .action-header {
+        font-weight: 700;
+        color: #5e6c84;
+        font-size: rem(12px);
+        line-height: rem(16px);
+        margin-top: 12px;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .el-button--success {
+        padding: 8px 24px;
+        margin: 8px 4px 0 0;
+    }
+
+    .el-textarea__inner {
+        margin: 4px 0 12px;
+
+    }
+}
