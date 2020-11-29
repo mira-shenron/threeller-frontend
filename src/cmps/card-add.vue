@@ -1,8 +1,9 @@
 <template>
-  <section class="add-card-cmp">
+  <section class="card-composer">
     <div class="add-card-container">
       <form @submit.prevent="addCard">
         <el-input
+          ref="textarea"
           class="list-card-composer-textarea"
           type="textarea"
           autosize
@@ -13,7 +14,12 @@
         </el-input>
       </form>
     </div>
-      <button>Add Card</button>
+    <div class="card-controls flex">
+      <el-button type="success" @click="addCard">Add Card</el-button>
+      <div class="cancel-btn flex align-center clickable" @click="closeAddCard">
+        <i class="el-icon-close"></i>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -29,6 +35,12 @@ export default {
     addCard() {
       this.$emit("emitAddCard", this.txt);
     },
+    closeAddCard() {
+      this.$emit("emitCloseAddCard");
+    },
+  },
+  mounted() {
+    this.$refs.textarea.focus();
   },
 };
 </script>

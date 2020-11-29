@@ -42,12 +42,12 @@
           :card="card"
         ></card-preview>
       </div>
-      <card-add @emitAddCard=addCard></card-add>
+      <card-add v-if="isShowAddCard" @emitAddCard=addCard @emitCloseAddCard="toggleAddCard"></card-add>
     </div>
-    <!-- <div class="add-card-link clickable" @click="showAddCard">
+    <div v-if="!isShowAddCard" class="add-card-link clickable" @click="toggleAddCard">
       <i class="el-icon-plus"></i>
       <span>Add another card</span>
-    </div> -->
+    </div>
   </section>
 </template>
 
@@ -80,6 +80,7 @@ export default {
     return {
       isShowListMenu: false,
       listActionType: null,
+      isShowAddCard: false,
     };
   },
   methods: {
@@ -112,6 +113,9 @@ export default {
     chooseAction(type) {
       this.listActionType = type;
     },
+    toggleAddCard(){
+      this.isShowAddCard = !this.isShowAddCard
+    }
     // updatingCard(card){
     // console.log("in list card:", card)
 
