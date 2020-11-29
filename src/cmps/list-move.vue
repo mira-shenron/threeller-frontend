@@ -47,6 +47,7 @@ export default {
         newIdx: this.currIdx,
         listId: this.currList.id,
       });
+      this.$emit("emitCloseMenu");
     },
   },
   created() {

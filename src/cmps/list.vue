@@ -22,7 +22,7 @@
         @emitClearMenuAction="chooseAction"
         :actionType="'Copy List'"
       >
-        <list-copy slot="edit-body" :currList="list" />
+        <list-copy slot="edit-body" :currList="list" @emitCloseMenu="closeListMenu"/>
       </list-menu-action-container>
       <list-menu-action-container
         v-if="isShowListMenu && listActionType === 'moveList'"
@@ -31,7 +31,7 @@
         @emitClearMenuAction="chooseAction"
         :actionType="'Move List'"
       >
-        <list-move slot="edit-body" :currList="list"></list-move>
+        <list-move slot="edit-body" :currList="list" @emitCloseMenu="closeListMenu"></list-move>
       </list-menu-action-container>
     </div>
     <div class="card-container flex column">

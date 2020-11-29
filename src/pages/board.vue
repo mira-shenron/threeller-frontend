@@ -1,5 +1,5 @@
 <template>
-  <section v-if="board">
+  <section v-if="board" class="main-board-content">
     <div>Board: {{ board.title }}</div>
     <div class="board flex">
       <div class="list-wrapper" v-for="list in board.groups" :key="list.id">
@@ -9,31 +9,8 @@
           :list="list"
         ></list>
       </div>
-      <div class="add-list-container">
-        <div class="list-placeholder-container">
-          <span class="list-placeholder flex align-center">
-            <div class="svg-container flex align-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  class="plus"
-                  d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"
-                />
-              </svg>
-            </div>
-            <div class="add-list-text">Add another list</div>
-          </span>
-        </div>
-        <div class="add-list">
-          <el-input type="text" placeholder=" + Add List" v-model="listName" />
-          <button @click="addList">Add List</button>
-        </div>
+      <list-add @emitAddList="addList"/>
       </div>
-    </div>
     <div class="popup-details" v-if="isShowDetails">
       <card-details
         @emitSaveBoard="saveBoard"
@@ -50,8 +27,8 @@
 // import cardPreview from "@/cmps/card-preview.vue";
 // @ is an alias to /src
 import list from "@/cmps/list.vue";
+import listAdd from "@/cmps/list-add.vue";
 import cardDetails from "@/cmps/card-details.vue";
-import { boardService } from "../services/board.service.js";
 import {
   eventBus,
   MOVE_CARD,
@@ -63,6 +40,7 @@ import {
   MOVE_LIST,
   DELETE_CARD,
 } from "@/services/event-bus.service.js";
+import vClickOutside from "v-click-outside";
 
 export default {
   name: "board",
@@ -70,6 +48,7 @@ export default {
     // cardPreview,
     cardDetails,
     list,
+    listAdd,
   },
   computed: {
     board() {
@@ -80,12 +59,10 @@ export default {
     return {
       isShowDetails: false,
       cardDetailsToShow: null,
-      listName: "",
     };
   },
   methods: {
-    addList() {
-      var list = boardService.getEmptyList(this.listName);
+    addList(list) {
       this.board.groups.push(list);
       this.saveBoard();
     },
@@ -109,7 +86,6 @@ export default {
         board,
       });
     },
-
     updatingList(card) {
       const idx = this.list.findIndex((currCard) => currCard.id === card.id);
       if (!idx) return;
@@ -129,6 +105,7 @@ export default {
       this.saveBoard();
     },
     copyCard({ list, idx, card }) {
+      console.log(list, idx, card);
       const board = this.board;
       const newList = board.groups.find((newList) => newList.id === list.id);
       newList.cards.splice(idx, 0, card);
@@ -171,6 +148,7 @@ export default {
       const listIdx = board.groups.findIndex((list) => list.id === currId);
       if (listIdx < 0) return;
       board.groups.splice(listIdx + 1, 0, list);
+      console.log("second phase count");
       this.saveBoard();
     },
     moveList({ newIdx, listId }) {
@@ -190,7 +168,9 @@ export default {
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
     eventBus.$on(DELETE_CARD, this.deleteCard);
-    eventBus.$on(COPY_LIST, this.copyList);
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

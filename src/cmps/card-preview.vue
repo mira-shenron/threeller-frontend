@@ -31,7 +31,6 @@ export default {
         if(this.card.style){
             this.style = this.card.style;
         }
-        console.log(this.style);
     }
 };
 </script>
