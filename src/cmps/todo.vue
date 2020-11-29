@@ -15,7 +15,7 @@
         </div>
       </span>
     </div>
-    <i class="el-icon-delete clickable" @click="deleteTodo"></i>
+    <i v-if="editClosed" class="el-icon-delete clickable" @click="deleteTodo"></i>
   </section>
 </template>
 
