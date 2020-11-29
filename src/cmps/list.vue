@@ -31,7 +31,7 @@
         @emitClearMenuAction="chooseAction"
         :actionType="'Move List'"
       >
-        <div slot="edit-body">moveeeee</div>
+        <list-move slot="edit-body" :currList="list"></list-move>
       </list-menu-action-container>
     </div>
     <div class="card-container flex column">
@@ -42,20 +42,11 @@
           :card="card"
         ></card-preview>
       <!-- </div> -->
+      <card-add v-if="isShowAddCard" @emitAddCard=addCard @emitCloseAddCard="toggleAddCard"></card-add>
     </div>
-    <div class="add-card-container">
-      <form @submit.prevent="addCard">
-        <el-input
-          class="list-card-composer-textarea"
-          type="textarea"
-          autosize
-          resize="none"
-          placeholder="Enter title for this card..."
-          v-model="txt"
-        >
-        </el-input>
-        <button>save</button>
-      </form>
+    <div v-if="!isShowAddCard" class="add-card-link clickable" @click="toggleAddCard">
+      <i class="el-icon-plus"></i>
+      <span>Add another card</span>
     </div>
   </section>
 </template>
@@ -68,6 +59,8 @@ import listMenu from "@/cmps/list-menu.vue";
 import utilService from "@/services/util.service.js";
 import listMenuActionContainer from "./list-menu-action-container.vue";
 import listCopy from "@/cmps/list-copy.vue";
+import listMove from './list-move.vue';
+import cardAdd from './card-add.vue';
 
 export default {
   props: {
@@ -80,17 +73,18 @@ export default {
     listMenu,
     listMenuActionContainer,
     listCopy,
+    listMove,
+    cardAdd,
   },
   data() {
     return {
-      txt: "",
       isShowListMenu: false,
       listActionType: null,
+      isShowAddCard: false,
     };
   },
   methods: {
-    addCard() {
-      const title = this.txt;
+    addCard(title) {
       const card = {
         title,
         id: utilService.makeId(),
@@ -123,6 +117,9 @@ export default {
     chooseAction(type) {
       this.listActionType = type;
     },
+    toggleAddCard(){
+      this.isShowAddCard = !this.isShowAddCard
+    }
     // updatingCard(card){
     // console.log("in list card:", card)
 

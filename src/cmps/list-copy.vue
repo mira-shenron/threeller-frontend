@@ -1,7 +1,7 @@
 <template>
   <div v-if="currList">
     <form @submit.prevent="copyList">
-      <label class="action-header" for="list-name"> Name </label>
+      <label class="action-header" for="list-name" ref="autofocus"> Name </label>
       <el-input
         autosize
         resize="none"
@@ -9,7 +9,6 @@
         type="textarea"
         id="list-name"
         v-model="newList.title"
-        ref="myTextarea"
       >
       </el-input>
       <el-button @click="copyList" type="success">Create List</el-button>
@@ -42,7 +41,9 @@ export default {
     console.log(this.currList);
     this.newList = JSON.parse(JSON.stringify(this.currList));
     this.newList.id = utilService.makeId();
-    console.log(this.$refs);
   },
+  mounted(){
+    this.$refs.autofocus.focus()
+  }
 };
 </script>

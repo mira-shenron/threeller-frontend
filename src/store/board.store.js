@@ -10,14 +10,14 @@ export default {
     },
     getters: {
         boards(state) {
-            return state.boards;
+            return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
             console.log(state);
-            return state.currBoard;
+            return JSON.parse(JSON.stringify(state.currBoard));
         },
         getLists(state) {
-            return state.currBoard.groups;
+            return JSON.parse(JSON.stringify(state.currBoard.groups));
         },
     },
     mutations: {

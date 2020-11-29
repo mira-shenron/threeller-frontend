@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" placeholder="Search members" v-model="searchBy"/>
+    <input class="members-search" type="text" placeholder="Search members" v-model="searchBy"/>
     <div v-for="boardMember in membersToShow" :key="boardMember._id">
         <membercmp :member="boardMember" :card=card></membercmp>
     </div>

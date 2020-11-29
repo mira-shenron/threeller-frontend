@@ -2,7 +2,7 @@
     <section class="card" :class="{[style.color]: style.type === 'full-cover' }">
         <div v-if="style.type==='half-cover'" class="cover" :class="{[style.color]: style.type === 'half-cover' }"></div>
         <div>
-            <h3>{{ card.title }}</h3>
+        <div class="card-title">{{ card.title }}</div>
         </div>
         {{style}}
     </section>
@@ -29,7 +29,10 @@ export default {
         }
     },
     created() {
-        this.style = this.card.style;
+        if(this.card.style){
+            this.style = this.card.style;
+        }
+        console.log(this.style);
     }
 };
 </script>
