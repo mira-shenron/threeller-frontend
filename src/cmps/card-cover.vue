@@ -86,8 +86,8 @@ export default {
                }
                 eventBus.$emit(CLOSE_EDIT);
                 this.$emit("updatingCard", this.card);
+            // console.log('this.card',this.card)
             }
-            console.log('this.card',this.card)
         },
         selectCoverType(cover) {
             this.pickedCover = cover;
