@@ -25,6 +25,14 @@
     border-radius: 5px;
 }
 
+.todo:hover .el-icon-delete{
+    opacity:1;
+}
+
+.el-icon-delete{
+    opacity:0;
+}
+
 .todo-details {
     span{
         margin-inline-end: 5px;
@@ -34,3 +42,15 @@
 .add-btn{
     padding: 0;
 }
+
+.title-input{
+    width: 550px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.btn-container{
+    margin-inline-start: 30px;
+}
+
