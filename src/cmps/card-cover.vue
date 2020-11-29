@@ -87,7 +87,7 @@ export default {
                 eventBus.$emit(CLOSE_EDIT);
                 this.$emit("updatingCard", this.card);
             }
-            // this.$emit("changeColorList");
+            console.log('this.card',this.card)
         },
         selectCoverType(cover) {
             this.pickedCover = cover;
@@ -108,7 +108,6 @@ export default {
         }
     },
     created() {
-        // console.log(this.style)
         this.style = this.card.style;
     },
     directives: {
