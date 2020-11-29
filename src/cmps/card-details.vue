@@ -63,7 +63,7 @@
               </div>
               <div class="activities-list">
                 <div class="flex align-center">
-                  <vue-initials-img class="avatar" :name="currUser" />
+                   <avatar :fullname="currUser" :size="40"></avatar>
                   <input
                     class="comment-input"
                     placeholder="Write a comment..."
@@ -227,6 +227,8 @@ import cardLabels from "./card-labels.vue";
 import cardCover from "./card-cover.vue";
 import checklist from "./checklist.vue";
 import cardDetailsChecklist from "./card-details-checklist.vue";
+import Avatar from 'vue-avatar-component';
+
 export default {
   name: "card-details",
   props: {
@@ -308,7 +310,8 @@ export default {
     cardMembers,
     cardCover,
     checklist,
-    cardDetailsChecklist
+    cardDetailsChecklist,
+    Avatar
   },
   computed: {
     acts() {
