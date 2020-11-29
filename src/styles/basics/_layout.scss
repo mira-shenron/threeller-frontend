@@ -8,8 +8,8 @@
 
         .main-content {
             flex: 1;
-
             &.main-board-content {
+                overflow: hidden;
                 display: flex;
                 flex-direction: column;
             }
