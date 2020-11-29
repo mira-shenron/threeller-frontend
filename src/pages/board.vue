@@ -60,6 +60,7 @@ import {
   SAVE_BOARD,
   SAVE_MEMBERS,
   COPY_LIST,
+  MOVE_LIST,
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -106,7 +107,6 @@ export default {
         board,
       });
     },
-
     updatingList(card) {
       const idx = this.list.findIndex((currCard) => currCard.id === card.id);
       if (!idx) return;
@@ -153,11 +153,19 @@ export default {
       board.groups.splice(listIdx + 1, 0, list);
       this.saveBoard();
     },
+    moveList({ newIdx, listId }) {
+      const board = this.board;
+      const oldIdx = board.groups.findIndex((list) => list.id === listId);
+      if (oldIdx < 0) return;
+      board.groups.splice(newIdx, 0, board.groups.splice(oldIdx, 1)[0]);
+      this.saveBoard();
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
+    eventBus.$on(MOVE_LIST, this.moveList);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);

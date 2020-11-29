@@ -25,18 +25,25 @@
 
             .list-placeholder {
                 padding: 6px 8px;
+                color: #ffffff;
+                transition: color 85ms ease-in;
+                cursor: pointer;
                 .svg-container{
                     svg {
                         margin-right: 4px;
                     }
     
                     .plus {
-                        fill: #172b4d;
+                        fill: #ffffff;
                     }
                 }
 
                 .add-list-text{
                     font-size: rem(16px);
+                }
+
+                &:hover{
+                    background-color: hsla(0,0%,100%,.24);
                 }
             }
             .add-list {

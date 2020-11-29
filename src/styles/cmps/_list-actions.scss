@@ -16,6 +16,33 @@
 
     .el-textarea__inner {
         margin: 4px 0 12px;
+    }
 
+    .select-display {
+        background-color: rgba(9, 30, 66, .04);
+        padding: 6px 12px;
+        margin-bottom: 8px;
+        border-radius: 3px;
+        position: relative;
+
+        .position-span {
+            font-size: rem(12px);
+            height: rem(16px);
+        }
+
+        .idx-span {
+            font-size: rem(14px);
+            height: rem(20px);
+        }
+        
+        .el-input__inner {
+            position: absolute;
+            bottom: -6px;
+            left: -12px;
+            height: rem(48px);
+            width: 256px;
+            opacity: 0;
+    
+        }
     }
 }
