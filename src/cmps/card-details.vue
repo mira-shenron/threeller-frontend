@@ -2,7 +2,6 @@
   <div class="card-detail-main">
     <div
       v-show="bgColorOfCard"
-      @changeBgColor="changeBgColor"
       class="cover-card"
       :class="{ [bgColorOfCard]: bgColorOfCard }"
     ></div>
@@ -64,7 +63,7 @@
               </div>
               <div class="activities-list">
                 <div class="flex align-center">
-                  <avatar :fullname="currUser" :size="40"></avatar>
+                   <avatar :fullname="currUser" :size="40"></avatar>
                   <input
                     class="comment-input"
                     placeholder="Write a comment..."
@@ -172,14 +171,12 @@
               <div class="action-name">Cover</div>
             </div>
             <edit-container :feature="'Cover'" v-if="currEdit === 'cover'">
-              <card-cover slot="edit-body" :card="card">
                 <card-cover
                   @updatingCard="updatingCard"
                   slot="edit-body"
                   :card="card"
                   @changeBgColor="changeBgColor"
                 ></card-cover>
-              </card-cover>
             </edit-container>
           </div>
           <span class="action-type">Actions</span>
@@ -298,6 +295,7 @@ export default {
     changeBgColor(cover) {
       if (!cover) return;
       this.bgColorOfCard = cover.color;
+      console.log("🚀 ~ file: card-details.vue ~ line 299 ~ changeBgColor ~ this.bgColorOfCard", this.bgColorOfCard)
     },
   },
   components: {
