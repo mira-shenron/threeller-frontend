@@ -1,9 +1,11 @@
 .board {
+    flex: 1;
     gap: 8px;
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    height: 70vh;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
 
     &>:first-child {
         margin-left: 8px;
@@ -17,9 +19,11 @@
         height: fit-content;
         order: 1;
         padding: 0 4px 4px;
+        width: 272px;
 
         .list-placeholder-container {
             width: 272px;
+
             border-radius: 3px;
             background-color: rgba(0, 0, 0, .1);
 
@@ -28,28 +32,53 @@
                 color: #ffffff;
                 transition: color 85ms ease-in;
                 cursor: pointer;
-                .svg-container{
+
+                .svg-container {
                     svg {
                         margin-right: 4px;
                     }
-    
+
                     .plus {
                         fill: #ffffff;
                     }
                 }
 
-                .add-list-text{
+                .add-list-text {
                     font-size: rem(16px);
                 }
 
-                &:hover{
-                    background-color: hsla(0,0%,100%,.24);
+                &:hover {
+                    background-color: hsla(0, 0%, 100%, .24);
                 }
             }
-            .add-list {
-                padding: 6px 8px;
-                border-radius: 3px;
-                width: 272px;
+
+        }
+
+        .add-list-composer {
+            padding: 4px;
+            border-radius: 3px;
+            width: 272px;
+            background-color: #EBECF0;
+
+            .el-input__inner{
+                margin-bottom: 4px;
+            }
+
+            .list-controls {
+                .el-button--success {
+                    padding: 8px 12px;
+                    margin-right: 4px;
+                }
+
+                .cancel-btn {
+                    width: rem(32px);
+                    height: rem(32px);
+                    justify-content: center;
+
+                    .el-icon-close {
+                        font-size: rem(22px);
+                    }
+                }
             }
         }
 

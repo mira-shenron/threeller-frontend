@@ -1,6 +1,6 @@
 <template>
     <section class="board-preview clickable">
-        <h2> {{board.title}} </h2>
+        <div> {{board.title}} </div>
     </section>
 </template>
 
@@ -28,9 +28,5 @@ export default {
 };
 </script>
 <style lang="scss">
-.board-preview{
-    background-color: rgb(134, 195, 190);
-    height: 200px;
-    width: 200px;
-}
+
 </style>
