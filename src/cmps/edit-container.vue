@@ -5,7 +5,9 @@
         <div class="header-title">
           <div>{{ feature }}</div>
         </div>
-        <span class="x-button" @click.stop="onEmitCloseEdit">X</span>
+        <span class="x-button" @click.stop="onEmitCloseEdit">
+          <i class="el-icon-close"></i>
+        </span>
       </div>
       <slot name="edit-body"></slot>
     </div>

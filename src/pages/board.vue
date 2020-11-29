@@ -1,6 +1,6 @@
 <template>
   <section v-if="board">
-    <div>Board name: {{ board.title }}</div>
+    <div>Board: {{ board.title }}</div>
     <div class="board flex">
       <div class="list-wrapper" v-for="list in board.groups" :key="list.id">
         <list
@@ -61,6 +61,7 @@ import {
   SAVE_MEMBERS,
   COPY_LIST,
   MOVE_LIST,
+  DELETE_CARD,
 } from "@/services/event-bus.service.js";
 
 export default {
@@ -88,7 +89,6 @@ export default {
       this.board.groups.push(list);
       this.saveBoard();
     },
-
     showCardDetails(card) {
       this.isShowDetails = true;
       this.cardDetailsToShow = card;
@@ -96,9 +96,11 @@ export default {
     closeModal() {
       this.isShowDetails = false;
     },
-    saveBoard(list) {
-      if (list) {
-        this.board.colorList = list;
+    saveBoard(info) {
+      if (info) {
+        if (info[0] || info[0].blindMode) {
+          this.board.colorList = info;
+        }
       }
       const board = JSON.parse(JSON.stringify(this.board));
       console.log("save board:", board);
@@ -107,6 +109,7 @@ export default {
         board,
       });
     },
+
     updatingList(card) {
       const idx = this.list.findIndex((currCard) => currCard.id === card.id);
       if (!idx) return;
@@ -146,6 +149,23 @@ export default {
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
       this.saveBoard();
     },
+    deleteCard(card) {
+      console.log("here");
+      var groupIdx = -1;
+      var cardIdx = -1;
+      for (let i = 0; i < this.board.groups.length; i++) {
+        for (let j = 0; j < this.board.groups[i].cards.length; j++) {
+          if (this.board.groups[i].cards[j].id === card.id) {
+            groupIdx = i;
+            cardIdx = j;
+            break;
+          }
+        }
+      }
+      this.closeModal();
+      this.board.groups[groupIdx].cards.splice(cardIdx, 1);
+      this.saveBoard();
+    },
     copyList({ list, currId }) {
       const board = this.board;
       const listIdx = board.groups.findIndex((list) => list.id === currId);
@@ -169,6 +189,8 @@ export default {
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+    eventBus.$on(DELETE_CARD, this.deleteCard);
+    eventBus.$on(COPY_LIST, this.copyList);
   },
 };
 </script>

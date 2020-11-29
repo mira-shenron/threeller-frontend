@@ -89,6 +89,10 @@ export default {
         title,
         id: utilService.makeId(),
         createdAt: Date.now(),
+        style:{
+              color:'white',
+              type:null
+            }
       };
       this.list.cards.push(card);
       this.txt = "";

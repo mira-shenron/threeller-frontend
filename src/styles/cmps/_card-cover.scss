@@ -12,12 +12,11 @@
         border-radius: 3px;
         width: 134px;
         height: 64px;
-        // & div:first-child{
-        //     height: 100%;
-        //     width: 100%;
-        //     border-radius: 5px 5px 0 0;
-        // }
 
+       
+         &.grey{
+            background-color: $labelGrey;
+           }
     }
 }
 div[role="button"].picked{
@@ -30,41 +29,9 @@ button.color-pick{
     height: 32px;
     width: 48px;
     margin: 0 8px 8px 0;
-    &.green{
-        background-color: $labelGreen;
-    }
-     &.yellow{
-      background-color: $labelYellow;
-     }
-     &.orange{
-      background-color: $labelOrange;
-     }
-     &.red{
-      background-color: $labelRed;
-     }
-     &.purple{
-      background-color: $labelPurple;
-     }
-     &.blue{
-      background-color: $labelBlue;
-     }
-     &.lime{
-      background-color: $labelLime;
-     }
     
-     &.sky{
-      background-color: $labelSky;
-     }
-    
-     &.pink{
-      background-color: $labelPink;
-     }
-    
-     &.black{
-      background-color: $labelBlack;
-     }
      &.grey{
-      background-color: $labelGrey;
+        background-color:rgba(94, 108, 132, 0.3);
      }
     &.picked{
         // outline:2px solid darkblue;
@@ -94,6 +61,7 @@ button.color-pick{
             border-radius: 2px;
         }
     }
+    
 }
 .full-cover{
     &>*{
