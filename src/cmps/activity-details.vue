@@ -1,9 +1,6 @@
 <template>
   <section class="flex details-container">
-    <vue-initials-img
-      class="avatar"
-      :name="activity.byMember.fullName"
-    />
+    <avatar :fullname="activity.byMember.fullName" :size="40"></avatar>
     <div>
       <div class="flex align-center">
         <span class="user">{{ activity.byMember.fullName }}</span>
@@ -16,10 +13,16 @@
 
 <script>
 // @ is an alias to /src
-import utilService from '@/services/util.service.js'
+import utilService from '@/services/util.service.js';
+import Avatar from 'vue-avatar-component';
 
 export default {
-  props: ["activity"],
+  props: {
+    activity:Object
+  } ,
+  components:{
+    Avatar
+  },
   data() {
     return {
 

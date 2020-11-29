@@ -1,6 +1,6 @@
 <template>
   <section v-if="board">
-    <div>Board name: {{ board.title }}</div>
+    <div>Board: {{ board.title }}</div>
     <div class="board flex">
       <div class="list-wrapper" v-for="list in board.groups" :key="list.id">
         <list

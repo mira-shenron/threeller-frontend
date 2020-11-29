@@ -5,7 +5,9 @@
         <img width="45px" src="../assets/card-icons/card.png" alt="" />
         <span class="card-title">{{ card.title }}</span>
       </div>
-      <span class="clickable" @click="isShowDetails">X</span>
+      <span class="clickable" @click="isShowDetails">
+        <i class="el-icon-close"></i>
+      </span>
     </div>
     <div class="main-card flex space-between">
       <div class="main-content">
@@ -34,8 +36,8 @@
             ></textarea>
             <div>
               <button class="clickable" @click="saveDescription">Save</button>
-              <span class="clickable" @click.stop="closeDescriptionEdit"
-                >X</span
+              <span class="clickable" @click.stop="closeDescriptionEdit">
+                <i class="el-icon-close"></i></span
               >
             </div>
           </div>
@@ -260,7 +262,6 @@ export default {
       this.$emit("closeModal");
     },
     onDeleteCard() {
-      console.log('card',this.card);
       eventBus.$emit(DELETE_CARD, this.card)
     },
     edit(feature) {
