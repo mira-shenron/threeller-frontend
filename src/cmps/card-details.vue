@@ -11,7 +11,7 @@
           <img width="45px" src="../assets/card-icons/card.png" alt="" />
           <span class="card-title">{{ card.title }}</span>
         </div>
-        <span class="clickable" @click="isShowDetails">X</span>
+        <span class="clickable" @click="isShowDetails"><i class="el-icon-close"></i></span>
       </div>
       <div class="main-card flex space-between">
         <div class="main-content">
@@ -41,7 +41,7 @@
               <div>
                 <button class="clickable" @click="saveDescription">Save</button>
                 <span class="clickable" @click.stop="closeDescriptionEdit"
-                  >X</span
+                  ><i class="el-icon-close"></i></span
                 >
               </div>
             </div>
