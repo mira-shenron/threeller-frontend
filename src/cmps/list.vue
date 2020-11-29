@@ -35,13 +35,13 @@
       </list-menu-action-container>
     </div>
     <div class="card-container flex column">
-      <div v-for="card in list.cards" :key="card.id">
-        <card-preview
+      <!-- <div > -->
+        <card-preview v-for="card in list.cards" :key="card.id"
           @click.native="showCardDetails(card)"
           @emitDelete="deleteCard"
           :card="card"
         ></card-preview>
-      </div>
+      <!-- </div> -->
       <card-add v-if="isShowAddCard" @emitAddCard=addCard @emitCloseAddCard="toggleAddCard"></card-add>
     </div>
     <div v-if="!isShowAddCard" class="add-card-link clickable" @click="toggleAddCard">

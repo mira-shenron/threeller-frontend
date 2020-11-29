@@ -2,6 +2,7 @@
   <div class="card-detail-main">
     <div
       v-show="bgColorOfCard"
+      @changeBgColor="changeBgColor"
       class="cover-card"
       :class="{ [bgColorOfCard]: bgColorOfCard }"
     ></div>
@@ -215,7 +216,6 @@
     </div>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import { eventBus, CLOSE_EDIT, DELETE_CARD } from "@/services/event-bus.service.js";
@@ -228,9 +228,8 @@ import cardMembers from "./card-members.vue";
 import colorPicker from "./color-picker.vue";
 import cardLabels from "./card-labels.vue";
 import cardCover from "./card-cover.vue";
-import checklist from './checklist.vue';
-import cardDetailsChecklist from './card-details-checklist.vue';
-
+import checklist from "./checklist.vue";
+import cardDetailsChecklist from "./card-details-checklist.vue";
 export default {
   name: "card-details",
   props: {
@@ -274,7 +273,6 @@ export default {
     updatListOfColors(list) {
       this.$emit("emitSaveBoard", list);
     },
-
     openShowDesc() {
       this.showDesc = !this.showDesc;
       this.descriptionOnText = this.card.description
