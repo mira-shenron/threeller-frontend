@@ -45,13 +45,22 @@
     }
 
         .nav>* {
-            height: 50px;
+            height: 40px;
             width: 200px;
-            background-color: rgb(245, 239, 239);
-            padding-inline-start: 20px;
+            margin-inline-start: 25px;
+        }
+        .card-action{
+            height: 35px;
+            width: 180px;
+            background-color: rgb(219, 218, 218);
+            padding-inline-start: 5px;
             margin-top: 5px;
             text-align: left;
             border-radius: 5px;
+    
+            img{
+                width: 25px;
+            }
         }
 
         .nav>*:hover {
