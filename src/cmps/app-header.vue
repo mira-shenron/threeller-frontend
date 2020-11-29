@@ -5,7 +5,7 @@
         <img src="@/assets/card-icons/menu.png" />
       </div>
       <div class="nav-btn flex align-center">
-        <img src="@/assets/card-icons/home.png" />
+        <img @click.stop="goToHomePage" src="@/assets/card-icons/home.png" />
       </div>
     </nav>
     <h1 class="logo clickable">Threeller</h1>
@@ -32,5 +32,10 @@
 <script>
 export default {
   name: "app-header",
+  methods:{
+    goToHomePage(){
+      this.$router.push('/');
+    }
+  }
 };
 </script>

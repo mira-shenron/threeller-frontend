@@ -190,7 +190,6 @@ export default {
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
     eventBus.$on(DELETE_CARD, this.deleteCard);
-    eventBus.$on(COPY_LIST, this.copyList);
   },
 };
 </script>

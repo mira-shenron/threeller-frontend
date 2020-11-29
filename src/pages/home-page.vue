@@ -29,12 +29,12 @@
       </el-row>
     </div>
     <div>
-      <h2>Boards</h2>
+      <h2 class="boards">Boards</h2>
       <div v-for="board in boards" :key="board._id">
-        <board-preview
-          @click.native="openBoard(board._id)"
-          :board="board"
-        ></board-preview>
+          <board-preview class="flex align-center justify-center"
+            @click.native="openBoard(board._id)"
+            :board="board"
+          ></board-preview>
       </div>
     </div>
   </section>
@@ -51,14 +51,16 @@ export default {
   },
   computed: {
     boards() {
+      console.log(this.$store.getters.boards);
       return this.$store.getters.boards;
     }
   },
   methods: {
-    openBoard(boardId){
-      this.$store.commit({type: 'setCurrBoard', boardId});
+    openBoard(boardId) {
+      this.$store.commit({ type: 'setCurrBoard', boardId });
       this.$router.push(`/board/${boardId}`);
     }
   }
 };
 </script>
+
