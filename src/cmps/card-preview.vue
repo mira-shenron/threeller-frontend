@@ -4,7 +4,6 @@
         <div>
         <div class="card-title">{{ card.title }}</div>
         </div>
-        {{style}}
     </section>
 </template>
 
