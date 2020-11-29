@@ -35,13 +35,13 @@
       </list-menu-action-container>
     </div>
     <div class="card-container flex column">
-      <div v-for="card in list.cards" :key="card.id">
-        <card-preview
+      <!-- <div > -->
+        <card-preview v-for="card in list.cards" :key="card.id"
           @click.native="showCardDetails(card)"
           @emitDelete="deleteCard"
           :card="card"
         ></card-preview>
-      </div>
+      <!-- </div> -->
     </div>
     <div class="add-card-container">
       <form @submit.prevent="addCard">

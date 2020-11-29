@@ -2,6 +2,7 @@
     <div class="card-detail-main">
         <div
             v-show="bgColorOfCard"
+            @changeBgColor="changeBgColor"
             class="cover-card"
             :class="{ [bgColorOfCard]: bgColorOfCard }"
         ></div>
@@ -84,7 +85,6 @@
                                         type="text"
                                     />
                                 </div>
-                                ​
                                 <div
                                     v-for="activity in acts"
                                     :key="activity.id"
@@ -99,16 +99,13 @@
                 </div>
                 <div class="nav">
                     <span class="action-type">Suggested</span>
-                    ​
                     <div class="flex align-center card-action clickable">
                         <img src="../assets/action-icons/members.png" alt="" />
                         <div class="action-name" @click="edit('join')">
                             Join
                         </div>
                     </div>
-                    ​
                     <span class="action-type">Add to card</span>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('members')"
@@ -120,7 +117,6 @@
                             />
                             <div class="action-name">Members</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Members'"
                             v-if="currEdit === 'members'"
@@ -132,7 +128,6 @@
                             />
                         </edit-container>
                     </div>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('labels')"
@@ -144,7 +139,6 @@
                             />
                             <div class="action-name">Labels</div>
                         </div>
-                        ​
                         <edit-container
                             v-if="currEdit === 'labels'"
                             :feature="'Labels'"
@@ -170,7 +164,6 @@
                             />
                         </edit-container>
                     </div>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('checklist')"
@@ -182,7 +175,6 @@
                             />
                             <div class="action-name">Checklist</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Checklist'"
                             v-if="currEdit === 'checklist'"
@@ -191,7 +183,6 @@
                             </checklist>
                         </edit-container>
                     </div>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('dueDate')"
@@ -203,7 +194,6 @@
                             />
                             <div class="action-name">Due Date</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Change Due Date'"
                             v-if="currEdit === 'dueDate'"
@@ -211,7 +201,6 @@
                             <due-date slot="edit-body" :card="card" />
                         </edit-container>
                     </div>
-                    ​
                     <div class="flex align-center card-action clickable">
                         <img
                             src="../assets/action-icons/attachment.png"
@@ -221,7 +210,6 @@
                             Attachment
                         </div>
                     </div>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('cover')"
@@ -233,7 +221,6 @@
                             />
                             <div class="action-name">Cover</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Cover'"
                             v-if="currEdit === 'cover'"
@@ -249,7 +236,6 @@
                         </edit-container>
                     </div>
                     <span class="action-type">Actions</span>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('move')"
@@ -258,7 +244,6 @@
                             <img src="../assets/action-icons/move.png" alt="" />
                             <div class="action-name">Move</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Move Card'"
                             v-if="currEdit === 'move'"
@@ -266,7 +251,6 @@
                             <card-move slot="edit-body" :currCard="card" />
                         </edit-container>
                     </div>
-                    ​
                     <div
                         class="flex relative align-center card-action clickable"
                         @click="edit('copy')"
@@ -275,7 +259,6 @@
                             <img src="../assets/action-icons/copy.png" alt="" />
                             <div class="action-name">Copy</div>
                         </div>
-                        ​
                         <edit-container
                             :feature="'Copy Card'"
                             v-if="currEdit === 'copy'"
@@ -283,7 +266,6 @@
                             <card-copy slot="edit-body" :currCard="card" />
                         </edit-container>
                     </div>
-                    ​
                     <div class="flex align-center card-action clickable">
                         <img src="../assets/action-icons/trash.png" alt="" />
                         <div class="action-name" @click="onDeleteCard">
@@ -295,10 +277,10 @@
         </div>
     </div>
 </template>
-
 <script>
 // @ is an alias to /src
-import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
+import { eventBus, CLOSE_EDIT,DELETE_CARD } from "@/services/event-bus.service.js";
+// import { eventBus,  } from "@/services/event-bus.service.js";
 import editContainer from "./edit-container.vue";
 import cardMove from "./card-move.vue";
 import cardCopy from "./card-copy.vue";
@@ -308,9 +290,8 @@ import cardMembers from "./card-members.vue";
 import colorPicker from "./color-picker.vue";
 import cardLabels from "./card-labels.vue";
 import cardCover from "./card-cover.vue";
-import checklist from './checklist.vue';
-import cardDetailsChecklist from './card-details-checklist.vue';
-
+import checklist from "./checklist.vue";
+import cardDetailsChecklist from "./card-details-checklist.vue";
 export default {
     name: "card-details",
     props: {
@@ -336,8 +317,8 @@ export default {
             this.$emit("closeModal");
         },
         onDeleteCard() {
-            console.log('card',this.card);
-            eventBus.$emit(DELETE_CARD, this.card)
+            console.log("card", this.card);
+            eventBus.$emit(DELETE_CARD, this.card);
         },
         edit(feature) {
             this.currEdit = feature;
@@ -355,7 +336,6 @@ export default {
         updatListOfColors(list) {
             this.$emit("emitSaveBoard", list);
         },
-
         openShowDesc() {
             this.showDesc = !this.showDesc;
             this.descriptionOnText = this.card.description
@@ -378,6 +358,7 @@ export default {
             this.showDesc = !this.showDesc;
         },
         changeBgColor(cover) {
+            console.log("🚀 ~ file: card-details.vue ~ line 381 ~ changeBgColor ~ cover", cover)
             if (!cover) return;
             this.bgColorOfCard = cover.color;
         },
@@ -393,7 +374,7 @@ export default {
         cardMembers,
         cardCover,
         checklist,
-        cardDetailsChecklist
+        cardDetailsChecklist,
     },
     computed: {
         acts() {
@@ -413,7 +394,6 @@ export default {
         eventBus.$on(CLOSE_EDIT, () => {
             this.currEdit = null;
         });
-
         this.descriptionOnDiv = this.card.description
             ? this.card.description
             : "Add something here";

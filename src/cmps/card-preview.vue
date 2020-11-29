@@ -2,8 +2,9 @@
     <section class="card" :class="{[style.color]: style.type === 'full-cover' }">
         <div v-if="style.type==='half-cover'" class="cover" :class="{[style.color]: style.type === 'half-cover' }"></div>
         <div>
-        <h3>{{ card.title }}</h3>
+            <h3>{{ card.title }}</h3>
         </div>
+        {{style}}
     </section>
 </template>
 
