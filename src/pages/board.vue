@@ -89,24 +89,26 @@ export default {
       this.saveBoard();
     },
 
-    showCardDetails(card) {
-      this.isShowDetails = true;
-      this.cardDetailsToShow = card;
-    },
-    closeModal() {
-      this.isShowDetails = false;
-    },
-    saveBoard(list) {
-      if (list) {
-        this.board.colorList = list;
-      }
-      const board = JSON.parse(JSON.stringify(this.board));
-      console.log("save board:", board);
-      this.$store.dispatch({
-        type: "saveBoard",
-        board,
-      });
-    },
+        showCardDetails(card) {
+            this.isShowDetails = true;
+            this.cardDetailsToShow = card;
+        },
+        closeModal() {
+            this.isShowDetails = false;
+        },
+        saveBoard(info) {
+            if (info) {
+                if(info[0] ||info[0].blindMode){
+                    this.board.colorList = info;
+                }
+            }
+            const board = JSON.parse(JSON.stringify(this.board));
+            console.log("save board:", board);
+            this.$store.dispatch({
+                type: "saveBoard",
+                board,
+            });
+        },
 
     updatingList(card) {
       const idx = this.list.findIndex(
