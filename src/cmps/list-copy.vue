@@ -34,7 +34,9 @@ export default {
   methods: {
     copyList() {
       if (!this.newList.title || !this.newList) return;
+      console.log('copy 1st command');
       eventBus.$emit(COPY_LIST, {list: this.newList, currId: this.currList.id});
+      this.$emit("emitCloseMenu");
     },
   },
   created() {

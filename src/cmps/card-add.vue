@@ -33,10 +33,13 @@ export default {
   },
   methods: {
     addCard() {
+      if (this.txt === "") return
       this.$emit("emitAddCard", this.txt);
+      this.txt = "";
     },
     closeAddCard() {
       this.$emit("emitCloseAddCard");
+      this.txt = "";
     },
   },
   mounted() {

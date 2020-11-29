@@ -13,7 +13,6 @@ export default {
             return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
-            console.log(state);
             return JSON.parse(JSON.stringify(state.currBoard));
         },
         getLists(state) {

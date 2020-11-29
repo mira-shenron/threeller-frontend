@@ -317,10 +317,12 @@ export default {
       var board = JSON.parse(
         JSON.stringify(this.$store.getters.currBoard)
       );
-      var res = board.activities.filter(
-        (actv) => actv.card.id === this.card.id
-      );
-      return res;
+      console.log(board);
+      // var res = board.activities.filter(
+      //   (actv) => actv.card.id === this.card.id
+      // );
+      return [];
+      // return res;
     },
     membersToShow() {
       return "placeholder";
