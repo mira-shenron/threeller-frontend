@@ -1,5 +1,5 @@
 <template>
-    <div class="labels-preview flex warp" v-if="card.labels||card.labels.length">
+    <div class="labels-preview flex warp" v-if="card.labels">
         <h3>Labels</h3>
         <div >
             <span

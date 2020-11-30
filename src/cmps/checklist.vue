@@ -16,7 +16,7 @@
 <script>
 import checklistSelect from "./checklist-select.vue";
 import {boardService} from '@/services/board.service.js'
-import  {eventBus, SAVE_BOARD, CLOSE_EDIT} from "@/services/event-bus.service.js";
+import  {eventBus, SAVE_MEMBERS, CLOSE_EDIT} from "@/services/event-bus.service.js";
 
 export default {
   props: {
@@ -86,7 +86,7 @@ export default {
           var newChecklist = boardService.getEmptyChecklist(this.checklistName);
           if(!this.card.checklists) this.card.checklists = [newChecklist];
           else this.card.checklists.push(newChecklist);
-          eventBus.$emit(SAVE_BOARD);
+          eventBus.$emit(SAVE_MEMBERS, this.card);
           eventBus.$emit(CLOSE_EDIT);
       }
   },

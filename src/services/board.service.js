@@ -9,7 +9,8 @@ export const boardService = {
     getEmptyBoard,
     getEmptyList,
     getEmptyColorLabel,
-    getEmptyChecklist
+    getEmptyChecklist,
+    getEmptyTodo
 }
 
 function query() {
@@ -57,6 +58,13 @@ function getEmptyChecklist(checklistName) {
         id: utilService.makeId(),
         title: checklistName,
         todos: []
+    }
+}
+
+function getEmptyTodo(todoName){
+    return {
+        id: utilService.makeId(),
+        title: todoName
     }
 }
 

@@ -18,10 +18,15 @@
       <div class="main-card flex space-between">
         <div class="main-content">
           <div class="flex">
-            <div>Members</div>
+            
+            <div v-if="card.members">
+              <card-details-members
+                :members="card.members"
+              ></card-details-members>
+            </div>
             <div>
               <labels-preview :card="card"></labels-preview>
-              </div>
+            </div>
             <div>DueDate</div>
           </div>
           <div class="card-descrp">
@@ -48,7 +53,7 @@
                 placeholder="Add new description"
               ></textarea>
               <div>
-                <button class="clickable" @click="saveDescription">Save</button>
+                <el-button size="small" type="success" @click="saveDescription">Save</el-button>
                 <span class="clickable" @click.stop="closeDescriptionEdit"
                   ><i class="el-icon-close"></i
                 ></span>
@@ -57,7 +62,7 @@
           </div>
           <div v-if="card.checklists">
             <card-details-checklist
-              :checklists="card.checklists"
+              :card="card"
             ></card-details-checklist>
           </div>
           <div>
@@ -238,6 +243,9 @@ import checklist from "./checklist.vue";
 import cardDetailsChecklist from "./card-details-checklist.vue";
 import Avatar from 'vue-avatar-component';
 import labelsPreview from './labels-preview';
+import cardDetailsMembers from './card-details-members.vue';
+
+
 export default {
   name: "card-details",
   props: {
@@ -306,7 +314,7 @@ export default {
     changeBgColor(cover) {
       if (!cover) return;
       this.bgColorOfCard = cover.color;
-      console.log("🚀 ~ file: card-details.vue ~ line 299 ~ changeBgColor ~ this.bgColorOfCard", this.bgColorOfCard)
+      // console.log("🚀 ~ file: card-details.vue ~ line 299 ~ changeBgColor ~ this.bgColorOfCard", this.bgColorOfCard)
     },
   },
   components: {
@@ -322,19 +330,18 @@ export default {
     checklist,
     cardDetailsChecklist,
     Avatar,
-    labelsPreview
+    labelsPreview,
+    cardDetailsMembers
   },
   computed: {
     acts() {
       var board = JSON.parse(
         JSON.stringify(this.$store.getters.currBoard)
       );
-      console.log(board);
-      // var res = board.activities.filter(
-      //   (actv) => actv.card.id === this.card.id
-      // );
-      return [];
-      // return res;
+      var res = board.activities.filter(
+        (actv) => actv.card.id === this.card.id
+      );
+      return res;
     },
     membersToShow() {
       return "placeholder";
