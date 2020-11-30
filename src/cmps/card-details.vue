@@ -19,7 +19,9 @@
         <div class="main-content">
           <div class="flex">
             <div>Members</div>
-            <div>Labels</div>
+            <div>
+              <labels-preview :card="card"></labels-preview>
+              </div>
             <div>DueDate</div>
           </div>
           <div class="card-descrp">
@@ -235,6 +237,7 @@ import cardCover from "./card-cover.vue";
 import checklist from "./checklist.vue";
 import cardDetailsChecklist from "./card-details-checklist.vue";
 import Avatar from 'vue-avatar-component';
+import labelsPreview from './labels-preview';
 export default {
   name: "card-details",
   props: {
@@ -266,8 +269,9 @@ export default {
       this.currEdit = feature;
     },
     updatingCard(card) {
+      console.log("card-details card", card)
       this.card = card;
-      this.$emit("emitSaveBoard");
+      this.$emit("emitSaveBoard",this.card);
     },
     openColorModale() {
       this.edit("colorPicker");
@@ -317,7 +321,8 @@ export default {
     cardCover,
     checklist,
     cardDetailsChecklist,
-    Avatar
+    Avatar,
+    labelsPreview
   },
   computed: {
     acts() {
