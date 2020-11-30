@@ -1,7 +1,7 @@
 <template>
   <div class="flex column">
-    <div v-for="checklist in checklists" :key="checklist.id">
-        <checklist-todos :checklist="checklist"></checklist-todos>
+    <div v-for="checklist in card.checklists" :key="checklist.id">
+        <checklist-todos :checklist="checklist" :card="card"></checklist-todos>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@ import checklistTodos from "./checklist-todos.vue";
 
 export default {
   props:{
-    checklists: Array
+    card: Object
   },
   components: {
     checklistTodos

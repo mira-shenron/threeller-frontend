@@ -11,10 +11,21 @@
           <img width="45px" src="../assets/card-icons/card.png" alt="" />
           <span class="card-title">{{ card.title }}</span>
         </div>
-        <span class="clickable" @click="isShowDetails"><i class="el-icon-close"></i></span>
+        <span class="clickable" @click="isShowDetails"
+          ><i class="el-icon-close"></i
+        ></span>
       </div>
       <div class="main-card flex space-between">
         <div class="main-content">
+          <div class="flex">
+            <div v-if="card.members">
+              <card-details-members
+                :members="card.members"
+              ></card-details-members>
+            </div>
+            <div>Labels</div>
+            <div>DueDate</div>
+          </div>
           <div class="card-descrp">
             <div class="flex align-center">
               <img
@@ -39,16 +50,16 @@
                 placeholder="Add new description"
               ></textarea>
               <div>
-                <button class="clickable" @click="saveDescription">Save</button>
+                <el-button size="small" type="success" @click="saveDescription">Save</el-button>
                 <span class="clickable" @click.stop="closeDescriptionEdit"
-                  ><i class="el-icon-close"></i></span
-                >
+                  ><i class="el-icon-close"></i
+                ></span>
               </div>
             </div>
           </div>
           <div v-if="card.checklists">
             <card-details-checklist
-              :checklists="card.checklists"
+              :card="card"
             ></card-details-checklist>
           </div>
           <div>
@@ -63,7 +74,7 @@
               </div>
               <div class="activities-list">
                 <div class="flex align-center">
-                   <avatar :fullname="currUser" :size="40"></avatar>
+                  <avatar :fullname="currUser" :size="40"></avatar>
                   <input
                     class="comment-input"
                     placeholder="Write a comment..."
@@ -171,12 +182,12 @@
               <div class="action-name">Cover</div>
             </div>
             <edit-container :feature="'Cover'" v-if="currEdit === 'cover'">
-                <card-cover
-                  @updatingCard="updatingCard"
-                  slot="edit-body"
-                  :card="card"
-                  @changeBgColor="changeBgColor"
-                ></card-cover>
+              <card-cover
+                @updatingCard="updatingCard"
+                slot="edit-body"
+                :card="card"
+                @changeBgColor="changeBgColor"
+              ></card-cover>
             </edit-container>
           </div>
           <span class="action-type">Actions</span>
@@ -228,6 +239,9 @@ import cardCover from "./card-cover.vue";
 import checklist from "./checklist.vue";
 import cardDetailsChecklist from "./card-details-checklist.vue";
 import Avatar from 'vue-avatar-component';
+import cardDetailsMembers from './card-details-members.vue';
+
+
 export default {
   name: "card-details",
   props: {
@@ -310,19 +324,18 @@ export default {
     cardCover,
     checklist,
     cardDetailsChecklist,
-    Avatar
+    Avatar,
+    cardDetailsMembers
   },
   computed: {
     acts() {
       var board = JSON.parse(
         JSON.stringify(this.$store.getters.currBoard)
       );
-      console.log(board);
-      // var res = board.activities.filter(
-      //   (actv) => actv.card.id === this.card.id
-      // );
-      return [];
-      // return res;
+      var res = board.activities.filter(
+        (actv) => actv.card.id === this.card.id
+      );
+      return res;
     },
     membersToShow() {
       return "placeholder";
