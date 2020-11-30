@@ -3,6 +3,7 @@
     <div class="add-card-container">
         <el-input
           @change="addCard"
+          tabindex="-1"
           ref="textarea"
           class="list-card-composer-textarea"
           type="textarea"

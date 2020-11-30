@@ -1,28 +1,25 @@
 <template>
-  <section v-if="board" class="main-board-content ">
+  <section v-if="board" class="main-board-content">
     <div>Board: {{ board.title }}</div>
     <div class="board flex column">
-    <Container
-      orientation="horizontal"
-      drag-handle-selector=".list-header"
-      @drop="onColumnDrop($event)"
+      <Container
+        orientation="horizontal"
+        drag-handle-selector=".list-header"
+        @drop="onColumnDrop($event)"
         drag-class="column-ghost"
         drop-class="column-ghost-drop"
         :drop-placeholder="upperDropPlaceholderOptions"
-    >
-      <Draggable
-        v-for="list in board.groups"
-        :key="list.id"
       >
-        <list
-          @emitSaveBoard="saveBoard"
-          @showCardDetails="showCardDetails"
-          @emitCardDrop="onCardDrop"
-          :list="list"
-        ></list>
-      </Draggable>
-      <list-add @emitAddList="addList" />
-    </Container>
+        <Draggable v-for="list in board.groups" :key="list.id">
+          <list
+            @emitSaveBoard="saveBoard"
+            @showCardDetails="showCardDetails"
+            @emitCardDrop="onCardDrop"
+            :list="list"
+          ></list>
+        </Draggable>
+        <list-add @emitAddList="addList" />
+      </Container>
     </div>
     <div class="popup-details" v-if="isShowDetails">
       <card-details
@@ -52,6 +49,7 @@ import {
   COPY_LIST,
   MOVE_LIST,
   DELETE_CARD,
+  SAVE_LIST,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -196,6 +194,11 @@ export default {
         this.saveBoard();
       }
     },
+    saveList(newList) {
+      const idx = this.board.groups.findIndex((list) => list.id === newList.id);
+      this.board.groups.splice(idx, 1, newList);
+      this.saveBoard();
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
@@ -206,6 +209,7 @@ export default {
     eventBus.$on(SAVE_BOARD, this.saveBoard);
     eventBus.$on(SAVE_MEMBERS, this.saveMembers);
     eventBus.$on(DELETE_CARD, this.deleteCard);
+    eventBus.$on(SAVE_LIST, this.saveList);
   },
   directives: {
     clickOutside: vClickOutside.directive,

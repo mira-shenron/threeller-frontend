@@ -108,10 +108,12 @@
     max-height: fit-content;
 }
 
-.smooth-dnd-container.horizontal{
+.smooth-dnd-container.horizontal {
     flex: 1;
     display: flex;
-    .smooth-dnd-draggable.wrapper{
+    margin-left: 4px;
+
+    .smooth-dnd-draggable.wrapper {
         width: fit-content;
         margin: 0 4px;
         height: fit-content;

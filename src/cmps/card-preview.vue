@@ -1,7 +1,10 @@
 <template>
     <section class="card" :class="{[style.color]: style.type === 'full-cover' }">
         <div v-if="style.type==='half-cover'" class="cover" :class="{[style.color]: style.type === 'half-cover' }"></div>
-        <div>
+        <div class="card-container">
+            <div v-if="card.labels && style.type !== 'full-cover'" class="card-labels flex">
+                <div class="card-label" :class="label.color" v-for="label in card.labels" :key="label.id"></div>
+            </div>
         <div class="card-title">{{ card.title }}</div>
         </div>
     </section>
@@ -31,6 +34,7 @@ export default {
         if(this.card.style){
             this.style = this.card.style;
         }
+        console.log(this.card);
     }
 };
 </script>

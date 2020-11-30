@@ -8,4 +8,5 @@ export const SAVE_MEMBERS = 'save-members';
 export const DELETE_CARD = 'delete-card';
 export const COPY_LIST = 'copy-list';
 export const MOVE_LIST = 'move-list';
+export const SAVE_LIST = 'move-list';
 export const eventBus = new Vue();

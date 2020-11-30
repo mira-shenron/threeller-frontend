@@ -1,7 +1,17 @@
 <template>
   <section class="flex column list">
     <div class="list-header flex space-between align-center">
-      <h2 class="list-title">{{ list.title }}</h2>
+      <h2 v-if="!isShowEditName" @click="openNameEditor" class="list-title">
+        {{ list.title }}
+      </h2>
+      <div v-show="isShowEditName" class="input-container">
+        <el-input
+          ref="input"
+          @change="changeListName"
+          @blur="changeListName"
+          v-model="copiedList.title"
+        ></el-input>
+      </div>
       <div
         @click="toggleListMenu"
         class="list-menu-icn flex align-center clickable"
@@ -44,27 +54,27 @@
       </list-menu-action-container>
     </div>
     <div class="card-container">
-    <Container
-      @drop="onCardDrop"
-      group-name="list"
-      :get-child-payload="getCardPayload"
-      drag-class="card-ghost"
-      drop-class="card-ghost-drop"
-      :drop-placeholder="dropPlaceholderOptions"
-    >
-      <Draggable v-for="card in list.cards" :key="card.id">
-        <card-preview
-          @click.native="showCardDetails(card)"
-          @emitDelete="deleteCard"
-          :card="card"
-        ></card-preview>
-      </Draggable>
-      <card-add
-        v-if="isShowAddCard"
-        @emitAddCard="addCard"
-        @emitCloseAddCard="toggleAddCard"
-      ></card-add>
-    </Container>
+      <Container
+        @drop="onCardDrop"
+        group-name="list"
+        :get-child-payload="getCardPayload"
+        drag-class="card-ghost"
+        drop-class="card-ghost-drop"
+        :drop-placeholder="dropPlaceholderOptions"
+      >
+        <Draggable v-for="card in list.cards" :key="card.id">
+          <card-preview
+            @click.native="showCardDetails(card)"
+            @emitDelete="deleteCard"
+            :card="card"
+          ></card-preview>
+        </Draggable>
+        <card-add
+          v-if="isShowAddCard"
+          @emitAddCard="addCard"
+          @emitCloseAddCard="toggleAddCard"
+        ></card-add>
+      </Container>
     </div>
     <div
       v-if="!isShowAddCard"
@@ -88,6 +98,7 @@ import listCopy from "@/cmps/list-copy.vue";
 import listMove from "./list-move.vue";
 import cardAdd from "./card-add.vue";
 import { Container, Draggable } from "vue-smooth-dnd";
+import { eventBus, SAVE_LIST } from "@/services/event-bus.service.js";
 
 export default {
   props: {
@@ -110,11 +121,13 @@ export default {
       isShowListMenu: false,
       listActionType: null,
       isShowAddCard: false,
+      isShowEditName: false,
       dropPlaceholderOptions: {
         className: "drop-preview",
         animationDuration: "150",
         showOnTop: true,
       },
+      copiedList: null,
     };
   },
   methods: {
@@ -143,7 +156,7 @@ export default {
     toggleListMenu() {
       this.isShowListMenu = !this.isShowListMenu;
       this.listActionType = null;
-      console.log('wassap',this.isShowListMenu,this.listActionType);
+      console.log("wassap", this.isShowListMenu, this.listActionType);
     },
     closeListMenu() {
       this.isShowListMenu = false;
@@ -162,16 +175,28 @@ export default {
     getCardPayload(index) {
       return this.list.cards[index];
     },
-    onOpenCardFromMenu(){
+    onOpenCardFromMenu() {
       this.isShowListMenu = false;
       this.isShowAddCard = true;
-    }
+    },
+    openNameEditor() {
+      this.isShowEditName = true;
+      console.log(this.$refs.input);
+      this.$nextTick(() => this.$refs.input.focus())
+    },
+    changeListName() {
+      if (!this.copiedList.title) return;
+      this.isShowEditName = false;
+      eventBus.$emit(SAVE_LIST, this.copiedList);
+    },
     // updatingCard(card){
     // console.log("in list card:", card)
 
     // }
   },
-  created() {},
+  created() {
+    this.copiedList = JSON.parse(JSON.stringify(this.list));
+  },
   directives: {
     clickOutside: vClickOutside.directive,
   },
