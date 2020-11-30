@@ -3,19 +3,20 @@
         <div class="main-labels" v-click-outside="onClickOutside">
             <input type="text" placeholder="Search labels..." />
             <ul>
-                <li v-for="color in colorLabel" class="flex" :key="color.id">
+                <li v-for="(color) in colorLabel" class="flex" :key="color.id">
                     <span
                         class="card-label"
-                        :class="{ [color.color]: { color } }"
+                        :class="{ [color.color]: { color },picked:color.isPicked }"
                         @click="addLabel(color)"
                         >{{ color.txt }}</span
                     >
                     <button>🖊</button>
                 </li>
             </ul>
+        
         </div>
         <button @click.stop="openColorModale">Create a new label</button>
-        <button>Enable colo blind friendly mode</button>
+        <button>Enable color blind friendly mode</button>
     </div>
 </template>
 
@@ -40,6 +41,7 @@ export default {
             isShowModal: false,
             colorLabel: [],
             addColorsLabels: [],
+            labelPicked:null
             // pickedColor:['#89b4c4'],
         };
     },
@@ -48,24 +50,35 @@ export default {
         onClickOutside() {
             if (this.card) {
                 eventBus.$emit(CLOSE_EDIT);
-                this.$emit("updatingCard", this.card);
             }
-            this.$emit("changeColorList");
+            // this.$emit("changeColorList");//לא מצאתי
         },
         openColorModale() {
             this.$emit("openColorModale");
         },
-        addLabel(color) {
+        addLabel(color,idx) {
+            // console.log("!!!!click", color);
             const colorIdx = this.card.labels.findIndex(
-                (currColor) => currColor.color === color.color
+                (currColor) => currColor.id === color.id
             );
+            this.labelPicked=idx
+            console.log("colorIdx", colorIdx);
             if (colorIdx === -1) {
                 this.card.labels.push(color);
-            } else this.card.labels.splice(colorIdx, 1);
+                // this.card.labels[-1].isPicked=true
+                // this.labelPicked=true
+            } else {
+                console.log('deliting')
+                this.card.labels.splice(colorIdx, 1);
+                // this.card.labels[colorIdx].isPicked=false
+                //  this.labelPicked=false
+            }
+            console.log("this.card", this.card);
+            this.$emit("updatingCard", this.card);
         },
     },
     created() {
-        var colorList=this.$store.getters.currBoard.colorList
+        var colorList = this.$store.getters.currBoard.colorList;
         if (!colorList) {
             const basicColor = [
                 "green",
@@ -79,16 +92,18 @@ export default {
                 boardService.getEmptyColorLabel(color)
             );
             this.colorLabel = coloros;
-        }else this.colorLabel=colorList
+        } else this.colorLabel = colorList;
         //לסדר את הצבעים שיוסיף אותם כמו שצריך לשנות להם לשם עם האותיות הרלוונטיות
         if (!this.card.labels) {
             this.card.labels = [];
         }
-
         if (this.chooseColor.color) {
             this.colorLabel.push(this.chooseColor);
             this.$emit("updatListOfColors", this.colorLabel);
         }
+        // this.colorLabel.forEach(label=>{
+        //     label.isPicked=false
+        // })
     },
     directives: {
         clickOutside: vClickOutside.directive,

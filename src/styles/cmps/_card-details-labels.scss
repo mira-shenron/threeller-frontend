@@ -1,0 +1,47 @@
+.card-details-labels{
+    span{
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: block;
+        float: left;
+        font-weight: 600;
+        height: 32px;
+        line-height: 32px;
+        margin: 0 4px 4px 0;
+        min-width: 40px;
+        padding: 0 12px;
+        width: auto;
+    
+        & .card-label.green{
+            background-color: $labelGreen;
+        }
+        & .card-label.yellow{
+          background-color: $labelYellow;
+        }
+        & .card-label.orange{
+          background-color: $labelOrange;
+        }
+        & .card-label.red{
+          background-color: $labelRed;
+        }
+        & .card-label.purple{
+          background-color: $labelPurple;
+        }
+        & .card-label.blue{
+          background-color: $labelBlue;
+        }
+        & .card-label.lime{
+          background-color: $labelLime;
+        }
+        & .card-label.sky{
+          background-color: $labelSky;
+        }
+        & .card-label.pink{
+          background-color: $labelPink;
+        }
+        & .card-label.black{
+          background-color: $labelBlack;
+        }
+
+    }    
+}   

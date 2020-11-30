@@ -1,0 +1,30 @@
+.card-details-due-date{
+    .time-to-show{
+        background-color: rgba(9,30,66,.04);
+        cursor: pointer;
+        height: 32px;
+        max-width: 300px;
+        overflow: hidden;
+        padding: 6px 12px;
+        position: relative;
+        text-overflow: ellipsis;
+        transition-property: background-color,border-color,box-shadow;
+        transition-duration: 85ms;
+        transition-timing-function: ease;
+        span{
+            background-color: #5aac44;
+            color: #fff;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 0 4px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            margin: auto 0 auto 8px;
+        }
+    }
+    & label.el-checkbox{
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+    }
+}
