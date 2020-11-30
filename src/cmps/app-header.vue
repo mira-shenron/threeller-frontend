@@ -34,7 +34,7 @@ export default {
   name: "app-header",
   methods:{
     goToHomePage(){
-      this.$router.push('/');
+      this.$router.push('/home');
     }
   }
 };

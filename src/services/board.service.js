@@ -14,15 +14,15 @@ export const boardService = {
 }
 
 function query() {
-    return httpService.get('boards')
+    return httpService.get('board')
 }
 
 function getById(id) {
-    return httpService.get(`boards/${id}`)
+    return httpService.get(`board/${id}`)
 }
 
 function remove(id) {
-    return httpService.delete(`boards/${id}`)
+    return httpService.delete(`board/${id}`)
 }
 
 function save(board) {
@@ -31,17 +31,12 @@ function save(board) {
 }
 
 function update(board) {
-    return httpService.put(`boards/${board._id}`, board)
+    return httpService.put(`board/${board._id}`, board)
 }
 
 function add(board) {
-    return httpService.post(`boards`, board)
-}
-
-function getEmptyBoard() {
-    return {
-        //TODO
-    }
+    console.log('posting board')
+    return httpService.post(`board`, board)
 }
 
 function getEmptyList(listName) {
@@ -61,7 +56,7 @@ function getEmptyChecklist(checklistName) {
     }
 }
 
-function getEmptyTodo(todoName){
+function getEmptyTodo(todoName) {
     return {
         id: utilService.makeId(),
         title: todoName
@@ -78,6 +73,56 @@ function getEmptyColorLabel(color = '') {
 
     }
 
+}
+
+function getEmptyBoard(boardName, currUser) {
+    return {
+        title: boardName,
+        createdAt: Date.now(),
+        createdBy: currUser,
+        style: {},
+        members: [],
+        groups: [],
+        activities: [],
+        colorList: [
+            {
+                "id": "XEGHq",
+                "color": "green",
+                "blindMode": "",
+                "txt": ""
+            },
+            {
+                "id": "NEeA6",
+                "color": "yellow",
+                "blindMode": "",
+                "txt": ""
+            },
+            {
+                "id": "GoSzl",
+                "color": "orange",
+                "blindMode": "",
+                "txt": ""
+            },
+            {
+                "id": "ricgk",
+                "color": "red",
+                "blindMode": "",
+                "txt": ""
+            },
+            {
+                "id": "uZ1KX",
+                "color": "purple",
+                "blindMode": "",
+                "txt": ""
+            },
+            {
+                "id": "ki1py",
+                "color": "blue",
+                "blindMode": "",
+                "txt": ""
+            }
+        ],
+    }
 }
 
 

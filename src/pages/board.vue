@@ -111,7 +111,7 @@ export default {
       newList.cards.splice(idx, 0, card);
       this.saveBoard();
     },
-    saveMembers(card) {
+    updateCardInBoard(card) {
       var groupIdx = -1;
       var cardIdx = -1;
       for (let i = 0; i < this.board.groups.length; i++) {
@@ -166,7 +166,7 @@ export default {
     eventBus.$on(MOVE_LIST, this.moveList);
     eventBus.$on(CLOSE_DETAILS, this.closeModal);
     eventBus.$on(SAVE_BOARD, this.saveBoard);
-    eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+    eventBus.$on(SAVE_MEMBERS, this.updateCardInBoard);
     eventBus.$on(DELETE_CARD, this.deleteCard);
   },
   directives: {

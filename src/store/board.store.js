@@ -26,7 +26,7 @@ export default {
         setCurrBoard(state, { boardId }) {
             state.currBoard = state.boards.find(board => board._id === boardId);
         },
-        saveBoard(state, { board }) {
+        setBoard(state, { board }) {
             state.currBoard = board;
         }
         
@@ -39,7 +39,7 @@ export default {
             commit({ type: 'setIsLoading', isLoading: false });
         },
         async saveBoard({ commit }, { board }) {
-            commit({ type: 'saveBoard', board });
+            commit({ type: 'setBoard', board });
             boardService.save(board);
         },
     }
