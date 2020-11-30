@@ -7,8 +7,14 @@
       </div>
       <div class="list-menu-content">
         <ul class="clean-list list-actions">
+          <li @click="openAddCardCmp">Add Card...</li>
           <li @click="chooseAction('copyList')">Copy List...</li>
           <li @click="chooseAction('moveList')">Move List...</li>
+        </ul>
+      </div>
+     <div class="list-menu-content">
+        <ul class="clean-list list-actions">
+          <li @click="onEmitDeleteList">Delete This List</li>
         </ul>
       </div>
     </div>
@@ -24,6 +30,12 @@ export default {
       },
       chooseAction(type){
           this.$emit('emitChooseAction',type)
+      },
+      openAddCardCmp(){
+        this.$emit('emitOpenAddCard')
+      },
+      onEmitDeleteList(){
+        console.log('to delete');
       }
   },
 };
