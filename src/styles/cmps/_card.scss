@@ -10,6 +10,7 @@
   .card-container {
     padding: 6px 8px 2px;
     height: auto;
+
     .card-title {
       font-weight: 400;
       font-family: sans-serif;
@@ -19,14 +20,68 @@
       overflow-wrap: anywhere;
     }
 
-    .card-labels{
+    .card-labels {
       flex-wrap: wrap;
-      .card-label{
+
+      .card-label {
         border-radius: rem(4px);
         width: rem(40px);
         height: rem(8px);
         margin: 0 4px 4px 0;
       }
+    }
+
+    .card-badges {
+      max-width: 100%;
+      height: fit-content;
+      float: left;
+      margin-left: -2px;
+
+      &>* {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        i {
+          display: inline-block;
+          font-size: rem(16px);
+          padding: 2px;
+        }
+
+        .badge-text {
+          vertical-align: top;
+          display: inline-block;
+          font-size: rem(12px);
+          line-height: rem(20px);
+          padding: 0 4px 0 2px;
+        }
+
+        color: #5e6c84;
+        margin: 0 4px 4px 0;
+        padding: 2px;
+      }
+
+      //Due Date
+
+      .due-date {
+        order: 1;
+
+        &.done {
+          color: #fff;
+          background-color: $labelGreen
+        }
+
+        &.overdue {
+          color: #fff;
+          background-color: #EC9488;
+        }
+
+        &.due-soon {
+          color: #fff;
+          background-color: #F2D600;
+        }
+      }
+
     }
   }
 
