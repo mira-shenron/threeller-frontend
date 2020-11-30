@@ -2,7 +2,7 @@
   <div>
     <div class="block">
       <el-date-picker
-        v-model="time"
+        v-model="dueDate.time"
         type="datetime"
         placeholder="Select date and time"
         @change="changeDueDate"
@@ -14,11 +14,6 @@
   </div>
 </template>
 <script>
-import {
-  eventBus,
-  SAVE_BOARD,
-  CLOSE_DETAILS,
-} from "@/services/event-bus.service.js";
 
 export default {
   props: {
@@ -28,18 +23,27 @@ export default {
   },
   data() {
     return {
-      time: "",
+      // time: "",
+      dueDate:{
+        time:'',
+        isComplete:false
+      }
     };
   },
   methods: {
     changeDueDate() {
-      this.card.dueDate = this.time;
-      eventBus.$emit(SAVE_BOARD);
-      eventBus.$emit(CLOSE_DETAILS);
+      this.card.dueDate = this.dueDate;
+      console.log('this.card:  ',this.card)
+      this.$emit("updatingCard", this.card);
+      // eventBus.$emit(SAVE_BOARD);
     },
   },
   created() {
-    this.card.dueDate ? this. time = this.card.dueDate : this.time = '';
+    if(typeof(this.card.dueDate)==='number'){
+      this.card.dueDate ? this.dueDate.time = this.card.dueDate : this.dueDate;
+    }else if(typeof(this.card.dueDate)==='object'){
+      this.card.dueDate ? this.dueDate.time = this.card.dueDate.time : this.dueDate;
+    }
   },
 };
 </script>                        

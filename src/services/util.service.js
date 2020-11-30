@@ -29,7 +29,10 @@ function showTime(timeStemp) {
     var currTimeStemp = Date.now()
     var diff = currTimeStemp - timeStemp
     var timeForDispaly
-    if (diff < (1000 * 60 * 60)) {
+    if(diff<0){
+        timeForDispaly = new Date(timeStemp).toDateString().substring(4, 10) //'Nov 04 at 2:40 AM'
+        return timeForDispaly + ' at ' + new Date(timeStemp).toLocaleString('en-us', { hour: 'numeric', minute: 'numeric', hour12: true })
+    }else if (diff < (1000 * 60 * 60)) {
         currTimeStemp = Date.now()
         diff = currTimeStemp - timeStemp
         timeForDispaly = Math.floor(diff / (1000 * 60))
@@ -42,7 +45,7 @@ function showTime(timeStemp) {
         return timeForDispaly + ' hours ago'
         // "3 hours ago"
     } else if (diff >= (1000 * 60 * 60 * 24)) {
-        timeForDispaly = new Date(timeStemp).toDateString().substring(4, 10) //'Nov 04 at 14:70'
+        timeForDispaly = new Date(timeStemp).toDateString().substring(4, 10) //'Nov 04 at 14:40'
         return timeForDispaly + ' at ' + new Date(timeStemp).toLocaleString('en-us', { hour: 'numeric', minute: 'numeric', hour12: false })
     }
     // console.log (timeForDispaly)
@@ -54,6 +57,6 @@ export default {
     makeId,
     getRandomInt,
     moveArray,
-    showTime
+    showTime,
 };
 

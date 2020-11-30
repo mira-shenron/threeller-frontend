@@ -4,8 +4,10 @@
     background-color: #EBECF0;
     border-radius: 3px;
     max-height: 100%;
-    
+    margin: 0 4px;
+
     .list-header {
+        cursor: pointer;
         margin: 0 4px;
         height: rem(40px);
         text-align: left;
@@ -13,13 +15,33 @@
         position: relative;
 
         .list-title {
-            font-size: rem(14px);
+            width: 90%;
             padding: 10px 8px;
+            font-size: rem(14px);
             margin: 0;
-            max-width: 90%;
             height: auto;
             overflow-wrap: anywhere;
         }
+
+        .input-container {
+            border-radius: 3px;
+            height: rem(38px);
+            width: 90%;
+            padding: 5px 0px;
+
+            .el-input__inner {
+                font-family: Poppins;
+                padding: 7px;
+                width: 100%;
+                font-size: rem(14px);
+                height: rem(24px);
+            }
+        }
+
+
+
+
+
 
         .list-menu-icn {
             right: 0;
@@ -41,8 +63,9 @@
         gap: 8px;
         padding: 0 4px;
         margin: 0 4px;
-        margin-bottom: 8px;
+        max-height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
 
         &::-webkit-scrollbar {
             width: 8px;
@@ -58,12 +81,6 @@
         &::-webkit-scrollbar-track {
             background: #b8b8b869;
             border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-button {
-            width: 0;
-            height: 0;
-            display: none;
         }
     }
 
@@ -86,4 +103,22 @@
             font-size: rem(16px);
         }
     }
+}
+
+//DnD
+.drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    /* border: 1px dashed #abc; */
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.card-ghost {
+    transition: transform 0.18s ease;
+    transform: rotateZ(5deg);
+}
+
+.card-ghost-drop {
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg);
 }

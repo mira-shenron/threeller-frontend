@@ -1,31 +1,22 @@
 .board {
     flex: 1;
-    gap: 8px;
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     margin-bottom: 8px;
     padding-bottom: 8px;
 
-    &>:first-child {
-        margin-left: 8px;
-    }
-
-    &>:last-child {
-        margin-right: 8px;
-    }
-
     .add-list-container {
         height: fit-content;
         order: 1;
-        padding: 0 4px 4px;
+        margin-right: 8px;
+        margin-left: 4px;
         width: 272px;
 
         .list-placeholder-container {
             width: 272px;
-
-            border-radius: 3px;
             background-color: rgba(0, 0, 0, .1);
+            border-radius: 3px;
 
             .list-placeholder {
                 padding: 6px 8px;
@@ -60,7 +51,7 @@
             width: 272px;
             background-color: #EBECF0;
 
-            .el-input__inner{
+            .el-input__inner {
                 margin-bottom: 4px;
             }
 
@@ -97,4 +88,34 @@
     background-color: rgba(8, 8, 8, 0.5);
     height: 100%;
     width: 100%;
+}
+
+
+//DnD
+.column-ghost {
+    transition: transform 0.18s ease;
+    transform: rotateZ(5deg);
+}
+
+.column-ghost-drop {
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg);
+}
+
+.cards-drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border-radius: 3px;
+    max-height: fit-content;
+}
+
+.smooth-dnd-container.horizontal {
+    flex: 1;
+    display: flex;
+    margin-left: 4px;
+
+    .smooth-dnd-draggable.wrapper {
+        width: fit-content;
+        margin: 0 4px;
+        height: fit-content;
+    }
 }
