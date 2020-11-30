@@ -24,12 +24,14 @@
       class="add-list-composer"
       v-click-outside="closeAddListComposer"
     >
-      <el-input
-        ref="addListInput"
-        type="text"
-        placeholder="Enter list title..."
-        v-model="listName"
-      />
+      <form @submit.prevent="addList">
+        <el-input
+          ref="addListInput"
+          type="text"
+          placeholder="Enter list title..."
+          v-model="listName"
+        />
+      </form>
       <div class="list-controls flex">
         <el-button type="success" @click="addList">Add List</el-button>
         <div

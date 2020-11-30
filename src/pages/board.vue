@@ -1,23 +1,29 @@
 <template>
     <section v-if="board" class="main-board-content">
         <div>Board: {{ board.title }}</div>
-        <div class="board flex">
-            <div
-                class="list-wrapper"
-                v-for="list in board.groups"
-                :key="list.id"
+        <div class="board flex column">
+            <Container
+                orientation="horizontal"
+                drag-handle-selector=".list-header"
+                @drop="onColumnDrop($event)"
+                drag-class="column-ghost"
+                drop-class="column-ghost-drop"
+                :drop-placeholder="upperDropPlaceholderOptions"
             >
-                <list
-                    @emitSaveBoard="saveBoard"
-                    @showCardDetails="showCardDetails"
-                    :list="list"
-                ></list>
-            </div>
-            <list-add @emitAddList="addList" />
+                <Draggable v-for="list in board.groups" :key="list.id">
+                    <list
+                        @emitSaveBoard="saveBoard"
+                        @showCardDetails="showCardDetails"
+                        @emitCardDrop="onCardDrop"
+                        :list="list"
+                    ></list>
+                </Draggable>
+                <list-add @emitAddList="addList" />
+            </Container>
         </div>
         <div class="popup-details" v-if="isShowDetails">
             <card-details
-                @emitSaveBoard="saveMembers"
+                @emitSaveBoard="updateCardInBoard"
                 @closeModal="closeModal"
                 :card="cardDetailsToShow"
                 :members="board.members"
@@ -45,6 +51,8 @@ import {
     DELETE_CARD,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
+import { Container, Draggable } from "vue-smooth-dnd";
+import { applyDrag } from "@/services/dnd.service.js";
 
 export default {
     name: "board",
@@ -53,6 +61,8 @@ export default {
         cardDetails,
         list,
         listAdd,
+        Container,
+        Draggable,
     },
     computed: {
         board() {
@@ -63,6 +73,11 @@ export default {
         return {
             isShowDetails: false,
             cardDetailsToShow: null,
+            upperDropPlaceholderOptions: {
+                className: "cards-drop-preview",
+                animationDuration: "150",
+                showOnTop: true,
+            },
         };
     },
     methods: {
@@ -84,7 +99,7 @@ export default {
                 }
             }
             // this.$store.getters.boards
-            console.log("🚀boards", this.$store.getters.currBoard)
+            console.log("🚀boards", this.$store.getters.currBoard);
             const board = JSON.parse(JSON.stringify(this.board));
             console.log("save board:", board);
             this.$store.dispatch({
@@ -123,7 +138,7 @@ export default {
             newList.cards.splice(idx, 0, card);
             this.saveBoard();
         },
-        saveMembers(card) {
+        updateCardInBoard(card) {
             var groupIdx = -1;
             var cardIdx = -1;
             for (let i = 0; i < this.board.groups.length; i++) {
@@ -172,6 +187,25 @@ export default {
             board.groups.splice(newIdx, 0, board.groups.splice(oldIdx, 1)[0]);
             this.saveBoard();
         },
+        onColumnDrop(dropResult) {
+            const board = Object.assign({}, this.board);
+            this.board.groups = applyDrag(board.groups, dropResult);
+            this.saveBoard();
+        },
+        onCardDrop({ listId, dropResult }) {
+            if (
+                dropResult.removedIndex !== null ||
+                dropResult.addedIndex !== null
+            ) {
+                const board = Object.assign({}, this.board);
+                const list = board.groups.filter((l) => l.id === listId)[0];
+                const listIndex = board.groups.indexOf(list);
+                const newList = Object.assign({}, list);
+                newList.cards = applyDrag(newList.cards, dropResult);
+                board.groups.splice(listIndex, 1, newList);
+                this.saveBoard();
+            }
+        },
     },
     created() {
         eventBus.$on(MOVE_CARD, this.moveCard);
@@ -180,7 +214,7 @@ export default {
         eventBus.$on(MOVE_LIST, this.moveList);
         eventBus.$on(CLOSE_DETAILS, this.closeModal);
         eventBus.$on(SAVE_BOARD, this.saveBoard);
-        eventBus.$on(SAVE_MEMBERS, this.saveMembers);
+        eventBus.$on(SAVE_MEMBERS, this.updateCardInBoard);
         eventBus.$on(DELETE_CARD, this.deleteCard);
     },
     directives: {
@@ -188,17 +222,6 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped >
-.popup-details {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(8, 8, 8, 0.5);
-    height: 100%;
-    width: 100%;
-}
-</style>
   
 
 

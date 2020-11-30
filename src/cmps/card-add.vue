@@ -1,8 +1,8 @@
 <template>
-  <section class="card-composer">
+  <section class="card-composer" v-click-outside="closeAddCard">
     <div class="add-card-container">
-      <form @submit.prevent="addCard">
         <el-input
+          @change="addCard"
           ref="textarea"
           class="list-card-composer-textarea"
           type="textarea"
@@ -12,7 +12,6 @@
           v-model="txt"
         >
         </el-input>
-      </form>
     </div>
     <div class="card-controls flex">
       <el-button type="success" @click="addCard">Add Card</el-button>
@@ -24,6 +23,7 @@
 </template>
 
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "card-add",
   data() {
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     addCard() {
-      if (this.txt === "") return
+      if (this.txt === "") return;
       this.$emit("emitAddCard", this.txt);
       this.txt = "";
     },
@@ -44,6 +44,9 @@ export default {
   },
   mounted() {
     this.$refs.textarea.focus();
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

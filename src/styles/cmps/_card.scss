@@ -1,53 +1,70 @@
 .card {
-   font-size: rem(14px);
-    text-align: left;
-    background-color: white;
-    box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
-    color: #172b4d;
-    border-radius: 5px;
-    
-    .card-title{
-      padding: 6px 8px 2px;
-      font-weight: 400;
-      font-family: sans-serif;
-      font-size: rem(14px);
-      margin-bottom: 4px;
-      color: $card-details-color;
-    }
-    
-    &.green{
-        background-color: $labelGreen;
-    }
-    &.yellow{
-      background-color: $labelYellow;
-     }
-    &.orange{
-      background-color: $labelOrange;
-     }
-    &.red{
-      background-color: $labelRed;
-     }
-    &.purple{
-      background-color: $labelPurple;
-     }
-    &.blue{
-      background-color: $labelBlue;
-     }
-    &.lime{
-      background-color: $labelLime;
-     }
-    &.sky{
-      background-color: $labelSky;
-     }
-    &.pink{
-      background-color: $labelPink;
-     }
-    &.black{
-      background-color: $labelBlack;
-    }
-    & .cover{
-       height: 2rem;
-       border-radius: 5px 5px 0 0;
-      
-    }
+  font-size: rem(14px);
+  text-align: left;
+  background-color: white;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+  color: #172b4d;
+  border-radius: 5px;
+
+  .card-title {
+    padding: 6px 8px 2px;
+    font-weight: 400;
+    font-family: sans-serif;
+    font-size: rem(14px);
+    margin-bottom: 8px;
+    color: $card-details-color;
+    overflow-wrap: anywhere;
+  }
+
+  //DnD
+  .smooth-dnd-container.horizontal {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &.green {
+    background-color: $labelGreen;
+  }
+
+  &.yellow {
+    background-color: $labelYellow;
+  }
+
+  &.orange {
+    background-color: $labelOrange;
+  }
+
+  &.red {
+    background-color: $labelRed;
+  }
+
+  &.purple {
+    background-color: $labelPurple;
+  }
+
+  &.blue {
+    background-color: $labelBlue;
+  }
+
+  &.lime {
+    background-color: $labelLime;
+  }
+
+  &.sky {
+    background-color: $labelSky;
+  }
+
+  &.pink {
+    background-color: $labelPink;
+  }
+
+  &.black {
+    background-color: $labelBlack;
+  }
+
+  & .cover {
+    height: 2rem;
+    border-radius: 5px 5px 0 0;
+
+  }
 }
