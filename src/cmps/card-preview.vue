@@ -34,7 +34,7 @@ export default {
         if(this.card.style){
             this.style = this.card.style;
         }
-        console.log(this.card);
+        // console.log(this.card);
     }
 };
 </script>
