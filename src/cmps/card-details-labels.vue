@@ -1,7 +1,7 @@
 <template>
-    <div class="labels-preview flex warp" v-if="card.labels">
+    <div class="card-details-labels flex column warp" v-if="haveLabels">
         <h3>Labels</h3>
-        <div >
+        <div class="flex">
             <span
             v-for="label in labels"
                 :key="label.id"
@@ -18,7 +18,7 @@
 // import Avatar from 'vue-avatar-component';
 
 export default {
-    name:'labels-preview',
+    name:'card-details-labels',
     props: {
         card: Object,
     },
@@ -27,6 +27,10 @@ export default {
         return {};
     },
     computed: {
+        haveLabels(){
+            return this.card.labels.length
+
+        },
         labels() {
             return this.card.labels;
         },
