@@ -57,6 +57,6 @@ export default {
     makeId,
     getRandomInt,
     moveArray,
-    showTime
+    showTime,
 };
 
