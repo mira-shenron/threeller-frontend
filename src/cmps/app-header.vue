@@ -25,16 +25,28 @@
           />
         </svg>
       </div>
+      <avatar class="user-avatar" :fullname="username" :size="32"></avatar>
+      <div class="show-log-out">Log out</div>
     </nav>
   </header>
 </template>
 
 <script>
+import Avatar from 'vue-avatar-component';
+
 export default {
   name: "app-header",
   methods:{
     goToHomePage(){
-      this.$router.push('/home');
+      this.$router.push('/threeller/home');
+    }
+  },
+  components:{
+    Avatar
+  }, 
+  computed:{
+    username(){
+      return this.$store.getters.loggedinUser.fullName;
     }
   }
 };
