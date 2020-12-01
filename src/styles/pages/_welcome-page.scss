@@ -5,7 +5,8 @@
     .main-section{
         .section-one{
             text-align: center;
-     
+            min-height: 100vh;
+
             h2{
                 color: #0f0f0f;
                 font-size: 60px;
@@ -17,12 +18,14 @@
         }
        min-height: 80vh;
        .img-one{
+           margin-top: 30px;
            border-radius: 5px;
-           margin-top: 50px;
        }
 
        .section-two-container{
             background-color: #f0f6f5;
+            min-height: 100vh;
+            padding-bottom:150px;
        }
        .section-two{
            margin: 0 100px;
@@ -31,6 +34,14 @@
            color: black;
            vertical-align: middle;
            font-size: 100px;
+       }
+
+    //    .img-two{
+    //         margin-bottom: 50px;
+    //    }
+
+       .section-three-container{
+            min-height: 100vh;
        }
 
     }
@@ -79,11 +90,6 @@
     background: #d9dbda;
 }
 
-.video{
-    height: 100%; 
-    width: 100%;
-}
-
 h6{
     color: #5E6ECC;
     font-size: 18px;
@@ -98,4 +104,5 @@ h5{
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: -.005em;
+    color: black;
 }
