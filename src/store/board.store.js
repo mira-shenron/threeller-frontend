@@ -27,7 +27,6 @@ export default {
             state.currBoard = state.boards.find(board => board._id === boardId);
         },
         saveBoard(state, { board }) {
-            console.log('curr board', board)
             state.currBoard = board;
         },
         addBoard(state, { savedBoard }) {
@@ -45,6 +44,10 @@ export default {
         async saveBoard({ commit }, { board }) {
             // commit({ type: 'saveBoard', board });
             boardService.save(board);
+            commit({ type: 'saveBoard', board });
+        },
+        async updateBoard({ commit }, { board }) {
+            // boardService.save(board);
             commit({ type: 'saveBoard', board });
         },
         async addBoard({ commit }, { board }) {
