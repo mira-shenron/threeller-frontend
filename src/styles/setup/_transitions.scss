@@ -1,0 +1,20 @@
+
+.menu-slide-enter-active{
+    animation: backInRight;
+    animation-duration: 0.5s;
+}
+
+.menu-slide-leave-active {   
+    animation: backOutRight;
+    animation-duration: 0.5s;
+}
+
+.menu-icn-animation-enter-active{
+    animation: bounceInDown;
+    animation-duration: 0.5s;
+}
+
+.menu-icn-animation-leave-active {   
+    animation: bounceOutUp;
+    animation-duration: 0.5s;
+}

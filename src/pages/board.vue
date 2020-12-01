@@ -1,35 +1,73 @@
 <template>
   <section v-if="board" class="main-board-content">
-    <div>Board: {{ board.title }}</div>
-    <div class="board flex column">
-      <Container
-        orientation="horizontal"
-        drag-handle-selector=".list-header"
-        @drop="onColumnDrop($event)"
-        drag-class="column-ghost"
-        drop-class="column-ghost-drop"
-        :drop-placeholder="upperDropPlaceholderOptions"
-      >
-        <Draggable v-for="list in board.groups" :key="list.id">
-          <list
-            @emitSaveBoard="saveBoard"
-            @showCardDetails="showCardDetails"
-            @emitCardDrop="onCardDrop"
-            :list="list"
-          ></list>
-        </Draggable>
-        <list-add @emitAddList="addList" />
-      </Container>
-    </div>
-    <div class="popup-details" v-if="isShowDetails">
-      <card-details
-        @emitSaveBoard="updateCardInBoard"
-        @closeModal="closeModal"
-        :card="cardDetailsToShow"
-        :members="board.members"
-      >
-      </card-details>
-    </div>
+    <main class="board-container">
+      <div class="board-header flex space-between">
+        <div class="board-title-container">
+          <h1
+            v-if="!isShowEditTitle"
+            @click="openTitleEditor"
+            class="board-title clickable"
+          >
+            {{ board.title }}
+          </h1>
+          <div v-show="isShowEditTitle" class="board-input-container">
+            <el-input
+              ref="boardInput"
+              @change="changeBoardTitle"
+              @blur="changeBoardTitle"
+              v-model="boardTitle"
+            ></el-input>
+          </div>
+        </div>
+        <transition name="menu-icn-animation">      
+        <div
+          v-if="!isShowBoardMenu"
+          class="board-menu-btn clickable flex"
+          @click="toggleBoardMenu"
+        >
+          <div class="board-menu-icn flex align-center">
+            <i class="el-icon-more"></i>
+          </div>
+          <div class="board-menu-text flex align-center">Show Menu</div>
+        </div>
+        </transition>
+      </div>
+      <div class="board flex column">
+        <Container
+          orientation="horizontal"
+          drag-handle-selector=".list-header"
+          @drop="onColumnDrop($event)"
+          drag-class="column-ghost"
+          drop-class="column-ghost-drop"
+          :drop-placeholder="upperDropPlaceholderOptions"
+        >
+          <Draggable v-for="list in board.groups" :key="list.id">
+            <list
+              @emitSaveBoard="saveBoard"
+              @showCardDetails="showCardDetails"
+              @emitCardDrop="onCardDrop"
+              :list="list"
+            ></list>
+          </Draggable>
+          <list-add @emitAddList="addList" />
+        </Container>
+      </div>
+      <div class="popup-details" v-if="isShowDetails">
+        <card-details
+          @emitSaveBoard="updateCardInBoard"
+          @closeModal="closeModal"
+          :card="cardDetailsToShow"
+          :members="board.members"
+        >
+        </card-details>
+      </div>
+    </main>
+    <transition name="menu-slide">
+    <aside v-if="isShowBoardMenu" class="board-menu">
+      wassap menu
+      <span @click="toggleBoardMenu" class="clickable">CloseX</span>
+      </aside>
+    </transition>
   </section>
 </template>
 
@@ -79,6 +117,9 @@ export default {
         animationDuration: "150",
         showOnTop: true,
       },
+      boardTitle: null,
+      isShowEditTitle: false,
+      isShowBoardMenu: false,
     };
   },
   methods: {
@@ -127,7 +168,6 @@ export default {
       this.saveBoard();
     },
     copyCard({ list, idx, card }) {
-      console.log(list, idx, card);
       const board = this.board;
       const newList = board.groups.find((newList) => newList.id === list.id);
       newList.cards.splice(idx, 0, card);
@@ -201,6 +241,20 @@ export default {
       this.board.groups.splice(idx, 1, newList);
       this.saveBoard();
     },
+    openTitleEditor() {
+      this.isShowEditTitle = true;
+      this.$nextTick(() => this.$refs.boardInput.focus());
+    },
+    changeBoardTitle() {
+      this.isShowEditTitle = false;
+      const board = this.board;
+      const newTitle = this.boardTitle;
+      board.title = newTitle;
+      this.saveBoard();
+    },
+    toggleBoardMenu() {
+      this.isShowBoardMenu = !this.isShowBoardMenu;
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
@@ -212,6 +266,7 @@ export default {
     eventBus.$on(SAVE_MEMBERS, this.updateCardInBoard);
     eventBus.$on(DELETE_CARD, this.deleteCard);
     eventBus.$on(SAVE_LIST, this.saveList);
+    this.boardTitle = this.board.title;
   },
   directives: {
     clickOutside: vClickOutside.directive,
