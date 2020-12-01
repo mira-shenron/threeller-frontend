@@ -3,7 +3,7 @@
     <div class="add-card-container">
         <el-input
           @change="addCard"
-          tabindex="-1"
+          @keydown.native.prevent.enter="addCard"
           ref="textarea"
           class="list-card-composer-textarea"
           type="textarea"

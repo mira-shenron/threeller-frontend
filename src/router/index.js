@@ -5,16 +5,34 @@ import board from '../pages/board.vue'
 import welcomePage from '../pages/welcome-page.vue'
 import loginPage from '../pages/login-page.vue'
 import signupPage from '../pages/signup-page.vue'
+import threeller from '../pages/threeller.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
-    name: 'home-page',
-    component: homePage
+    path: '/threeller',
+    name: 'threeller',
+    component: threeller,
+    children: [
+      {
+        path: 'home',
+        name: 'home-page',
+        component: homePage
+      },
+      {
+        path: 'board/:id?',
+        name: 'board',
+        component: board
+      },
+    ]
   },
+  // {
+  //   path: '/home',
+  //   name: 'home-page',
+  //   component: homePage
+  // },
   {
     path: '/',
     name: 'welcome-page',
@@ -30,12 +48,12 @@ const routes = [
     name: 'signup-page',
     component: signupPage
   },
-  {
-    path: '/board/:id?',
-    name: 'board',
-    component: board
-  },
-] 
+  // {
+  //   path: '/board/:id?',
+  //   name: 'board',
+  //   component: board
+  // },
+]
 
 const router = new VueRouter({
   mode: 'history',

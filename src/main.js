@@ -9,7 +9,8 @@ import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 import vClickOutside from 'v-click-outside';
 import VueInitialsImg from 'vue-initials-img';
-import moment from 'moment'
+import moment from 'moment';
+import 'animate.css'
 
 
 Vue.prototype.moment = moment

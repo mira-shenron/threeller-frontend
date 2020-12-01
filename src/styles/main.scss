@@ -3,6 +3,7 @@
 @import 'setup/variables';
 @import 'setup/mixins';
 @import 'setup/functions';
+@import 'setup/transitions';
 
 // BASICS
 @import 'basics/helpers';
@@ -12,6 +13,8 @@
 //PAGES
 @import 'pages/home-page';
 @import 'pages/board';
+@import 'pages/login-page';
+@import 'pages/welcome-page';
 
 // COMPONENTS
 @import 'cmps/scrollbar';
@@ -34,4 +37,7 @@
 @import 'cmps/card-checklist';
 @import 'cmps/card-details-due-date';
 @import 'cmps/card-due-date';
+@import 'cmps/board-menu';
+
+
 

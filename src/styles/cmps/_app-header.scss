@@ -4,6 +4,17 @@
     justify-content: space-between;
     padding: 2px;
 
+    .show-log-out{
+        display: none;
+        
+        width: 100px;
+        height:30px;
+    }
+
+    .user-avatar:hover + .show-log-out{
+        display: block;
+    }
+
     svg {
         fill: black;
     }
