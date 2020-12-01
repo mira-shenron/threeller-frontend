@@ -6,9 +6,13 @@
 
     .show-log-out{
         display: none;
-        
-        width: 100px;
-        height:30px;
+        position: absolute;
+        top:40px;
+        right:0;
+        width: 80px;
+        height:25px;
+        background-color: rgb(212, 211, 211);
+        border-radius: 5px;
     }
 
     .user-avatar:hover + .show-log-out{

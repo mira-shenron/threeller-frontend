@@ -29,6 +29,8 @@ export default {
         saveBoard(state, { board }) {
             console.log('curr board', board)
             state.currBoard = board;
+            const idx = state.boards.findIndex(currBoard => currBoard._id === board._id);
+            state.boards.splice(idx,1,board);
         },
         addBoard(state, { savedBoard }) {
             console.log('mutation', savedBoard)
