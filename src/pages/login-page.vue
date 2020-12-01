@@ -62,10 +62,6 @@ export default {
         callback: () => { }
       });
     }
-
-    // doLogout() {
-    //   this.$store.dispatch({ type: 'logout' })
-    // },
   }
 }
 </script>
