@@ -384,7 +384,9 @@ export default {
         changeBgColor(cover) {
             if (!cover) return;
             this.bgColorOfCard = cover.color;
-            // console.log("🚀 ~ file: card-details.vue ~ line 299 ~ changeBgColor ~ this.bgColorOfCard", this.bgColorOfCard)
+            this.card.style=cover
+            // console.log("this.bgColorOfCard",this.card)
+            // this.$emit("emitSaveBoard",this.card);
         },
     },
     components: {
@@ -422,6 +424,10 @@ export default {
         eventBus.$on(CLOSE_EDIT, () => {
             this.currEdit = null;
         });
+        console.log(this.card)
+        if(this.card.style){
+            this.bgColorOfCard=this.card.style.color
+        }
 
         this.descriptionOnDiv = this.card.description
             ? this.card.description

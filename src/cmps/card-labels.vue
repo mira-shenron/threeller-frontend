@@ -58,7 +58,7 @@ export default {
     },
     computed: {
         labelsToShow() {
-            console.log(this.colorLabel);
+            // console.log(this.colorLabel);
             if (!this.searchBy) return this.colorLabel;
             else
                 return this.colorLabel.filter(
@@ -86,18 +86,18 @@ export default {
                 (currColor) => currColor.id === color.id
             );
             this.labelPicked = idx;
-            console.log("colorIdx", colorIdx);
+            // console.log("colorIdx", colorIdx);
             if (colorIdx === -1) {
                 this.card.labels.push(color);
                 // this.card.labels[-1].isPicked=true
                 // this.labelPicked=true
             } else {
-                console.log("deliting");
+                // console.log("deliting");
                 this.card.labels.splice(colorIdx, 1);
                 // this.card.labels[colorIdx].isPicked=false
                 //  this.labelPicked=false
             }
-            console.log("this.card", this.card);
+            // console.log("this.card", this.card);
             this.$emit("updatingCard", this.card);
         },
     },

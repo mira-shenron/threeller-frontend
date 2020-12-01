@@ -1,12 +1,6 @@
 <template>
     <section @click.stop class="color-picker">
-        <!-- <div
-            @click="isPick = !isPick"
-            class="color-pick"
-            :style="{ backgroundColor: value }"
-        ></div> -->
-        <!-- <form @submit.prevent="addLabel()" > -->
-        <input type="text" placeholder="Name" v-model="pickedColor.txt" />
+        <el-input class="search" placeholder="Name" v-model="pickedColor.txt"></el-input>
         <div v-show="isPick" class="colors-controls flex warp align-center">
             <span
                 class="color-pick"
@@ -16,8 +10,8 @@
                 :key="color"
             ></span>
         </div>
-        <button @click="addLabel()">save</button>
-        <!-- </form> -->
+        <el-button @click="addLabel()" type="success">Save</el-button>
+       
     </section>
 </template>
 

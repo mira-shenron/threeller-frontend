@@ -54,7 +54,7 @@ export default {
         if (!this.card.dueDate) return
         const dueDate = new Date(this.card.dueDate.time)
         const nowDate = new Date(Date.now())
-        console.log(dueDate.getFullYear(), nowDate.getFullYear());
+        // console.log(dueDate.getFullYear(), nowDate.getFullYear());
         if (dueDate.getFullYear() - nowDate.getFullYear() !== 0) return true
         else return false
     },
@@ -78,7 +78,7 @@ export default {
     if (this.card.style) {
       this.style = this.card.style;
     }
-    console.log(this.dueDateClass);
+    // console.log(this.card);
   },
 };
 </script>
