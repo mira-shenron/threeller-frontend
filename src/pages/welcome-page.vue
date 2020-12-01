@@ -1,38 +1,46 @@
 <template>
-  <section class="home-page">
-    <div class="welcome-nav">
-      <h2>Welcome</h2>
-      <el-button type="primary" @click="goToLoginPage" round>Login</el-button>
-      <el-button type="warning" round @click="goToSignupPage">Sign Up</el-button>
-      <el-button type="success" round @click="guestLogin">Continue as guest</el-button>
+  <section class="welcome-container flex column">
+    <header class="welcome-header">
+      <div class="welcome-nav flex space-between align-center">
+        <div class="logo">
+          <span class="logo-first">Three</span
+          ><span class="logo-last">ller.</span>
+        </div>
+        <div class="nav-links">
+          <a class="clickable" @click="goToLoginPage">Login</a>
+          <a class="clickable" @click="goToSignupPage">Sign Up</a>
+          <a class="clickable" @click="guestLogin">Continue as guest</a>
+        </div>
+      </div>
+    </header>
+    <div class="main-section">
+      <div class="section-one">
+        <h6>task manager</h6>
+        <h2>Organize it all.</h2>
+        <a class="clickable start-here" @click="guestLogin">Start here ></a>
+        <div>
+          <img
+            class="img-one"
+            width="600px"
+            src="../assets/imgs/tasks.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="section-two-container">
+        <div class="section-two flex">
+          <div class="flex column">
+            <h6>All favorite features</h6>
+            <h5>
+              Get the same functions<br />
+              with better design
+            </h5>
+          </div>
+          <div>Placeholder</div>
+        </div>
+      </div>
     </div>
-    <br>
-    <div class="welcome-layout">
-      <el-row :gutter="20">
-        <el-col :span="10"
-          ><img src="../assets/imgs/clear.jpg" class="grid-content" alt=""
-        /></el-col>
-        <el-col :span="14"
-          ><div class="grid-content bg-purple-dark">cool stuff</div></el-col
-        >
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="14"
-          ><div class="grid-content bg-purple">cool stuff</div></el-col
-        >
-        <el-col :span="10"
-          ><img src="../assets/imgs/not-ideal.jpg" class="grid-content" alt=""
-        /></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="10"
-          ><img src="../assets/imgs/ideal.jpg" class="grid-content" alt=""
-        /></el-col>
-        <el-col :span="14"
-          ><div class="grid-content bg-purple">cool stuff</div></el-col
-        >
-      </el-row>
-    </div>
+    <footer class="footer">Footer Placeholder</footer>
   </section>
 </template>
 
