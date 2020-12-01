@@ -1,22 +1,32 @@
 <template>
     <div class="card-labels flex column">
         <div class="main-labels" v-click-outside="onClickOutside">
-            <input type="text" placeholder="Search labels..." />
+            <el-input
+                class="search"
+                placeholder="Search labels..."
+                v-model="searchBy"
+            ></el-input>
             <ul>
-                <li v-for="(color) in colorLabel" class="flex" :key="color.id">
+                <li v-for="color in labelsToShow" class="flex" :key="color.id">
                     <span
                         class="card-label"
-                        :class="{ [color.color]: { color },picked:color.isPicked }"
+                        :class="{
+                            [color.color]: { color },
+                            picked: color.isPicked,
+                        }"
                         @click="addLabel(color)"
                         >{{ color.txt }}</span
                     >
                     <button>🖊</button>
                 </li>
             </ul>
-        
         </div>
-        <button @click.stop="openColorModale">Create a new label</button>
-        <button>Enable color blind friendly mode</button>
+        <div class="btn-container">
+            <button class="label-btn-1" @click.stop="openColorModale">
+                Create a new label
+            </button>
+        </div>
+            <button>Enable color blind friendly mode</button>
     </div>
 </template>
 
@@ -41,11 +51,25 @@ export default {
             isShowModal: false,
             colorLabel: [],
             addColorsLabels: [],
-            labelPicked:null
+            labelPicked: null,
+            searchBy: "",
             // pickedColor:['#89b4c4'],
         };
     },
-    computed: {},
+    computed: {
+        labelsToShow() {
+            console.log(this.colorLabel);
+            if (!this.searchBy) return this.colorLabel;
+            else
+                return this.colorLabel.filter(
+                    (label) =>
+                        label.txt
+                            .toLowerCase()
+                            .includes(this.searchBy.toLowerCase()) ||
+                        label.color.includes(this.searchBy)
+                );
+        },
+    },
     methods: {
         onClickOutside() {
             if (this.card) {
@@ -56,19 +80,19 @@ export default {
         openColorModale() {
             this.$emit("openColorModale");
         },
-        addLabel(color,idx) {
+        addLabel(color, idx) {
             // console.log("!!!!click", color);
             const colorIdx = this.card.labels.findIndex(
                 (currColor) => currColor.id === color.id
             );
-            this.labelPicked=idx
+            this.labelPicked = idx;
             console.log("colorIdx", colorIdx);
             if (colorIdx === -1) {
                 this.card.labels.push(color);
                 // this.card.labels[-1].isPicked=true
                 // this.labelPicked=true
             } else {
-                console.log('deliting')
+                console.log("deliting");
                 this.card.labels.splice(colorIdx, 1);
                 // this.card.labels[colorIdx].isPicked=false
                 //  this.labelPicked=false

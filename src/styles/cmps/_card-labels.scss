@@ -6,6 +6,7 @@
             li {
                 margin-bottom: 4px;
                 span {
+                    height: 32px;
                     position: relative;
                     padding:  6px 12px ;
                     width: 100%;
@@ -61,11 +62,62 @@
                      justify-content: center;
                      width: 0;
                      height: 0;
-               }
-            }
+                    }
+                    // &:hover::before{
+                    //     box-shadow: 10px 2px black;
+                    // }
+                    
+                }
 
-
+                button{
+                    color: #000000;
+                    background-color: #fff;
+                    border: none;
+                    outline: none;
+                    font-size: 20px;
+                    // width: 10px;
+                    // height: 10px;
+                    &:hover{
+                        background-color:  rgba(9,30,66,.04);
+                    }
+                }
             }
+        }
+    }
+    &>.btn-container {
+        margin-left: 0;
+        button{
+            height: 32px;
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 5px;
+            text-align: center;
+            padding:6px 12px ;
+            outline: none;
+            border: none;
+            background-color:rgba(9,30,66,.04);
+            &:hover{
+                background-color: rgba(9,30,66,.08);
+            }
+            
+        }
+        background-color: #fff;
+        height: 50px;
+        border-bottom: 1px solid rgba(9, 30, 66, .13);
+        // width: 100%;
+    }
+    &>button{
+        height: 32px;
+        width: 100%;
+        background-color:rgba(9,30,66,.04);
+        margin-top: 8px;
+        border-radius: 5px;
+        text-align: center;
+        padding:6px 12px ;
+        outline: none;
+        border: none;
+        &:hover{
+            background-color: rgba(9,30,66,.08);
         }
     }
 
@@ -73,4 +125,46 @@
     //     width: ;
     //     background-color: $labelGreen;
     // }
+}
+.main-labels{
+    // .card-label.darken{
+    //     // display: inline;
+    //     // position: absolute;
+    //     // z-index: -1;
+    //     // left: 12px;
+    //     // width: 10px;
+    //     // opacity: 0;
+    // }
+    span.card-label:hover{
+        &.green{
+            box-shadow:-7px 0 darken($labelGreen,20%);
+        }
+        &.yellow{
+            box-shadow:-7px 0 darken($labelYellow,20%);
+         }
+        &.orange{
+            box-shadow:-7px 0 darken( $labelOrange,20%);
+         }
+        &.red{
+            box-shadow:-7px 0 darken( $labelRed,20%);
+         }
+        &.purple{
+            box-shadow:-7px 0 darken( $labelPurple,20%);
+         }
+        &.blue{
+            box-shadow:-7px 0 darken( $labelBlue,20%);
+         }
+        &.lime{  
+            box-shadow:-7px 0 darken( $labelLime,20%);
+         }
+        &.sky{
+            box-shadow:-7px 0 darken( $labelSky,20%);
+         }
+        &.pink{
+            box-shadow:-7px 0 darken($labelPink,20%);
+         }
+        &.black{
+            box-shadow:-7px 0 darken( $labelBlack,20%);
+        }
+    }
 }

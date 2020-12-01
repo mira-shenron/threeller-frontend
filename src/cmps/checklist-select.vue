@@ -1,5 +1,5 @@
 <template>
-  <el-select value-key="id" @change="changeVal" v-model="value" placeholder="(none)">
+  <el-select  value-key="id" @change="changeVal" v-model="value" placeholder="(none)">
     <el-option-group
       v-for="group in options"
       :key="group.label"
