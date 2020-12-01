@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <button v-if="pickedColor" @click.stop="removeBgColor">Remove Cover</button>
+            <button class="remove-btn clean-btn" v-if="pickedColor" @click.stop="removeBgColor">Remove Cover</button>
             <h4>Colors</h4>
             <div class="flex warp">
                 <button
@@ -98,8 +98,10 @@ export default {
             if(!this.pickedCover){
                 this.selectCoverType('half-cover')
             }
+            this.$emit("updatingCard", this.card)
             this.$emit('changeBgColor',{color,type:this.pickedCover})
-
+            // console.log('this.card',this.card)
+            
         },
         removeBgColor(){
             this.pickedColor=null

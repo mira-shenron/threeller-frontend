@@ -13,7 +13,7 @@
             :options="checklistOptions"
             class="checklist-select"
         ></checklist-select>
-        <button @click.stop="addChecklist">Add</button>
+        <el-button @click.stop="addChecklist" type="success">Add</el-button>
     </div>
 </template>
 
