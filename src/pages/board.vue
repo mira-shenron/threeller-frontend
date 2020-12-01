@@ -48,7 +48,7 @@
               @emitCardDrop="onCardDrop"
               :list="list"
             ></list>
-          </Draggable>
+          </Draggable>        
           <list-add @emitAddList="addList" />
         </Container>
       </div>
