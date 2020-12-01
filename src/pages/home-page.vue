@@ -2,32 +2,6 @@
 
 <template>
   <section class="home-page">
-    <div class="welcome-layout">
-      <el-row :gutter="20">
-        <el-col :span="10"
-          ><img src="../assets/imgs/clear.jpg" class="grid-content" alt=""
-        /></el-col>
-        <el-col :span="14"
-          ><div class="grid-content bg-purple-dark">cool stuff</div></el-col
-        >
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="14"
-          ><div class="grid-content bg-purple">cool stuff</div></el-col
-        >
-        <el-col :span="10"
-          ><img src="../assets/imgs/not-ideal.jpg" class="grid-content" alt=""
-        /></el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="10"
-          ><img src="../assets/imgs/ideal.jpg" class="grid-content" alt=""
-        /></el-col>
-        <el-col :span="14"
-          ><div class="grid-content bg-purple">cool stuff</div></el-col
-        >
-      </el-row>
-    </div>
     <div>
       <h2 class="boards">Boards</h2>
       <input v-model="newBoardName" placeholder="Enter name" />
@@ -60,25 +34,34 @@ export default {
   },
   computed: {
     boards() {
-      console.log(this.$store.getters.boards);
-      return this.$store.getters.boards;
+      var currUser = this.$store.getters.loggedinUser;
+      return this.$store.getters.boards.filter(board => board.createdBy._id === currUser._id
+        || this.checkIfMember(board.members, currUser));
     }
   },
   methods: {
+    checkIfMember(boardMembers, currUser) {
+      boardMembers.forEach(member => {
+        if (member._id === currUser._id) return true;
+      })
+      return false;
+    },
     openBoard(boardId) {
       this.$store.commit({ type: 'setCurrBoard', boardId });
-      this.$router.push(`/board/${boardId}`);
+      this.$router.push(`board/${boardId}`);
     },
     createBoard() {
       var currUser = this.$store.getters.loggedinUser;
-      console.log(currUser);
+      console.log('user:', currUser);
       var emptyBoard = boardService.getEmptyBoard(this.newBoardName, currUser);
 
       this.$store.dispatch({
-        type: "saveBoard",
+        type: "addBoard",
         board: emptyBoard,
       });
-      // console.log(emptyBoard);
+
+      var currBoardId = this.$store.getters.currBoard._id;
+      this.openBoard(currBoardId);
     }
   }
 };

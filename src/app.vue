@@ -1,45 +1,17 @@
 <template>
-  <div class="main-layout" id="app">
-    <app-header />
-    <div id="nav"> 
-    </div>
-    <router-view class="main-content"/>
-  </div>
+  <section>
+    <router-view />
+  </section>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: poppins;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
 
 <script>
-import appHeader from "./cmps/app-header.vue";
+
 export default {
+  name: 'app',
   components: {
-    appHeader,
-  },
-  created() {
-      this.$store.dispatch({
-        type: "loadBoards",
-      });
   },
 };
 </script>

@@ -1,15 +1,35 @@
 <template>
-  <section>
-      <h2>Sign Up</h2>
-      <form @submit.prevent="doSignup">
-        <input type="text" v-model="signupCred.email" placeholder="Email" />
-        <br />
-        <input type="text" v-model="signupCred.password" placeholder="Password"/>
-        <br />
-        <input type="text"  v-model="signupCred.username" placeholder="Full Name"/>
-        <br />
-        <button class="btn">Signup</button>
-      </form>
+  <section class="login-page">
+    <div class="login-section">
+      <h1 class="logo clickable">Threeller</h1>
+      <h2>Sign Up To Threeller</h2>
+      <el-input
+        class="input"
+        placeholder="Enter email"
+        v-model="signupCred.email"
+        clearable
+      ></el-input>
+      <el-input
+        class="input"
+        placeholder="Enter password"
+        v-model="signupCred.password"
+        show-password
+      ></el-input>
+      <el-input
+        class="input"
+        placeholder="Enter full name"
+        v-model="signupCred.username"
+      ></el-input>
+      <div>
+        <el-button
+          class="login-btn"
+          size="medium"
+          type="success"
+          @click="doSignup"
+          >Sign Up</el-button
+        >
+      </div>
+    </div>
   </section>
 </template>
 
@@ -26,7 +46,7 @@ export default {
       const cred = this.signupCred
       if (!cred.email || !cred.password || !cred.username) return this.msg = 'Please fill up the form'
       this.$store.dispatch({ type: 'signup', userCred: cred })
-      this.$router.push('/home')
+      this.$router.push('/threeller/home')
     }
   }
 }

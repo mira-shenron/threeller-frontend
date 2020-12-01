@@ -12,6 +12,8 @@
 //PAGES
 @import 'pages/home-page';
 @import 'pages/board';
+@import 'pages/login-page';
+@import 'pages/welcome-page';
 
 // COMPONENTS
 @import 'cmps/scrollbar';
@@ -32,4 +34,5 @@
 @import 'cmps/card-details-labels';
 @import 'cmps/checklists';
 @import 'cmps/card-details-due-date';
+
 
