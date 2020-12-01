@@ -29,7 +29,6 @@
   }
 }
 </style>
-
 <script>
 import appHeader from "./cmps/app-header.vue";
 export default {

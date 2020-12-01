@@ -6,6 +6,7 @@
           <div>{{ feature }}</div>
         </div>
         <span class="x-button" @click.stop="onEmitCloseEdit">
+          <!-- <span class="lnr lnr-cross"></span> -->
           <i class="el-icon-close"></i>
         </span>
       </div>

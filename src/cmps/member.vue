@@ -1,6 +1,6 @@
 <template>
   <section @click.stop="toggleMemberToCard">
-    <div class="flex space-between align-center">
+    <div class="members-list flex space-between align-center" >
       <div class="flex align-center">
         <div class="custom-avatar">
           <avatar :fullname="member.fullName" :size="32"></avatar>

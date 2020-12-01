@@ -1,18 +1,41 @@
 .other-team{
-    background-color: rgb(224, 224, 224);
-    margin-top: 10px;
+    height: 32px;
+    width: 100%;
+    background-color:rgba(9,30,66,.04);
+    margin-top: 8px;
     border-radius: 5px;
+    text-align: center;
+    padding:6px 12px ;
+    &:hover{
+        background-color: rgba(9,30,66,.08);
+    }
 }
-
+.members-list{
+    &:hover{
+        background-color: rgba(9,30,66,.04);
+    }
+}
 .member-name{
     margin-inline-start: 5px;
 }
 
 .members-search{
+    margin: 4px 0 12px;
     width: 100%;
-    margin-bottom: 10px;
-}
+    
 
+
+}
+.card-members{
+    h4{
+        text-transform: uppercase;
+        color: #5e6c84;
+        font-size: rem(14px);
+        font-weight: 600;
+        letter-spacing: .04em;
+
+    }
+}
 .custom-avatar{
     width: 30px;
 }
