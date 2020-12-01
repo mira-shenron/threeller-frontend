@@ -3,6 +3,7 @@
 @import 'setup/variables';
 @import 'setup/mixins';
 @import 'setup/functions';
+@import 'setup/transitions';
 
 // BASICS
 @import 'basics/helpers';
@@ -35,5 +36,8 @@
 @import 'cmps/checklists';
 @import 'cmps/card-checklist';
 @import 'cmps/card-details-due-date';
+@import 'cmps/card-due-date';
+@import 'cmps/board-menu';
+
 
 

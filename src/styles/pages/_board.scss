@@ -1,3 +1,71 @@
+.main-board-content {
+    .board-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .board-header {
+            padding: 8px;
+
+
+            .board-title-container {
+                .board-title {
+                    text-align: left;
+                    padding: 0 12px;
+                    line-height: rem(32px);
+                    margin: 0;
+                    font-size: rem(18px);
+                    font-family: poppinsM;
+                    border-radius: 3px;
+                    transition: .1s ease;
+
+                    &:hover {
+                        color: #fff;
+                        background-color: rgba(190, 190, 190, 0.329);
+                    }
+                }
+
+                .board-input-container {
+                    border-radius: 3px;
+                    height: rem(32px);
+                    width: 100%;
+
+                    .el-input__inner {
+                        font-family: PoppinsM;
+                        padding: 3px 11px;
+                        width: fit;
+                        font-size: rem(18px);
+                        height: rem(32px);
+                    }
+                }
+            }
+
+            .board-menu-btn {
+                border-radius: 3px;
+                color: #fff;
+                background-color: rgba(190, 190, 190, 0.329);
+                transition: .1s ease;
+
+                &:hover {
+                    background-color: rgba(144, 144, 144, 0.32);
+                }
+
+                .board-menu-icn {
+                    width: rem(32px);
+                    height: rem(32px);
+                    justify-content: center;
+                    font-size: rem(16px);
+                }
+
+                .board-menu-text {
+                    padding-right: 12px;
+                    font-size: rem(14px);
+                }
+            }
+        }
+    }
+}
+
 .board {
     flex: 1;
     max-width: 100%;
@@ -6,8 +74,10 @@
     margin-bottom: 8px;
     padding-bottom: 8px;
 
+
     .add-list-container {
         height: fit-content;
+        position: relative;
         order: 1;
         margin-right: 8px;
         margin-left: 4px;
@@ -46,6 +116,10 @@
         }
 
         .add-list-composer {
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            left: 0;
             padding: 4px;
             border-radius: 3px;
             width: 272px;

@@ -23,7 +23,7 @@
             overflow-wrap: anywhere;
         }
 
-        .input-container {
+        .list-input-container {
             border-radius: 3px;
             height: rem(38px);
             width: 90%;
@@ -37,11 +37,6 @@
                 height: rem(24px);
             }
         }
-
-
-
-
-
 
         .list-menu-icn {
             right: 0;
@@ -59,7 +54,7 @@
         }
     }
 
-    .card-container {
+    .card-list-container {
         gap: 8px;
         padding: 0 4px;
         margin: 0 4px;

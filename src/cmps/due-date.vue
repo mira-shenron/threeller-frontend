@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="block">
+    <div class="card-due-date">
       <el-date-picker
         v-model="dueDate.time"
         type="datetime"

@@ -1,20 +1,63 @@
 .color-picker {
-
     padding: 0 12px 12px;
+    // width: 284px;
+    // .el-input__inner{
+    //     margin-bottom: 10px;
+    //  }
+}
+.colors-controls{
+    margin-top: 10px;
+    // justify-content: center;
 }
 span.color-pick {
-    
     display: block;
     cursor: pointer;
     border-radius: 10%;
-    height: 32px;
-    width: 48px;
+    height: 33px;
+    width: 43px;
     margin: 0 8px 8px 0;
-   
+
     &.picked::after{
         content: '✔';
+        height: 100%;
         color: aliceblue;
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+    &:hover{
+        &.green{
+            background-color:darken($labelGreen,10%);
+        }
+        &.yellow{
+            background-color: darken($labelYellow,10%);
+         }
+        &.orange{
+            background-color:darken( $labelOrange,10%);
+         }
+        &.red{
+            background-color:darken( $labelRed,10%);
+         }
+        &.purple{
+            background-color: darken( $labelPurple,10%);
+         }
+        &.blue{
+            background-color: darken( $labelBlue,10%);
+         }
+        &.lime{  
+            background-color: darken( $labelLime,10%);
+         }
+        &.sky{
+            background-color: darken( $labelSky,10%);
+         }
+        &.pink{
+            background-color: darken($labelPink,15%);
+         }
+        &.black{
+            background-color: darken( $labelBlack,10%);
+        }
+        &.grey{
+            background-color: darken( $labelGrey,10%);
+        }
     }
 }

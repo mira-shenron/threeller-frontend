@@ -9,15 +9,24 @@
 
   .card-container {
     padding: 6px 8px 2px;
-    height: auto;
+    max-height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
     .card-title {
       font-weight: 400;
       font-family: sans-serif;
       font-size: rem(14px);
-      margin-bottom: 8px;
+      padding-bottom: 8px;
       color: $card-details-color;
       overflow-wrap: anywhere;
+      line-height: rem(20px);
+
+      &.covered-text {
+        font-size: rem(16px);
+        font-weight: 600;
+        line-height: rem(20px);
+      }
     }
 
     .card-labels {
@@ -32,6 +41,7 @@
     }
 
     .card-badges {
+      display: flex;
       max-width: 100%;
       height: fit-content;
       float: left;
@@ -82,6 +92,32 @@
         }
       }
 
+      .card-description {
+        order: 2;
+      }
+
+      .card-comments {
+        order: 3;
+      }
+
+      .card-checklist {
+        order: 4;
+
+        &.done {
+          color: #fff;
+          background-color: $labelGreen
+        }
+      }
+    }
+
+    .card-members {
+      float: right;
+      height: 32px;
+      margin-right: -2px;
+
+      .card-member {
+        margin: 0 0 4px 4px;
+      }
     }
   }
 

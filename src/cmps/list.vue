@@ -4,9 +4,9 @@
       <h2 v-if="!isShowEditName" @click="openNameEditor" class="list-title">
         {{ list.title }}
       </h2>
-      <div v-show="isShowEditName" class="input-container">
+      <div v-show="isShowEditName" class="list-input-container">
         <el-input
-          ref="input"
+          ref="listInput"
           @change="changeListName"
           @blur="changeListName"
           v-model="copiedList.title"
@@ -53,7 +53,7 @@
         ></list-move>
       </list-menu-action-container>
     </div>
-    <div class="card-container">
+    <div class="card-list-container">
       <Container
         @drop="onCardDrop"
         group-name="list"
@@ -181,8 +181,7 @@ export default {
     },
     openNameEditor() {
       this.isShowEditName = true;
-      console.log(this.$refs.input);
-      this.$nextTick(() => this.$refs.input.focus())
+      this.$nextTick(() => this.$refs.listInput.focus())
     },
     changeListName() {
       if (!this.copiedList.title) return;
