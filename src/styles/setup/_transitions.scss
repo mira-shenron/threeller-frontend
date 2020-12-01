@@ -1,20 +1,42 @@
-
-.menu-slide-enter-active{
-    animation: backInRight;
-    animation-duration: 0.5s;
+.menu-slide-enter-active,
+.menu-slide-leave-active {
+    transform: translateX(0);
+    transition: transform 100ms ease;
 }
 
-.menu-slide-leave-active {   
-    animation: backOutRight;
-    animation-duration: 0.5s;
+.menu-slide-enter,
+.menu-slide-leave-to {
+    transform: translateX(100%)
 }
 
-.menu-icn-animation-enter-active{
-    animation: bounceInDown;
-    animation-duration: 0.5s;
+.menu-icn-animation-enter-active,
+.menu-icn-animation-leave-active {
+    transition: opacity 85s ease;
 }
 
-.menu-icn-animation-leave-active {   
-    animation: bounceOutUp;
-    animation-duration: 0.5s;
+.menu-icn-animation-enter,
+.menu-icn-animation-leave-to {
+    opacity: 0;
+}
+
+.list-animation-enter-active,
+.list-animation-leave-active {
+    transition: background-color 85ms ease-in, opacity 40ms ease-in
+}
+
+.list-animation-enter,
+.list-animation-leave-to {
+    opacity: 0;
+    background-color: hsla(0, 0%, 100%, .24);
+}
+
+.list-controls-animation-enter-active,
+.list-controls-animation-leave-active {
+    transition: margin 85ms ease-in, height 85ms ease-in;
+}
+
+.list-controls-animation-enter,
+.list-controls-animation-leave-to {
+    margin: 0;
+    height: 0;
 }
