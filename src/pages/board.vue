@@ -57,6 +57,7 @@
         <card-details
           @emitSaveBoard="updateCardInBoard"
           @closeModal="closeModal"
+          @saveBoard="saveBoard"
           :card="cardDetailsToShow"
           :members="board.members"
         >

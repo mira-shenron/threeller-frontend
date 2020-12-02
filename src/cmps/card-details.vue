@@ -1,9 +1,9 @@
 <template>
     <div class="card-detail-main">
         <div
-            v-if="bgColorOfCard"
+            v-if="(bgColorOfCard && bgColorOfCard!=='white')"
             class="cover-card"
-            :class="{ [bgColorOfCard]: (bgColorOfCard || bgColorOfCard!=='white') }"
+            :class="{ [bgColorOfCard]: (bgColorOfCard && bgColorOfCard!=='white') }"
         ></div>
         <div class="card-details">
             <div class="header-card flex space-between">
