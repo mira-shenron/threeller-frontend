@@ -1,18 +1,17 @@
-<template>
+a<template>
   <header class="app-header flex align-center space-between">
     <nav class="left-nav flex">
-      <div class="nav-btn">
-        <img src="@/assets/card-icons/menu.png" />
+      <div class="nav-btn flex align-center">
+        <i class="el-icon-s-grid"></i>
       </div>
       <div class="nav-btn flex align-center">
-        <img @click.stop="goToHomePage" src="@/assets/card-icons/home.png" />
+        <i @click.stop="goToHomePage" class="el-icon-s-home"></i>
       </div>
     </nav>
-    <h1 class="logo clickable">Threeller</h1>
+    <h1 @click.stop="goToHomePage" class="logo clickable">
+      <span>Three</span>ller
+    </h1>
     <nav class="right-nav flex justify-center align-center">
-      <div class="nav-btn">
-        <img src="@/assets/svgs/alarm.svg" />
-      </div>
       <div class="nav-btn flex align-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,12 +25,8 @@
           />
         </svg>
       </div>
-      <div class=" flex  clickable" @click.stop="logout">
-        <avatar
-          class="user-avatar"
-          :fullname="username"
-          :size="32"
-        ></avatar>
+      <div class="flex clickable" @click.stop="logout">
+        <avatar class="user-avatar" :fullname="username" :size="32"></avatar>
         <div class="show-log-out">Log out</div>
       </div>
     </nav>
@@ -39,26 +34,26 @@
 </template>
 
 <script>
-import Avatar from 'vue-avatar-component';
+import Avatar from "vue-avatar-component";
 
 export default {
   name: "app-header",
   methods: {
     goToHomePage() {
-      this.$router.push('/threeller/home');
+      this.$router.push("/threeller/home");
     },
     logout() {
-      this.$store.dispatch({ type: 'logout' })
-      this.$router.push('/')
-    }
+      this.$store.dispatch({ type: "logout" });
+      this.$router.push("/");
+    },
   },
   components: {
-    Avatar
+    Avatar,
   },
   computed: {
     username() {
       return this.$store.getters.loggedinUser.fullName;
-    }
-  }
+    },
+  },
 };
 </script>

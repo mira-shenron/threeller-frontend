@@ -1,5 +1,5 @@
 .app-header {
-    background-color: $clr1;
+    background-color: $clr2;
     height: rem(40px);
     justify-content: space-between;
     padding: 2px;
@@ -25,12 +25,14 @@
 
     .logo {
         margin: 0;
-        color: $clr4;
-        font-family: Pattaya, sans-serif;
+        color: #eeeeee;
         font-size: rem(24px);
 
         &:hover {
-            color: $clr5;
+            color: $clr6;
+        }
+        & span{
+            font-weight: bold;
         }
     }
 
@@ -41,23 +43,23 @@
     }
 
     .nav-btn {
+        color: #eeeeee;
+        justify-content: center;
         width: rem(32px);
         height: rem(32px);
+        font-size: rem(24px);
         border-radius: 5px;
-        padding: rem(6px);
+        padding: rem(4px);
         position: relative;
-        background-color: darken($clr3, 4%);
+        background-color: $clr3;
         cursor: pointer;
 
         .kiwi {
-            fill: $clr2;
+            fill: #eeeeee;
         }
 
         &:hover {
-            background-color: lighten($clr2, 4%);
-            .kiwi {
-                fill: $clr5;
-            }
+            background-color: lighten($clr3, 4%);
         }
         
 
