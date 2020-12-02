@@ -34,14 +34,45 @@
            color: black;
            vertical-align: middle;
            font-size: 100px;
+
+           
+           h6{
+            text-align: left;
+        }
        }
 
-    //    .img-two{
-    //         margin-bottom: 50px;
-    //    }
+       .img-two{
+           border-radius: 25px;
+       }
 
        .section-three-container{
             min-height: 100vh;
+
+            .grid-container{
+                display: grid;
+                justify-content: center;
+                align-content: center;
+                padding-top: 100px;
+            }
+
+            .section:not(:last-of-type){
+                span{
+                    margin-bottom: 50px;
+                }
+                border-bottom: 0.1px solid rgb(173, 173, 173);
+            }
+
+            h6{
+                text-align: left;
+            }
+
+            .section{
+                display: grid;
+                grid-template-columns: 200px auto;
+                grid-column-gap: 100px;
+                color: black;
+                margin-bottom: 100px;
+            }
        }
 
     }
@@ -67,6 +98,12 @@
 .nav-links > *{
     margin-inline-start: 20px;
     color: #000000b3;
+}
+
+.nav-links > *{
+    &:hover{
+        color:rgb(168, 168, 168);
+    }
 }
 
 .footer{
@@ -105,4 +142,8 @@ h5{
     font-weight: 600;
     letter-spacing: -.005em;
     color: black;
+}
+
+.footer{
+    text-align: center;
 }

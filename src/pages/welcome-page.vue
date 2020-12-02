@@ -40,43 +40,55 @@
           </div>
           <img
             class="img-two"
-            width="450px"
-            src="../assets/imgs/better.jpg"
+            width="500px"
+            src="../assets/imgs/orange.jpg"
             alt=""
           />
         </div>
       </div>
       <div class="section-three-container">
-        <h6>Core features</h6>
-        <div class="flex">
-          <h5>Redesigned Interface</h5>
-          <span>
-            Designed to put focus on your canvas and creativity. Enjoy an
-            intuitive UI that’s out of your way, keeping you in the zone,
-            working the way you want.
-          </span>
-        </div>
-        <div class="flex">
-          <h5>Advanced Layer System</h5>
-          <span>
-            With PSD compatibility and the ability to export layers as web-ready
-            PNG files, multiple page PDFs, or frames of an animated GIF, PNG or
-            MP4. Pocket gives everybody the power to create stunning graphics on
-            the go.
-          </span>
-        </div>
-        <div class="flex">
-          <h5>Silica-M Painting Engine</h5>
-          <span>
-            Procreate is built from the ground up to give you the most fluid
-            painting experience with beautiful colors, pixel perfect painting,
-            and even better performance than ever before.
-          </span>
+        <div class="grid-container">
+          <h6>Core features</h6>
+          <div class="section flex">
+              <h5>
+                Redesigned <br />
+                Interface
+              </h5>
+              <span>
+                Designed to put focus on your needs and comfort. <br />
+                Enjoy an intuitive UI that’s out of your way, keeping you in
+                <br />
+                the zone, working the way you want.
+              </span>
+          </div>
+          <div class="section flex">
+            <h5>
+              Information At <br />
+              A Glance
+            </h5>
+            <span>
+              Dive into the details by adding comments, <br />
+              attachments, due dates, and more directly to Threeller cards.
+              <br />
+              Collaborate on projects from beginning to end.
+            </span>
+          </div>
+          <div class="section flex">
+            <h5>
+              Work With Any <br />
+              Team
+            </h5>
+            <span>
+              Whether it’s for work, a side project <br />
+              or even the next family vacation, <br />
+              Trello helps your team stay organized.
+            </span>
+          </div>
         </div>
       </div>
     </div>
 
-    <footer class="footer">Footer Placeholder</footer>
+    <footer class="footer">Coming Soon</footer>
   </section>
 </template>
 

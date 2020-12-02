@@ -1,8 +1,11 @@
 <template>
   <section class="login-page">
     <div class="login-section">
-      <h1 class="logo clickable">Threeller</h1>
-      <h2>Sign Up To Threeller</h2>
+      <div class="logo">
+        <span class="logo-first">Three</span
+        ><span class="logo-last">ller.</span>
+      </div>
+      <h2>Sign Up</h2>
       <el-input
         class="input"
         placeholder="Enter email"
@@ -21,11 +24,7 @@
         v-model="signupCred.username"
       ></el-input>
       <div>
-        <el-button
-          class="login-btn"
-          size="medium"
-          type="success"
-          @click="doSignup"
+        <el-button class="login-btn" size="medium" type="info" @click="doSignup"
           >Sign Up</el-button
         >
       </div>

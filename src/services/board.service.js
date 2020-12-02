@@ -10,7 +10,8 @@ export const boardService = {
     getEmptyList,
     getEmptyColorLabel,
     getEmptyChecklist,
-    getEmptyTodo
+    getEmptyTodo,
+    getEmptyActivity
 }
 
 function query() {
@@ -71,9 +72,15 @@ function getEmptyColorLabel(color = '') {
         blindMode: '',
         txt: '',
         isPicked:false
-
     }
+}
 
+function getEmptyActivity(){
+    return {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        card: {id:'', title:''}
+    }
 }
 
 function getEmptyBoard(boardName, currUser) {
@@ -87,40 +94,40 @@ function getEmptyBoard(boardName, currUser) {
         activities: [],
         colorList: [
             {
-                "id": "XEGHq",
-                "color": "green",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                color: 'green',
+                blindMode: '',
+                txt: ''
             },
             {
-                "id": "NEeA6",
-                "color": "yellow",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                'color': 'yellow',
+                blindMode: '',
+                txt: ''
             },
             {
-                "id": "GoSzl",
-                "color": "orange",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                'color': 'orange',
+                blindMode: '',
+                txt: ''
             },
             {
-                "id": "ricgk",
-                "color": "red",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                'color': 'red',
+                blindMode: '',
+                txt: ''
             },
             {
-                "id": "uZ1KX",
-                "color": "purple",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                'color': 'purple',
+                blindMode: '',
+                txt: ''
             },
             {
-                "id": "ki1py",
-                "color": "blue",
-                "blindMode": "",
-                "txt": ""
+                id: utilService.makeId(),
+                'color': 'blue',
+                blindMode: '',
+                txt: ''
             }
         ],
     }

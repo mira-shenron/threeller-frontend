@@ -93,6 +93,7 @@ import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag } from "@/services/dnd.service.js";
 import socketService from "@/services/socket.service";
+import { boardService } from '../services/board.service';
 
 export default {
   name: "board",
@@ -189,6 +190,9 @@ export default {
         }
       }
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
+      var activity = this.createActivity(card);
+      this.board.activities.push(activity);
+      console.log('in update card', activity)
       this.saveBoard();
       console.log(this.board);
     },
@@ -265,6 +269,19 @@ export default {
         board
       });
     },
+    createActivity(card) {
+      var activity = boardService.getEmptyActivity(); //comes with id and createdAt
+      activity.byMember = this.$store.getters.loggedinUser;
+      activity.txt = this.$store.getters.getCurrActivityText;
+
+      if (card) {
+        activity.card.id = card.id;
+        activity.card.title = card.title;
+      }
+      console.log(activity);
+      return activity;
+    }
+   
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);

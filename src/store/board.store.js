@@ -6,7 +6,8 @@ export default {
     state: {
         boards: [],
         currBoard: null,
-        defultColorsLabels:[]
+        defultColorsLabels:[],
+        currActivityTxt:null
     },
     getters: {
         boards(state) {
@@ -18,6 +19,10 @@ export default {
         getLists(state) {
             return JSON.parse(JSON.stringify(state.currBoard.groups));
         },
+        getCurrActivityText(state){
+            console.log('store getCurrActivityText', state.currActivityTxt);
+            return JSON.parse(JSON.stringify(state.currActivityTxt));
+        }
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -35,6 +40,10 @@ export default {
             console.log('mutation', savedBoard)
             state.boards.push(savedBoard);
             state.currBoard = savedBoard;
+        },
+        setCurrActivityText(state, {activityTxt}) {
+            console.log('curr activity text', activityTxt);
+            state.currActivityTxt = activityTxt;
         }
     },
     actions: {
