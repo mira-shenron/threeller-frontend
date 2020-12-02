@@ -2,14 +2,15 @@
   <section v-if="board" class="main-board-content">
     <main class="board-container">
       <div class="board-header flex space-between">
-        <div class="board-title-container">
+        <div class="board-title-container flex align-center">
           <h1
             v-if="!isShowEditTitle"
             @click="openTitleEditor"
-            class="board-title clickable"
+            class="board-title  clickable"
           >
             {{ board.title }}
           </h1>
+          <div class=" board-menu-btn clickable invite-btn">Invite</div>
           <div v-show="isShowEditTitle" class="board-input-container">
             <el-input
               ref="boardInput"
@@ -94,6 +95,7 @@ import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag } from "@/services/dnd.service.js";
 import socketService from "@/services/socket.service";
+import { boardService } from '../services/board.service';
 
 export default {
   name: "board",
@@ -189,6 +191,9 @@ export default {
         }
       }
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
+      var activity = this.createActivity(card);
+      this.board.activities.push(activity);
+      console.log('in update card', activity)
       this.saveBoard();
       console.log(this.board);
     },
@@ -265,6 +270,19 @@ export default {
         board
       });
     },
+    createActivity(card) {
+      var activity = boardService.getEmptyActivity(); //comes with id and createdAt
+      activity.byMember = this.$store.getters.loggedinUser;
+      activity.txt = this.$store.getters.getCurrActivityText;
+
+      if (card) {
+        activity.card.id = card.id;
+        activity.card.title = card.title;
+      }
+      console.log(activity);
+      return activity;
+    }
+   
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);

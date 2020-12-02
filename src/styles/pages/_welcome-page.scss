@@ -5,7 +5,8 @@
     .main-section{
         .section-one{
             text-align: center;
-     
+            min-height: 100vh;
+
             h2{
                 color: #0f0f0f;
                 font-size: 60px;
@@ -17,12 +18,14 @@
         }
        min-height: 80vh;
        .img-one{
+           margin-top: 30px;
            border-radius: 5px;
-           margin-top: 50px;
        }
 
        .section-two-container{
             background-color: #f0f6f5;
+            min-height: 100vh;
+            padding-bottom:150px;
        }
        .section-two{
            margin: 0 100px;
@@ -31,6 +34,45 @@
            color: black;
            vertical-align: middle;
            font-size: 100px;
+
+           
+           h6{
+            text-align: left;
+        }
+       }
+
+       .img-two{
+           border-radius: 25px;
+       }
+
+       .section-three-container{
+            min-height: 100vh;
+
+            .grid-container{
+                display: grid;
+                justify-content: center;
+                align-content: center;
+                padding-top: 100px;
+            }
+
+            .section:not(:last-of-type){
+                span{
+                    margin-bottom: 50px;
+                }
+                border-bottom: 0.1px solid rgb(173, 173, 173);
+            }
+
+            h6{
+                text-align: left;
+            }
+
+            .section{
+                display: grid;
+                grid-template-columns: 200px auto;
+                grid-column-gap: 100px;
+                color: black;
+                margin-bottom: 100px;
+            }
        }
 
     }
@@ -58,6 +100,12 @@
     color: #000000b3;
 }
 
+.nav-links > *{
+    &:hover{
+        color:rgb(168, 168, 168);
+    }
+}
+
 .footer{
     color: #989898;
     height: 300px;
@@ -79,11 +127,6 @@
     background: #d9dbda;
 }
 
-.video{
-    height: 100%; 
-    width: 100%;
-}
-
 h6{
     color: #5E6ECC;
     font-size: 18px;
@@ -98,4 +141,9 @@ h5{
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: -.005em;
+    color: black;
+}
+
+.footer{
+    text-align: center;
 }

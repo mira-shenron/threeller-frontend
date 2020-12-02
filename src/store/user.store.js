@@ -14,6 +14,7 @@ export default {
     },
     mutations: {
         setUser(state, { user }) {
+            console.log('setUser', state.loggedinUser)
             state.loggedinUser = user;
         },
         removeUser(state, { userId }) {
@@ -23,6 +24,7 @@ export default {
     actions: {
         async login(context, { userCred }) {
             const user = await userService.login(userCred);
+            console.log('login', user);
             context.commit({ type: 'setUser', user })
             return user;
         },

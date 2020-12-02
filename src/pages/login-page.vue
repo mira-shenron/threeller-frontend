@@ -1,8 +1,11 @@
 <template>
   <section class="login-page">
     <div class="login-section">
-      <h1 class="logo clickable">Threeller</h1>
-      <h2>Login To Threeller</h2>
+      <div class="logo">
+        <span class="logo-first">Three</span
+        ><span class="logo-last">ller.</span>
+      </div>
+      <h2>Login</h2>
 
       <el-input
         class="input"
@@ -21,7 +24,7 @@
         <el-button
           class="login-btn"
           size="medium"
-          type="success"
+          type="info"
           @click="doLogin"
           >Login</el-button
         >
