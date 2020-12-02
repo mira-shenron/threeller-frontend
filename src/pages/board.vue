@@ -180,7 +180,10 @@ export default {
       var groupIdx = -1;
       var cardIdx = -1;
       for (let i = 0; i < this.board.groups.length; i++) {
+<<<<<<< HEAD
         // if (!this.board.groups[i].cards.length) continue;
+=======
+>>>>>>> aviv
         for (let j = 0; j < this.board.groups[i].cards.length; j++) {
           if (this.board.groups[i].cards[j].id === card.id) {
             groupIdx = i;

@@ -1,9 +1,9 @@
 <template>
     <div class="card-detail-main">
         <div
-            v-show="bgColorOfCard"
+            v-if="bgColorOfCard"
             class="cover-card"
-            :class="{ [bgColorOfCard]: bgColorOfCard }"
+            :class="{ [bgColorOfCard]: (bgColorOfCard || bgColorOfCard!=='white') }"
         ></div>
         <div class="card-details">
             <div class="header-card flex space-between">
@@ -349,9 +349,12 @@ export default {
         updatingCard(card) {
             console.log("card-details card", card);
             this.card = card;
-            this.$emit("emitSaveBoard", this.card);
+            this.$emit("emitSaveBoard",card);
         },
-        openColorModale() {
+        openColorModale(label) {
+            if(label){
+                this.chooseColor=label
+            }
             this.edit("colorPicker");
         },
         openLabels() {
@@ -383,8 +386,11 @@ export default {
         },
         changeBgColor(cover) {
             if (!cover) return;
+            if (cover.color==='white')return;
             this.bgColorOfCard = cover.color;
             this.card.style=cover
+            console.log('card in bgChnage', this.card);
+            this.updatingCard(this.card)
             // console.log("this.bgColorOfCard",this.card)
             // this.$emit("emitSaveBoard",this.card);
         },
