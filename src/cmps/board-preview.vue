@@ -1,6 +1,6 @@
 <template>
     <section class="board-preview clickable">
-        <div> {{board.title}} </div>
+        <div class="board-preview-content"> {{board.title}} </div>
     </section>
 </template>
 

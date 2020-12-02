@@ -2,14 +2,15 @@
   <section v-if="board" class="main-board-content">
     <main class="board-container">
       <div class="board-header flex space-between">
-        <div class="board-title-container">
+        <div class="board-title-container flex align-center">
           <h1
             v-if="!isShowEditTitle"
             @click="openTitleEditor"
-            class="board-title clickable"
+            class="board-title  clickable"
           >
             {{ board.title }}
           </h1>
+          <div class=" board-menu-btn clickable invite-btn">Invite</div>
           <div v-show="isShowEditTitle" class="board-input-container">
             <el-input
               ref="boardInput"
@@ -180,7 +181,6 @@ export default {
       var groupIdx = -1;
       var cardIdx = -1;
       for (let i = 0; i < this.board.groups.length; i++) {
-        // if (!this.board.groups[i].cards.length) continue;
         for (let j = 0; j < this.board.groups[i].cards.length; j++) {
           if (this.board.groups[i].cards[j].id === card.id) {
             groupIdx = i;

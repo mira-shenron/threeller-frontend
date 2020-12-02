@@ -1,13 +1,13 @@
 <template>
-  <section class="card" :class="{ [style.color]: style.type === 'full-cover' }">
+  <section class="card" :class="{ [coverColor]:  coverStyle === 'full-cover' }">
     <div
-      v-if="style.type === 'half-cover'"
+      v-if="coverStyle === 'half-cover'"
       class="cover"
-      :class="{ [style.color]: style.type === 'half-cover' }"
+      :class="{ [coverColor]:  coverStyle === 'half-cover' }"
     ></div>
     <div class="card-container">
       <div
-        v-if="card.labels && style.type !== 'full-cover'"
+        v-if="card.labels &&  coverStyle !== 'full-cover'"
         class="card-labels flex"
       >
         <div
@@ -19,11 +19,12 @@
       </div>
       <div
         class="card-title"
-        :class="{ 'covered-text': style.type === 'full-cover' }"
+        :class="{ 'covered-text':  coverStyle === 'full-cover' }"
+        :style="{color:ligthMode}"
       >
         {{ card.title }}
       </div>
-      <div v-if="style.type !== 'full-cover'" class="card-badges">
+      <div v-if=" coverStyle !== 'full-cover'" class="card-badges">
         <div v-if="card.dueDate" class="due-date" :class="dueDateClass">
           <i class="el-icon-time"></i>
           <div class="badge-text">
@@ -48,7 +49,7 @@
         </div>
       </div>
       <div
-        v-if="card.members && style.type !== 'full-cover'"
+        v-if="card.members &&  coverStyle !== 'full-cover'"
         class="card-members"
       >
         <avatar class="card-member" fullname="My Sticker" :size="28"></avatar>
@@ -71,14 +72,26 @@ export default {
   },
   data() {
     return {
-      style: {
-        color: "white",
-        type: null,
-      },
       color: "",
     };
   },
   computed: {
+    ligthMode(){
+       if(!this.card.style)return null;
+       if (this.card.style.type==='full-cover'){
+         if (this.card.style.color==='blue'||this.card.style.color=='black'||this.card.style.color=='green'){
+           return 'white'
+         }else return null
+       }else return 'black'
+    },
+    coverStyle(){
+      if(!this.card.style) return;
+      return this.card.style.type
+    },
+    coverColor(){
+      if(!this.card.style)return;
+      return this.card.style.color
+    },
     isShowYear() {
       if (!this.card.dueDate) return;
       const dueDate = new Date(this.card.dueDate.time);
@@ -129,7 +142,7 @@ export default {
   },
   created() {
     if (this.card.style) {
-      this.style = this.card.style;
+      this.card.style={color: "white",type: null}
     }
   },
 };
