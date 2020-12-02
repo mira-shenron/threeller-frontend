@@ -7,17 +7,21 @@
                 v-model="searchBy"
             ></el-input>
             <ul>
-                <li v-for="color in labelsToShow" class="flex" :key="color.id">
+                <li
+                    v-for="(color, idx) in labelsToShow"
+                    class="flex"
+                    :key="color.id"
+                >
                     <span
                         class="card-label"
                         :class="{
                             [color.color]: { color },
-                            picked: color.isPicked,
+                            picked: colorLabel[idx].isPicked,
                         }"
                         @click="addLabel(color)"
                         >{{ color.txt }}</span
                     >
-                    <button>🖊</button>
+                    <button @click.stop="updatLabel(color)">🖊</button>
                 </li>
             </ul>
         </div>
@@ -26,7 +30,7 @@
                 Create a new label
             </button>
         </div>
-            <button>Enable color blind friendly mode</button>
+        <button>Enable color blind friendly mode</button>
     </div>
 </template>
 
@@ -58,9 +62,8 @@ export default {
     },
     computed: {
         labelsToShow() {
-            // console.log(this.colorLabel);
             if (!this.searchBy) return this.colorLabel;
-            else
+            else {
                 return this.colorLabel.filter(
                     (label) =>
                         label.txt
@@ -68,6 +71,7 @@ export default {
                             .includes(this.searchBy.toLowerCase()) ||
                         label.color.includes(this.searchBy)
                 );
+            }
         },
     },
     methods: {
@@ -75,28 +79,35 @@ export default {
             if (this.card) {
                 eventBus.$emit(CLOSE_EDIT);
             }
-            // this.$emit("changeColorList");//לא מצאתי
+            // this.$emit("changeColorList");
+        },
+        updatLabel(label) {
+            this.$emit("openColorModale", label);
         },
         openColorModale() {
             this.$emit("openColorModale");
         },
-        addLabel(color, idx) {
-            // console.log("!!!!click", color);
-            const colorIdx = this.card.labels.findIndex(
+        addLabel(color) {
+            const colorIdxfromCard = this.card.labels.findIndex(
                 (currColor) => currColor.id === color.id
             );
-            this.labelPicked = idx;
-            // console.log("colorIdx", colorIdx);
-            if (colorIdx === -1) {
+            const colorIdxfromBoard = this.colorLabel.findIndex(
+                (currColor) => currColor.id === color.id
+            );
+            if (colorIdxfromCard === -1) {
                 this.card.labels.push(color);
-                // this.card.labels[-1].isPicked=true
-                // this.labelPicked=true
+                this.colorLabel[colorIdxfromBoard].isPicked = true;
             } else {
-                // console.log("deliting");
-                this.card.labels.splice(colorIdx, 1);
-                // this.card.labels[colorIdx].isPicked=false
-                //  this.labelPicked=false
+                this.card.labels.splice(colorIdxfromCard, 1);
+                this.colorLabel[colorIdxfromBoard].isPicked = false;
             }
+            console.log(
+                "this.card.labels",
+                this.card.labels,
+                "colorLabel",
+                this.colorLabel
+            );
+            this.colorLabel = JSON.parse(JSON.stringify(this.colorLabel));
             // console.log("this.card", this.card);
             this.$emit("updatingCard", this.card);
         },
@@ -121,13 +132,54 @@ export default {
         if (!this.card.labels) {
             this.card.labels = [];
         }
-        if (this.chooseColor.color) {
-            this.colorLabel.push(this.chooseColor);
-            this.$emit("updatListOfColors", this.colorLabel);
+        console.log("this.chooseColor", this.chooseColor);
+        if (
+            !(
+                Object.keys(this.chooseColor).length === 0 &&
+                this.chooseColor.constructor === Object
+            )
+        ) {
+            if (
+                this.chooseColor.pickedColor.color &&
+                this.chooseColor.str === "Create"
+            ) {
+                this.colorLabel.push(this.chooseColor);
+                this.$emit("updatListOfColors", this.colorLabel);
+            } else if (
+                this.chooseColor.pickedColor.color &&
+                this.chooseColor.str === "Save"
+            ) {
+                const idx = this.colorLabel.findIndex(
+                    (currlabel) =>
+                        currlabel.id === this.chooseColor.pickedColor.id
+                );
+                //  this.colorLabel[idx]=this.chooseColor.pickedColor
+                this.colorLabel.splice(idx, 1, this.chooseColor.pickedColor);
+            } else if (
+                this.chooseColor.pickedColor.color &&
+                this.chooseColor.str === "Delete"
+            ) {
+                const idx = this.colorLabel.findIndex(
+                    (currlabel) =>
+                        currlabel.id === this.chooseColor.pickedColor.id
+                );
+                this.colorLabel.splice(idx, 1);
+            }
         }
-        // this.colorLabel.forEach(label=>{
-        //     label.isPicked=false
-        // })
+        this.colorLabel.forEach((label) => {
+            if (!label.isPicked) {
+                label.isPicked = false;
+            }
+        });
+        this.card.labels.forEach((label) => {
+            if (!this.card.labels.length) return;
+            if (label.isPicked) {
+                const idx = this.colorLabel.findIndex(
+                    (currlabel) => currlabel.id === label.id
+                );
+                this.colorLabel[idx].isPicked = true;
+            }
+        });
     },
     directives: {
         clickOutside: vClickOutside.directive,

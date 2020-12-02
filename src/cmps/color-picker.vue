@@ -5,13 +5,20 @@
             <span
                 class="color-pick"
                 :class="{ picked: pickedColor.color === color, [color]: color }"
-                @click.stop="selectColor(color)"
+                @click="selectColor(color)"
                 v-for="color in colors"
                 :key="color"
             ></span>
+            {{pickedColor}}
         </div>
-        <el-button @click="addLabel()" type="success">Save</el-button>
-       
+        <div v-if="!value.color">
+        <el-button @click.stop="addLabel('Create')" type="success">Create</el-button>
+        </div>
+        <div v-if="value.color">
+            <el-button @click.stop="addLabel('Save')" type="success">Save</el-button>
+            <el-button @click.stop="addLabel('Delete')" type="danger">Delete</el-button>
+        </div>
+
     </section>
 </template>
 
@@ -39,21 +46,30 @@ export default {
                 "black",
                 "grey",
             ],
-            pickedColor: boardService.getEmptyColorLabel()
+            pickedColor:null
             ,
         };
     },
     methods: {
         selectColor(color) {
             this.pickedColor.color = color;
+            console.log('color',this.pickedColor)
         },
-        addLabel() {
+        addLabel(str) {
+            console.log('str',str,'this.pickedColor',this.pickedColor)
             if (this.pickedColor.color !== "grey")
-                this.$emit("input", this.pickedColor);
-                this.$emit('openLabelsModal',)
+                this.$emit("input", {pickedColor:this.pickedColor,str});
+                this.$emit('openLabelsModal')
             this.isPick = false;
         },
     },
+    created(){
+        if (Object.keys(this.value).length === 0 &&
+            this.value.constructor === Object) this.pickedColor=boardService.getEmptyColorLabel();
+        else if (this.value||this.value.color) this.pickedColor=this.value;
+        // console.log('this.value', this.pickedColor)
+   
+    }
 };
 </script>
 

@@ -59,8 +59,8 @@
                      content: '✔';
                      color: aliceblue;
                      display: flex;
-                     justify-content: center;
-                     width: 0;
+                     justify-content: flex-end;
+                     width: 100%;
                      height: 0;
                     }
                     // &:hover::before{

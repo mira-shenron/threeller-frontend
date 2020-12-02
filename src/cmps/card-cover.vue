@@ -98,10 +98,10 @@ export default {
             if(!this.pickedCover){
                 this.selectCoverType('half-cover')
             }
-            this.$emit("updatingCard", this.card)
+            if(color==='white')return;
             this.$emit('changeBgColor',{color,type:this.pickedCover})
+            // this.$emit("updatingCard", this.card)
             // console.log('this.card',this.card)
-            
         },
         removeBgColor(){
             this.pickedColor=null
