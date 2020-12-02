@@ -1,13 +1,44 @@
-
-.board-preview{
-    margin: 20px;
-    background-color: #d3dce6;
+.board-preview {
+    color: rgb(98, 98, 98);
+    padding: 6px;
     height: 100px;
     width: 200px;
     border-radius: 5px;
     text-align: center;
+    position: relative;
+    transition: .3s ease;
+    background-color: #ffffffde;
+    box-shadow: 0px 3px 5px 3px #dadada;
+
+    &:hover {
+        box-shadow: 0px 5px 8px 6px #BFBFBF,
+        0 -20px 9px 0 inset rgba(165, 165, 165, 0.555);
+        .board-preview-content {
+            bottom: 10px;
+        }
+    }
+
+    &:nth-child(even):hover {
+        transform: rotate(-5deg) translate(0px, -5px);
+
+    }
+
+    &:nth-child(odd):hover {
+        transform: rotate(5deg) translate(0px, -5px);
+    }
+
+    .board-preview-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        justify-self: bottom;
+        height: fit-content;
+        width: 100%;
+        padding: 4px;
+        transition: .3s ease;
+    }
 }
 
-.boards{
+.boards {
     margin-top: 35px;
 }

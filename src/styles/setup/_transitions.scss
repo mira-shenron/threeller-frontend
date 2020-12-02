@@ -40,3 +40,19 @@
     margin: 0;
     height: 0;
 }
+
+.board-composer-animation-enter-active{
+        animation: fadeInDown;
+        animation-duration: .4s;
+}
+
+.board-composer-animation-leave-active {
+    animation: fadeOutDown;
+    animation-duration: .4s;
+    
+}
+
+// .board-composer-animation-enter,
+// .board-composer-animation-leave-to {
+
+// }

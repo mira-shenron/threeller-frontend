@@ -2,14 +2,15 @@
   <section v-if="board" class="main-board-content">
     <main class="board-container">
       <div class="board-header flex space-between">
-        <div class="board-title-container">
+        <div class="board-title-container flex align-center">
           <h1
             v-if="!isShowEditTitle"
             @click="openTitleEditor"
-            class="board-title clickable"
+            class="board-title  clickable"
           >
             {{ board.title }}
           </h1>
+          <div class=" board-menu-btn clickable invite-btn">Invite</div>
           <div v-show="isShowEditTitle" class="board-input-container">
             <el-input
               ref="boardInput"
