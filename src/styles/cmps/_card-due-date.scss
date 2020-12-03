@@ -1,4 +1,5 @@
 .card-due-date{
+    // width: 100%;
     .el-input__inner{
         margin: 5px 0;
         box-shadow: inset 0 0 0 2px #dfe1e6;
@@ -11,8 +12,8 @@
         transition-property: background-color,border-color,box-shadow;
         transition-duration: 85ms;
         transition-timing-function: ease;
-        // width: 100%;
-        width: 280px;
+        width: 100%;
+        // width: 280px;
         text-align: center;
         &:focus{
             // border-color: #409EFF;

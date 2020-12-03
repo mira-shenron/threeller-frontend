@@ -108,9 +108,7 @@ export default {
     Draggable,
   },
   computed: {
-    board() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    },
+    
   },
   data() {
     return {
@@ -124,6 +122,7 @@ export default {
       boardTitle: null,
       isShowEditTitle: false,
       isShowBoardMenu: false,
+      board:null
     };
   },
   methods: {
@@ -152,11 +151,14 @@ export default {
       });
       socketService.emit("on newBoard", board);
     },
-    updatingList(card) {
-      const idx = this.list.findIndex((currCard) => currCard.id === card.id);
-      if (!idx) return;
-      this.list.splice(idx, 1, card);
-    },
+    // updatingList(card) {
+    //   const board = this.board;
+    //   const idx = board.groups.findIndex((list) =>
+    //     list.cards.find((currCard) => currCard.id === card.id)
+    //   );
+    //    if (idx<0) return;
+    //   this.list.splice(idx, 1, card);
+    // },
     moveCard({ list, idx, card }) {
       const board = this.board;
       const oldList = board.groups.find((newList) =>
@@ -285,6 +287,9 @@ export default {
    
   },
   created() {
+    this.board=JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    console.log('this.board',this.board)
+    console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
@@ -298,6 +303,7 @@ export default {
     socketService.setup();
     socketService.emit("join board", this.board._id);
     socketService.on("update board", this.socketSaveBoard);
+        // console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
   },
   destroyed() {
     socketService.off("update board", this.socketSaveBoard);

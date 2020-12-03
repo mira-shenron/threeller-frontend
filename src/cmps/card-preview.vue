@@ -81,7 +81,7 @@ export default {
        if (this.card.style.type==='full-cover'){
          if (this.card.style.color==='blue'||this.card.style.color=='black'||this.card.style.color=='green'){
            return 'white'
-         }else return null
+         }else return 'black'
        }else return 'black'
     },
     coverStyle(){

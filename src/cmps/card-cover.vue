@@ -100,7 +100,7 @@ export default {
             }
             if(color==='white')return;
             this.$emit('changeBgColor',{color,type:this.pickedCover})
-            // this.$emit("updatingCard", this.card)
+            this.$emit("updatingCard", this.card)
             // console.log('this.card',this.card)
         },
         removeBgColor(){
@@ -110,6 +110,7 @@ export default {
         }
     },
     created() {
+        console.log('this.card',this.card)
         this.style = this.card.style;
     },
     directives: {

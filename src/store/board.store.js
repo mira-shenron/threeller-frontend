@@ -14,7 +14,7 @@ export default {
             return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
-            return JSON.parse(JSON.stringify(state.currBoard));
+            return state.currBoard;
         },
         getLists(state) {
             return JSON.parse(JSON.stringify(state.currBoard.groups));

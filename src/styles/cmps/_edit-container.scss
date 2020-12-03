@@ -37,9 +37,21 @@
         right: 0;
         justify-content: end;
         align-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         &:hover{
             color: black;
         }
+        .el-icon-close{
+            font-size: rem(20px);
+        }
+        
+        // .el-icon-close{
+        //     // width: rem(40px);
+        // // height: rem(40px);
+        // font-size: 20px;
+        // }
 
      }
 
