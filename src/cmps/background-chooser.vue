@@ -2,7 +2,7 @@
   <div class="bgc-chooser-container">
     <div class="bgc-choose-type clickable">
       <div class="photo-image">
-        <div class="cover"></div>
+        <div @click="changeMenuAction('Photos')" class="cover"></div>
       </div>
       <div class="bgc-text">Photos</div>
     </div>

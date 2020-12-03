@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="board-menu">
     <div
       v-if="actionType"
       @click="changeMenuAction('')"

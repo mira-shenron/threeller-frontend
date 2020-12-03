@@ -3,6 +3,7 @@
     v-if="board"
     class="main-board-content"
     :class="{ [board.style.bgc]: board.style.bgc }"
+    :style="{backgroundImage: 'url(' + board.style.url + ')'}"
   >
     <main class="board-container">
       <div class="board-header flex space-between">
@@ -90,7 +91,7 @@
       </div>
     </main>
     <transition name="menu-slide">
-      <aside v-if="isShowBoardMenu" class="board-menu">
+      <aside v-if="isShowBoardMenu" class="menu-aside">
         <board-menu
           @emmiToggleBoardMenu="toggleBoardMenu"
           :actionType="boardAction"
@@ -103,6 +104,10 @@
           />
           <background-color-chooser
             v-if="boardAction === 'Colors'"
+            slot="edit-body"
+          />
+          <background-photo-chooser
+            v-if="boardAction === 'Photos'"
             slot="edit-body"
           />
         </board-menu>
@@ -120,6 +125,7 @@ import cardDetails from "@/cmps/card-details.vue";
 import boardMenu from "@/cmps/board-menu.vue";
 import backgroundChooser from "@/cmps/background-chooser.vue";
 import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
+import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
 import {
   eventBus,
   MOVE_CARD,
@@ -134,6 +140,7 @@ import {
   CHANGE_BGC,
   CLOSE_MEMBERS_LIST,
   SAVE_ORIG_BOARD,
+  CHANGE_BGP
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -157,6 +164,7 @@ export default {
     backgroundColorChooser,
     membersList,
     Avatar,
+    backgroundPhotoChooser,
   },
   computed: {
     board() {
@@ -179,6 +187,7 @@ export default {
       boardTitle: null,
       isShowEditTitle: false,
       isShowBoardMenu: false,
+      boardAction: false,
     };
   },
   methods: {
@@ -228,6 +237,7 @@ export default {
         board,
       });
       socketService.emit("on newBoard", board);
+      
     },
     saveOriginalBoard(board) {
       console.log(board);
@@ -382,6 +392,12 @@ export default {
       board.style.bgc = color;
       this.saveBoard();
     },
+    changeBgp(url){
+      const board = this.board;
+      if (board.style.bgc) board.style.bgc = null;
+      board.style.url = url;
+      this.saveBoard();
+    }
   },
   created() {
     // this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
@@ -397,6 +413,7 @@ export default {
     eventBus.$on(CHANGE_BGC, this.changeBgc);
     eventBus.$on(CLOSE_MEMBERS_LIST, this.toggleMembersList);
     eventBus.$on(SAVE_ORIG_BOARD, this.saveOriginalBoard);
+    eventBus.$on(CHANGE_BGP, this.changeBgp);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);
