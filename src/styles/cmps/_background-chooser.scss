@@ -1,0 +1,40 @@
+.bgc-chooser-container {
+    display: flex;
+width: 100%;
+    .bgc-choose-type {
+        flex: 1;
+        display: grid;
+        padding: 0 4px;
+        margin-bottom: 16px;
+        .color-image, .photo-image {
+            border-radius: 8px;
+            width: 100%;
+            height: rem(96px);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-bottom: 8px;
+
+            .cover {
+                width: 100%;
+                height: 100%;
+
+                &:hover {
+                    background-color: #ffffff5d;
+                }
+            }
+        }
+
+        .color-image{
+            background-image: url('../assets/imgs/rainbowbars.jpg');
+        }
+        .photo-image{
+            background-image: url('../assets/imgs/pictures.jpg');
+        }
+
+        .bgc-text {
+            width: 100%;
+            font-size: rem(14px);
+        }
+    }
+}
