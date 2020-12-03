@@ -12,12 +12,24 @@
     <el-progress color="green" :percentage="percentage"></el-progress>
     <div v-if="checklist.todos">
       <div v-for="todo in checklist.todos" :key="todo.id">
-        <todo @saveTodo="updateTodo" @deleteTodo="deleteTodo" @toggleDone="updateTodo" :todo="todo"></todo>
+        <todo
+          @saveTodo="updateTodo"
+          @deleteTodo="deleteTodo"
+          @toggleDone="updateTodo"
+          :todo="todo"
+        ></todo>
       </div>
     </div>
-    <button v-if="closedEdit" class="delete-checklist-btn" @click="toggleEdit">Add an item</button>
+    <button v-if="closedEdit" class="delete-checklist-btn" @click="toggleEdit">
+      Add an item
+    </button>
     <div v-else>
-      <textarea rows="3" cols="80" v-model="newTodoTitle" placeholder="Add an item"></textarea>
+      <textarea
+        rows="3"
+        cols="80"
+        v-model="newTodoTitle"
+        placeholder="Add an item"
+      ></textarea>
       <div>
         <el-button size="small" type="success" @click="addTodo">Add</el-button>
         <span class="clickable" @click.stop="toggleEdit"
@@ -66,28 +78,38 @@ export default {
       console.log(todo);
       eventBus.$emit(SAVE_MEMBERS, this.card);
     },
-    deleteTodo(todo){
+    deleteTodo(todo) {
       var todoIdx = this.checklist.todos.findIndex(currTodo => currTodo.id === todo.id);
-      if(todoIdx != -1) this.checklist.todos.splice(todoIdx,1);
+      if (todoIdx != -1) this.checklist.todos.splice(todoIdx, 1);
       var listIdx = this.card.checklists.findIndex(list => list.id === this.checklist.id);
       if (listIdx != -1) this.card.checklists.splice(listIdx, 1, this.checklist);
       eventBus.$emit(SAVE_MEMBERS, this.card);
     },
-    addTodo(){
+    addTodo() {
       var todo = boardService.getEmptyTodo(this.newTodoTitle);
       this.checklist.todos.push(todo);
       var idx = this.card.checklists.findIndex(list => list.id === this.checklist.id);
       if (idx != -1) this.card.checklists.splice(idx, 1, this.checklist);
+
       eventBus.$emit(SAVE_MEMBERS, this.card);
       this.toggleEdit();
       this.newTodoTitle = '';
     },
     deleteChecklist() {
       var idx = this.card.checklists.findIndex(list => list.id === this.checklist.id);
-      if (idx != -1) this.card.checklists.splice(idx, 1);
+      if (idx != -1) {
+        var removedChecklists = this.card.checklists.splice(idx, 1);
+        var checklistName = removedChecklists[0].title;
+        //add activity
+        this.$store.commit(
+          { type: 'setCurrActivityText', activityTxt: `deleted checklist ${checklistName}` }
+        );
+      }
+
+
       eventBus.$emit(SAVE_MEMBERS, this.card);
     },
-    toggleEdit(){
+    toggleEdit() {
       this.closedEdit = !this.closedEdit;
     }
   }

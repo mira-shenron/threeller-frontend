@@ -52,7 +52,7 @@
         v-if="card.members &&  coverStyle !== 'full-cover'"
         class="card-members"
       >
-        <avatar class="card-member" fullname="My Sticker" :size="28"></avatar>
+        <avatar v-for="member in card.members" :key="member._id" class="card-member" :fullname="member.fullName" :size="28"></avatar>
       </div>
     </div>
   </section>

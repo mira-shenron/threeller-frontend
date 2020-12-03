@@ -101,9 +101,9 @@ export default {
       if (!this.card.checklists) this.card.checklists = [newChecklist];
       else this.card.checklists.push(newChecklist);
 
-      //add to activity
+      //add activity
       this.$store.commit(
-        { type: 'setCurrActivityText', activityTxt: 'added checklist' }
+        { type: 'setCurrActivityText', activityTxt: `added checklist ${this.checklistName}` }
       );
 
       eventBus.$emit(SAVE_MEMBERS, this.card);

@@ -1,6 +1,6 @@
 <template>
   <section @click.stop="toggleMemberToCard">
-    <div class="members-list flex space-between align-center" >
+    <div class="members-list flex space-between align-center">
       <div class="flex align-center">
         <div class="custom-avatar">
           <avatar :fullname="member.fullName" :size="32"></avatar>
@@ -21,8 +21,8 @@ export default {
     member: Object,
     card: Object
   },
-  components:{
-      Avatar
+  components: {
+    Avatar
   },
   data() {
     return {
@@ -40,18 +40,26 @@ export default {
     }
   },
   methods: {
+    addActivity(txt) {
+      this.$store.commit(
+        { type: 'setCurrActivityText', activityTxt: txt }
+      )
+    },
     toggleMemberToCard() {
       if (!this.isCardMember) {
         if (!this.card.members) {
           this.card.members = [this.member];
+          this.addActivity(`added member ${this.member.fullName} to card`);
           eventBus.$emit(SAVE_MEMBERS, this.card);
         } else {
           this.card.members.push(this.member);
+          this.addActivity(`added member ${this.member.fullName} to card`);
           eventBus.$emit(SAVE_MEMBERS, this.card);
         }
       } else {
         var idx = this.card.members.findIndex(member => member._id === this.member._id);
-        this.card.members.splice(idx, 1);
+        var removedCards = this.card.members.splice(idx, 1);
+        this.addActivity(`removed member ${removedCards[0].fullName} from card`);
         eventBus.$emit(SAVE_MEMBERS, this.card);
       }
     }
