@@ -103,6 +103,9 @@ export default {
   computed: {
 
   },
+  created(){
+    this.$store.dispatch({ type: 'loadUsers' });
+  },
   methods: {
     goToLoginPage() {
       this.$router.push('/login');
