@@ -1,16 +1,20 @@
 <template>
-  <section v-if="board" class="main-board-content">
+  <section
+    v-if="board"
+    class="main-board-content"
+    :class="{ [board.style.bgc]: board.style.bgc }"
+  >
     <main class="board-container">
       <div class="board-header flex space-between">
         <div class="board-title-container flex align-center">
           <h1
             v-if="!isShowEditTitle"
             @click="openTitleEditor"
-            class="board-title  clickable"
+            class="board-title clickable"
           >
             {{ board.title }}
           </h1>
-          <div class=" board-menu-btn clickable invite-btn">Invite</div>
+          <div class="board-menu-btn clickable invite-btn">Invite</div>
           <div v-show="isShowEditTitle" class="board-input-container">
             <el-input
               ref="boardInput"
@@ -65,8 +69,21 @@
     </main>
     <transition name="menu-slide">
       <aside v-if="isShowBoardMenu" class="board-menu">
-        wassap menu
-        <span @click="toggleBoardMenu" class="clickable">CloseX</span>
+        <board-menu
+          @emmiToggleBoardMenu="toggleBoardMenu"
+          :actionType="boardAction"
+          @emitChangeMenuAction="changeMenuAction"
+        >
+          <background-chooser
+            @emitChangeMenuAction="changeMenuAction"
+            v-if="boardAction === 'Change Background'"
+            slot="edit-body"
+          />
+          <background-color-chooser
+            v-if="boardAction === 'Colors'"
+            slot="edit-body"
+          />
+        </board-menu>
       </aside>
     </transition>
   </section>
@@ -78,6 +95,9 @@
 import list from "@/cmps/list.vue";
 import listAdd from "@/cmps/list-add.vue";
 import cardDetails from "@/cmps/card-details.vue";
+import boardMenu from "@/cmps/board-menu.vue";
+import backgroundChooser from "@/cmps/background-chooser.vue";
+import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
 import {
   eventBus,
   MOVE_CARD,
@@ -89,6 +109,7 @@ import {
   MOVE_LIST,
   DELETE_CARD,
   SAVE_LIST,
+  CHANGE_BGC,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -104,14 +125,13 @@ export default {
     listAdd,
     Container,
     Draggable,
-  },
-  computed: {
-    board() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    },
+    boardMenu,
+    backgroundChooser,
+    backgroundColorChooser,
   },
   data() {
     return {
+      board: null,
       isShowDetails: false,
       cardDetailsToShow: null,
       upperDropPlaceholderOptions: {
@@ -122,6 +142,7 @@ export default {
       boardTitle: null,
       isShowEditTitle: false,
       isShowBoardMenu: false,
+      boardAction: "",
     };
   },
   methods: {
@@ -142,7 +163,6 @@ export default {
           this.board.colorList = info;
         }
       }
-      // this.$store.getters.boards
       const board = JSON.parse(JSON.stringify(this.board));
       this.$store.dispatch({
         type: "saveBoard",
@@ -176,7 +196,6 @@ export default {
       this.saveBoard();
     },
     updateCardInBoard(card) {
-      console.log("this.board.groups", this.board.groups);
       var groupIdx = -1;
       var cardIdx = -1;
       for (let i = 0; i < this.board.groups.length; i++) {
@@ -189,6 +208,7 @@ export default {
           }
         }
       }
+      console.log(card,cardIdx);
       this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
       this.saveBoard();
       console.log(this.board);
@@ -251,6 +271,7 @@ export default {
       this.$nextTick(() => this.$refs.boardInput.focus());
     },
     changeBoardTitle() {
+      if (!this.boardTitle) return;
       this.isShowEditTitle = false;
       const board = this.board;
       const newTitle = this.boardTitle;
@@ -258,16 +279,27 @@ export default {
       this.saveBoard();
     },
     toggleBoardMenu() {
+      this.boardAction = "";
       this.isShowBoardMenu = !this.isShowBoardMenu;
     },
     socketSaveBoard(board) {
       this.$store.dispatch({
         type: "updateBoard",
-        board
+        board,
       });
+    },
+    changeMenuAction(actionType) {
+      this.boardAction = actionType;
+    },
+    changeBgc(color) {
+      const board = this.board;
+      if (board.style.photo) board.style.photo = null;
+      board.style.bgc = color;
+      this.saveBoard();
     },
   },
   created() {
+    this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
@@ -277,6 +309,7 @@ export default {
     eventBus.$on(SAVE_MEMBERS, this.updateCardInBoard);
     eventBus.$on(DELETE_CARD, this.deleteCard);
     eventBus.$on(SAVE_LIST, this.saveList);
+    eventBus.$on(CHANGE_BGC, this.changeBgc);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);

@@ -97,7 +97,7 @@ export default {
                 // this.card.labels[colorIdx].isPicked=false
                 //  this.labelPicked=false
             }
-            // console.log("this.card", this.card);
+            console.log("this.card", this.card);
             this.$emit("updatingCard", this.card);
         },
     },
