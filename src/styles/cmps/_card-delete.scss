@@ -1,0 +1,13 @@
+.card-delete{
+    .el-button.el-button--danger{
+        width: 100%;
+        background-color: #cf513d;
+        font-size: rem(16px);
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        &:hover{
+            background-color:#eb5a46;
+
+        }
+    }
+}

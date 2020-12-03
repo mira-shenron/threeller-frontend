@@ -132,7 +132,6 @@ export default {
         if (!this.card.labels) {
             this.card.labels = [];
         }
-        console.log("this.chooseColor", this.chooseColor);
         if (
             !(
                 Object.keys(this.chooseColor).length === 0 &&
@@ -143,8 +142,9 @@ export default {
                 this.chooseColor.pickedColor.color &&
                 this.chooseColor.str === "Create"
             ) {
-                this.colorLabel.push(this.chooseColor);
-                this.$emit("updatListOfColors", this.colorLabel);
+                console.log('add label')
+                this.colorLabel.push(this.chooseColor.pickedColor);
+                this.$emit("saveBoard", this.colorLabel);
             } else if (
                 this.chooseColor.pickedColor.color &&
                 this.chooseColor.str === "Save"
@@ -166,18 +166,23 @@ export default {
                 this.colorLabel.splice(idx, 1);
             }
         }
+
         this.colorLabel.forEach((label) => {
             if (!label.isPicked) {
                 label.isPicked = false;
             }
         });
+        
+        console.log('this.card.labels',this.card.labels)    // if (!this.card.labels.length) return;
         this.card.labels.forEach((label) => {
-            if (!this.card.labels.length) return;
+            console.log('label',label)
             if (label.isPicked) {
                 const idx = this.colorLabel.findIndex(
                     (currlabel) => currlabel.id === label.id
                 );
-                this.colorLabel[idx].isPicked = true;
+                if(idx===-1){
+                     this.colorLabel.push(label)
+                }else this.colorLabel[idx].isPicked = true;
             }
         });
     },

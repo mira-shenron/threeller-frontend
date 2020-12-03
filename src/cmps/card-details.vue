@@ -1,9 +1,9 @@
 <template>
     <div class="card-detail-main">
         <div
-            v-if="bgColorOfCard"
+            v-if="(bgColorOfCard && bgColorOfCard!=='white')"
             class="cover-card"
-            :class="{ [bgColorOfCard]: (bgColorOfCard || bgColorOfCard!=='white') }"
+            :class="{ [bgColorOfCard]: (bgColorOfCard && bgColorOfCard!=='white') }"
         ></div>
         <div class="card-details">
             <div class="header-card flex space-between">
@@ -15,7 +15,7 @@
                     />
                     <span class="card-title">{{ card.title }}</span>
                 </div>
-                <span class="clickable" @click="isShowDetails"
+                <span class="x-btn clickable" @click="isShowDetails"
                     ><i class="el-icon-close"></i
                 ></span>
             </div>
@@ -282,11 +282,20 @@
                             <card-copy slot="edit-body" :currCard="card" />
                         </edit-container>
                     </div>
-                    <div class="flex align-center card-action clickable">
-                        <img src="../assets/action-icons/trash.png" alt="" />
-                        <div class="action-name" @click="onDeleteCard">
-                            Delete
+                    <div
+                        class="flex relative align-center card-action clickable"
+                        @click="edit('delete')"
+                    >
+                        <div class="flex align-center">
+                           <img src="../assets/action-icons/trash.png" alt="" />
+                            <div class="action-name">Delete</div>
                         </div>
+                        <edit-container
+                            :feature="'Delete Card ?'"
+                            v-if="currEdit === 'delete'"
+                        >
+                            <card-delete slot="edit-body" :card="card" @onDeleteCard="onDeleteCard" />
+                        </edit-container>
                     </div>
                 </div>
             </div>
@@ -315,6 +324,7 @@ import Avatar from "vue-avatar-component";
 import cardDetailsLabels from "./card-details-labels";
 import cardDetailsMembers from "./card-details-members.vue";
 import cardDetailsDueDate from "./card-details-due-date.vue";
+import cardDelete from "./card-delete.vue";
 
 export default {
     name: "card-details",
@@ -349,7 +359,7 @@ export default {
         updatingCard(card) {
             console.log("card-details card", card);
             this.card = card;
-            this.$emit("emitSaveBoard",card);
+            this.$emit("emitSaveBoard",this.card);
         },
         openColorModale(label) {
             if(label){
@@ -410,7 +420,8 @@ export default {
         Avatar,
         cardDetailsLabels,
         cardDetailsMembers,
-        cardDetailsDueDate
+        cardDetailsDueDate,
+        cardDelete
     },
     computed: {
         acts() {

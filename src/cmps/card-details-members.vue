@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h4>Members</h4>
+  <div class="card-details-members">
+    <h3>Members</h3>
     <div class="members-section flex align-center">
       <span v-for="member in members" :key="member._id">
         <avatar :fullname="member.fullName" :size="32"></avatar>

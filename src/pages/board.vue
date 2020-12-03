@@ -78,6 +78,7 @@
         <card-details
           @emitSaveBoard="updateCardInBoard"
           @closeModal="closeModal"
+          @saveBoard="saveBoard"
           :card="cardDetailsToShow"
           :members="board.members"
         >
@@ -349,6 +350,9 @@ export default {
 
   },
   created() {
+    this.board=JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    console.log('this.board',this.board)
+    console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
@@ -364,6 +368,7 @@ export default {
     socketService.setup();
     socketService.emit("join board", this.board._id);
     socketService.on("update board", this.socketSaveBoard);
+        // console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
   },
   destroyed() {
     socketService.off("update board", this.socketSaveBoard);

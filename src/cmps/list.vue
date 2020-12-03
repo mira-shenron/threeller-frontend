@@ -194,6 +194,7 @@ export default {
     // }
   },
   created() {
+    console.log('this.list',this.list)
     this.copiedList = JSON.parse(JSON.stringify(this.list));
   },
   directives: {
