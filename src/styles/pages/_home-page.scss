@@ -25,10 +25,17 @@
             padding: 6px 8px;
             width: 280px;
             background-color: $clr2;
-            border-radius: 3px;
+            // border-radius: 3px;
             box-shadow: 0px 3px 5px 3px #dadada;
             transition: color 85ms ease-in;
             color: #ffffff;
+
+            color:  #8747C9;
+            text-transform: uppercase;
+            background: #f0f6f5;
+            border-radius: 15px;
+            font-weight: 700;
+            letter-spacing: .046em;
 
             &:hover {
                 background-color: lighten($clr2, 3%);
@@ -45,6 +52,7 @@
             top: 0;
             left: 0;
 
+
             .el-input__inner {
                 border-color: #3d4da554;
                 margin-bottom: 4px;
@@ -58,13 +66,15 @@
                 padding: 8px 12px;
                 margin-right: 4px;
                 font-family: poppins;
-                background-color: #8c9df4a2;
-                border-color: #505ABA;
+                // background-color: #8c9df4a2;
+                background-color: #FFC244;
+                // border-color: #505ABA;
                 color: #ffffff;
                 transition: .15s ease-in;
 
                 &:hover {
-                    background-color: #8c9df44f;
+                    // background-color: #8c9df44f;
+                    background-color: lighten(#FFC244, 10%);
                 }
             }
 

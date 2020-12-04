@@ -8,7 +8,7 @@ a<template>
         <i @click.stop="goToHomePage" class="el-icon-s-home"></i>
       </div>
     </nav>
-    <h1 @click.stop="goToHomePage" class="logo clickable">
+    <h1 class="logo">
       <span>Three</span>ller
     </h1>
     <nav class="right-nav flex justify-center align-center">
