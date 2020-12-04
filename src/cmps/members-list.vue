@@ -1,6 +1,6 @@
 <template>
   <div class="members-list-container">
-    <div class="flex space-between align-center">
+    <div class="header flex space-between align-center">
       <span>Add Members</span>
       <span class="x-button" @click.stop="closeMembersList">
         <i class="el-icon-close"></i>
@@ -62,7 +62,7 @@ export default {
   },
   created() {
     console.log(this.$store.getters.users);
-    this.members = this.$store.getters.users;
+    this.members = this.$store.getters.users.filter(member => member._id != this.board.createdBy._id);
   }
 
 };

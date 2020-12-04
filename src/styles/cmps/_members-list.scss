@@ -3,7 +3,7 @@
     position: absolute;
     border-radius: 3px;
     top:20;
-    left: 50;
+    left: 25;
     z-index: 10;
     width:300px;
     box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
@@ -13,14 +13,16 @@
     max-height: 420px;
     color: #5e6c84;
     letter-spacing: 0.8px;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
+
+    .header{
+        border-bottom: 1px solid rgba(9, 30, 66, .13);
+        line-height: 40px;
+        margin-bottom: 8px;
+    }
 }
 
 .names-container > *{
     margin-inline-end: 10px;
     margin-bottom: 5px;
-}
-
-.names-container:hover > * {
-    background-color: rgb(236, 236, 236);
 }

@@ -18,7 +18,7 @@
             </h1>
             <div
               @click.stop="deleteMemberFromBoard(member)"
-              class="flex"
+              class="flex board-members"
               v-for="member in boardMembers"
               :key="member._id"
             >
@@ -103,10 +103,17 @@
             v-if="boardAction === 'Colors'"
             slot="edit-body"
           />
+<<<<<<< HEAD
           <!-- <background-photo-chooser
             v-if="boardAction === 'Photos'"
             slot="edit-body"
           /> -->
+=======
+          <background-photo-chooser
+            v-if="boardAction === 'Photos'"
+            slot="edit-body"
+          />
+>>>>>>> cdae91597bcc99f7725a602619248777f13be433
         </board-menu>
       </aside>
     </transition>
@@ -121,7 +128,11 @@ import cardDetails from "@/cmps/card-details.vue";
 import boardMenu from "@/cmps/board-menu.vue";
 import backgroundChooser from "@/cmps/background-chooser.vue";
 import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
+<<<<<<< HEAD
 // import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
+=======
+import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
+>>>>>>> cdae91597bcc99f7725a602619248777f13be433
 import {
   eventBus,
   MOVE_CARD,
@@ -159,11 +170,19 @@ export default {
     backgroundColorChooser,
     membersList,
     Avatar,
+<<<<<<< HEAD
     // backgroundPhotoChooser,
   },
   computed: {
     board(){
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard))
+=======
+    backgroundPhotoChooser,
+  },
+  computed: {
+    board(){
+        return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+>>>>>>> cdae91597bcc99f7725a602619248777f13be433
     },
     boardMembers() {
       return this.board.members;
@@ -182,6 +201,10 @@ export default {
       boardTitle: null,
       isShowEditTitle: false,
       isShowBoardMenu: false,
+<<<<<<< HEAD
+=======
+      //board:null
+>>>>>>> cdae91597bcc99f7725a602619248777f13be433
       boardAction: false,
     };
   },
@@ -385,7 +408,6 @@ export default {
     },
   },
   created() {
-    // this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);

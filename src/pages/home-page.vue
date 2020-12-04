@@ -95,7 +95,7 @@ export default {
         type: "addBoard",
         board: emptyBoard,
       });
-
+      console.log(currBoardId);
       this.openBoard(currBoardId);
     },
     toggleAddBoardComposer() {

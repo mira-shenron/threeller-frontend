@@ -1,8 +1,15 @@
-.delete-checklist-btn{
-    height: 20px;
+.checklist-btn{
     border-radius: 5px;
     border: none;
-    background-color: rgba(192, 192, 192, 0.5);
+    background-color:rgba(11, 31, 66, 0.04);
+    padding: 10px 14px;
+    color: #172b4d;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.checklist-btn:hover{
+    background-color: rgb(216, 217, 218);
 }
 
 .progress-bar{
@@ -12,12 +19,16 @@
 .checklist-container{
     margin-top: 10px;
     margin-bottom: 20px;
+    img{
+        margin-inline-start: 5px;
+    }
 }
 
 .todo{
     text-align: left;
-    // margin-inline-start: 5px;
-    padding: 7px 7px 7px 5px;
+    margin-inline-start: 10px;
+    padding: 7px;
+    margin-inline-end: 10px;
 }
 
 .todo:hover{
@@ -47,11 +58,20 @@
     width: 550px;
     border: none;
     outline: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
     border-radius: 5px;
+    border: 0.2px solid rgb(212, 212, 212);
 }
 
 .btn-container{
-    margin-inline-start: 30px;
+    margin-inline-start: 25px;
+    .close-btn{
+        padding: 10px;
+        font-size: 20px;
+        font-weight: bold;
+    }
 }
 // .checklist-select{
 //     height: 25px;
@@ -59,3 +79,25 @@
 
 // }
 
+.items-container{
+    margin: 0 15px;
+    textarea{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 0.2px solid rgb(212, 212, 212);
+        &::placeholder{
+            font-family: poppins;
+            padding: 5px;
+        }
+    }
+
+    .todos-btns > *{
+        margin-right: 8px;
+        .close-btn{
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+}

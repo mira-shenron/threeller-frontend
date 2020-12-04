@@ -1,27 +1,22 @@
 .app-header {
-    // background-color: $clr2;
-    background-color: #B967CD;
+    background-color: $clr2;
     height: rem(40px);
     justify-content: space-between;
     padding: 4px;
 
-    .show-log-out{
-        display: none;
-        position: absolute;
-        top:40px;
-        right:0;
-        width: 80px;
-        height:25px;
-        background-color: rgb(212, 211, 211);
+    .logout-btn{
+        font-size: rem(10px);
+        font-family: poppinsM;
+        background-color: $clr2;
+        transition: color 85ms ease-in;
+        color:  #8747C9;
+        text-transform: uppercase;
+        background: #f0f6f5;
         border-radius: 5px;
-    }
-
-    .user-avatar:hover + .show-log-out{
-        display: block;
-    }
-
-    svg {
-        fill: black;
+        letter-spacing: .046em;
+        border:none;
+        margin-inline-start: 10px;
+        outline:none;
     }
 
     .logo {
@@ -29,9 +24,6 @@
         color: #eeeeee;
         font-size: rem(24px);
 
-        // &:hover {
-        //     color: $clr6;
-        // }
         & span{
             font-weight: bold;
         }
