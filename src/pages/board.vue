@@ -81,7 +81,7 @@
           @emitSaveBoard="updateCardInBoard"
           @closeModal="closeModal"
           @saveBoard="saveBoard"
-          :card="cardDetailsToShow"
+          :cardDetailsToShow="cardDetailsToShow"
           :members="board.members"
         >
         </card-details>

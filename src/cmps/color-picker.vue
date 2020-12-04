@@ -65,8 +65,8 @@ export default {
     },
     created(){
         if (Object.keys(this.value).length === 0 &&
-            this.value.constructor === Object) this.pickedColor=boardService.getEmptyColorLabel();
-        else if (this.value||this.value.color) this.pickedColor=this.value;
+            this.value.constructor === Object) {this.pickedColor=boardService.getEmptyColorLabel();}
+        else if (this.value||this.value.color) {this.pickedColor=this.value;}
         // console.log('this.value', this.pickedColor)
    
     }

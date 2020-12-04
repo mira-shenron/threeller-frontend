@@ -366,7 +366,7 @@ import cardDelete from "./card-delete.vue";
 export default {
     name: "card-details",
     props: {
-        card: Object,
+       cardDetailsToShow: Object,
         members: Array,
     },
     data() {
@@ -436,8 +436,8 @@ export default {
             if (!cover) return;
             if (cover.color === "white") return;
             this.bgColorOfCard = cover.color;
-            this.card.style = cover;
-            console.log("card in bgChnage", this.card);
+            this.card.style.color=cover.color;
+            this.card.style.type=cover.type;
             this.updatingCard(this.card);
             // console.log("this.bgColorOfCard",this.card)
             // this.$emit("emitSaveBoard",this.card);
@@ -485,6 +485,7 @@ export default {
         },
     },
     created() {
+         this.card=JSON.parse(JSON.stringify(this.cardDetailsToShow))
         eventBus.$on(CLOSE_EDIT, () => {
             this.currEdit = null;
         });
