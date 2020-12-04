@@ -16,7 +16,6 @@
             >
               {{ board.title }}
             </h1>
-​
             <div
               @click.stop="deleteMemberFromBoard(member)"
               class="flex"
@@ -25,7 +24,6 @@
             >
               <avatar :fullname="member.fullName" :size="30"></avatar>
             </div>
-​
             <div
               class="board-menu-btn clickable invite-btn"
               @click="toggleMembersList"
@@ -36,7 +34,6 @@
               <members-list :board="board"></members-list>
             </div>
           </div>
-​
           <div v-show="isShowEditTitle" class="board-input-container">
             <el-input
               ref="boardInput"
@@ -106,16 +103,15 @@
             v-if="boardAction === 'Colors'"
             slot="edit-body"
           />
-          <background-photo-chooser
+          <!-- <background-photo-chooser
             v-if="boardAction === 'Photos'"
             slot="edit-body"
-          />
+          /> -->
         </board-menu>
       </aside>
     </transition>
   </section>
 </template>
-​
 <script>
 // import cardPreview from "@/cmps/card-preview.vue";
 // @ is an alias to /src
@@ -125,7 +121,7 @@ import cardDetails from "@/cmps/card-details.vue";
 import boardMenu from "@/cmps/board-menu.vue";
 import backgroundChooser from "@/cmps/background-chooser.vue";
 import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
-import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
+// import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
 import {
   eventBus,
   MOVE_CARD,
@@ -149,7 +145,6 @@ import socketService from "@/services/socket.service";
 import { boardService } from "../services/board.service";
 import membersList from "@/cmps/members-list.vue";
 import Avatar from "vue-avatar-component";
-​
 export default {
   name: "board",
   components: {
@@ -164,9 +159,12 @@ export default {
     backgroundColorChooser,
     membersList,
     Avatar,
-    backgroundPhotoChooser,
+    // backgroundPhotoChooser,
   },
   computed: {
+    board(){
+      return JSON.parse(JSON.stringify(this.$store.getters.currBoard))
+    },
     boardMembers() {
       return this.board.members;
     },
@@ -191,7 +189,6 @@ export default {
     deleteMemberFromBoard(member) {
       var idx = this.board.members.findIndex((mem) => mem._id === member._id);
       if (idx != -1) this.board.members.splice(idx, 1);
-​
       //remove from all cards
       this.board.groups.forEach((group) => {
         if (group.cards) {
@@ -205,7 +202,6 @@ export default {
           });
         }
       });
-​
       this.saveBoard();
     },
     toggleMembersList() {
@@ -281,7 +277,6 @@ export default {
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);
-​
         //reset activity
         this.$store.commit({ type: "setCurrActivityText", activityTxt: "" });
       }
@@ -366,7 +361,6 @@ export default {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
       activity.byMember = this.$store.getters.loggedinUser;
       activity.txt = this.$store.getters.getCurrActivityText;
-​
       if (card) {
         activity.card.id = card.id;
         activity.card.title = card.title;
@@ -391,7 +385,7 @@ export default {
     },
   },
   created() {
-    this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    // this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);

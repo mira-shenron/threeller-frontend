@@ -108,7 +108,7 @@ export default {
     },
   },
   created() {
-    var colorList = this.$store.getters.currBoard.colorList;
+    var colorList =JSON.parse(JSON.stringify(this.$store.getters.currBoard.colorList));
     if (!colorList) {
       const basicColor = ["green", "yellow", "orange", "red", "purple", "blue"];
       var colors = basicColor.map((color) =>
