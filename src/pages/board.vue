@@ -167,6 +167,9 @@ export default {
     backgroundPhotoChooser,
   },
   computed: {
+    board(){
+        return this.$store.currBoard
+    },
     boardMembers() {
       return this.board.members;
     },
@@ -391,7 +394,6 @@ export default {
     },
   },
   created() {
-    this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);

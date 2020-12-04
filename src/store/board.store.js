@@ -37,7 +37,6 @@ export default {
                 const idx = state.boards.findIndex(currBoard => currBoard._id === board._id);
                 if (idx < 0) return;
                 state.boards.splice(idx, 1, board);
-                state.isSocket = true
         },
         addBoard(state, { savedBoard }) {
             console.log('mutation', savedBoard);
@@ -68,7 +67,6 @@ export default {
             const savedBoard = await boardService.save(board);
             console.log('saved board', savedBoard);
             commit({ type: 'addBoard', savedBoard });
-            return savedBoard._id
         },
     }
 
