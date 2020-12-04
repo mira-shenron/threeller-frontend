@@ -263,20 +263,14 @@ export default {
       this.saveBoard();
     },
     updateCardInBoard(card) {
-      var groupIdx = -1;
-      var cardIdx = -1;
-      for (let i = 0; i < this.board.groups.length; i++) {
-        for (let j = 0; j < this.board.groups[i].cards.length; j++) {
-          if (this.board.groups[i].cards[j].id === card.id) {
-            groupIdx = i;
-            cardIdx = j;
-            break;
-          }
-        }
-      }
-      console.log(card, cardIdx);
-      this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
-
+      const board = this.board;
+      const list = board.groups.find((group) =>
+        group.cards.find((currCard) => currCard.id === card.id)
+      );
+      const idx = list.cards.findIndex((currCard) => currCard.id === card.id);
+      if (idx < 0) return;
+      list.cards.splice(idx, 1, card)
+      this.board = Object.assign({}, this.board)
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);
