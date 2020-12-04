@@ -188,6 +188,7 @@ export default {
       isShowEditTitle: false,
       isShowBoardMenu: false,
       boardAction: false,
+      isUpdated: false,
     };
   },
   methods: {
@@ -237,6 +238,7 @@ export default {
         board,
       });
       socketService.emit("on newBoard", board);
+      this.isUpdated = true;
       this.$forceUpdate();
     },
     saveOriginalBoard(board) {
@@ -360,10 +362,13 @@ export default {
       this.isShowBoardMenu = !this.isShowBoardMenu;
     },
     socketSaveBoard(board) {
-      this.$store.dispatch({
-        type: "updateBoard",
-        board,
-      });
+      if(!this.isUpdated){
+        this.$store.dispatch({
+          type: "updateBoard",
+          board,
+        });
+      }
+      this.isUpdated = false;
     },
     createActivity(card) {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
