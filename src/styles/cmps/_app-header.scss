@@ -1,8 +1,9 @@
 .app-header {
-    background-color: $clr2;
+    // background-color: $clr2;
+    background-color: #B967CD;
     height: rem(40px);
     justify-content: space-between;
-    padding: 2px;
+    padding: 4px;
 
     .show-log-out{
         display: none;
@@ -28,9 +29,9 @@
         color: #eeeeee;
         font-size: rem(24px);
 
-        &:hover {
-            color: $clr6;
-        }
+        // &:hover {
+        //     color: $clr6;
+        // }
         & span{
             font-weight: bold;
         }
@@ -38,7 +39,7 @@
 
     nav {
         &>:not(:last-child) {
-            margin-right: 2px;
+            margin-right: 4px;
         }
     }
 
@@ -51,7 +52,8 @@
         border-radius: 5px;
         padding: rem(4px);
         position: relative;
-        background-color: $clr3;
+        // background-color: $clr3;
+        background-color: #B967CD;
         cursor: pointer;
 
         .kiwi {
@@ -59,7 +61,7 @@
         }
 
         &:hover {
-            background-color: lighten($clr3, 4%);
+            background-color: lighten(#B967CD, 4%);
         }
         
 

@@ -478,7 +478,7 @@ export default {
             var res = board.activities.filter(
                 (actv) => actv.card.id === this.card.id
             );
-            return res;
+            return res.sort((a, b) => b.createdAt - a.createdAt);
         },
         membersToShow() {
             return "placeholder";

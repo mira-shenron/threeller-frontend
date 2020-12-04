@@ -9,4 +9,7 @@ export const DELETE_CARD = 'delete-card';
 export const COPY_LIST = 'copy-list';
 export const MOVE_LIST = 'move-list';
 export const SAVE_LIST = 'move-list';
+export const CHANGE_BGC = 'change-bgc';
+export const CLOSE_MEMBERS_LIST = 'close-members-list';
+export const SAVE_ORIG_BOARD = 'save-origin-board';
 export const eventBus = new Vue();
