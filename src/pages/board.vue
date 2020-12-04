@@ -222,7 +222,7 @@ export default {
           this.board.colorList = info;
         }
       }
-      const board = JSON.parse(JSON.stringify(this.board));
+      const board = Object.assign({},this.board);
       this.$store.dispatch({
         type: "saveBoard",
         board,
@@ -270,7 +270,7 @@ export default {
       const idx = list.cards.findIndex((currCard) => currCard.id === card.id);
       if (idx < 0) return;
       list.cards.splice(idx, 1, card)
-      this.board = Object.assign({}, this.board)
+      this.cardDetailsToShow = Object.assign({},card)
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);

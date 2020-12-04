@@ -85,18 +85,17 @@ export default {
       this.$store.commit({ type: "setCurrBoard", boardId });
       this.$router.push(`board/${boardId}`);
     },
-    createBoard() {
+    async createBoard() {
       if (!this.newBoardName) return;
       var currUser = this.$store.getters.loggedinUser;
       console.log("user:", currUser);
       var emptyBoard = boardService.getEmptyBoard(this.newBoardName, currUser);
       this.isShowAddBoard = false;
-      this.$store.dispatch({
+      const currBoardId = await this.$store.dispatch({
         type: "addBoard",
         board: emptyBoard,
       });
 
-      var currBoardId = this.$store.getters.currBoard._id;
       this.openBoard(currBoardId);
     },
     toggleAddBoardComposer() {
