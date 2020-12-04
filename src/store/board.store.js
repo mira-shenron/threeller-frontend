@@ -68,6 +68,7 @@ export default {
             const savedBoard = await boardService.save(board);
             console.log('saved board', savedBoard);
             commit({ type: 'addBoard', savedBoard });
+            return savedBoard._id
         },
     }
 

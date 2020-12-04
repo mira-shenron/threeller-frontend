@@ -1,65 +1,80 @@
 <template>
   <section class="welcome-container flex column">
-    <header class="welcome-header">
-      <div class="welcome-nav flex space-between align-center">
-        <div class="logo">
-          <span class="logo-first">Three</span
-          ><span class="logo-last">ller.</span>
-        </div>
-        <div class="nav-links">
-          <a class="clickable" @click="goToLoginPage">Login</a>
-          <a class="clickable" @click="goToSignupPage">Sign Up</a>
-          <a class="clickable" @click="guestLogin">Continue as guest</a>
-        </div>
-      </div>
-    </header>
     <div class="main-section">
-      <div class="section-one">
-        <h6>task manager</h6>
-        <h2>Organize it all.</h2>
-        <a class="clickable start-here" @click="guestLogin">Start here ></a>
-        <div>
-          <img
-            class="img-one"
-            width="600px"
-            src="../assets/imgs/tasks.png"
-            alt=""
-          />
+      <div class="with-pic">
+        <div class="layout">
+          <header class="welcome-header">
+            <div class="welcome-nav flex space-between align-center">
+              <div class="logo">
+                <span class="logo-first">Three</span
+                ><span class="logo-last">ller.</span>
+              </div>
+              <div class="nav-links">
+                <a class="clickable" @click="goToLoginPage">Login</a>
+                <a class="clickable" @click="goToSignupPage">Sign Up</a>
+                <a class="clickable" @click="guestLogin">Guest Mode</a>
+              </div>
+            </div>
+          </header>
+          <div class="section-one">
+            <div class="hero flex space-between">
+              <div class="hero-text flex column">
+                <h2>Organize it all.</h2>
+                <p>
+                  Go from Idea to Action in Seconds with our Intuitively Simple
+                  Boards, Lists and Cards. Threeller is the Best Way to Organize
+                  Plans, Projects and More.
+                </p>
+                <a class="clickable start-here" @click="guestLogin"
+                  >Get Started</a
+                >
+              </div>
+              <img
+                class="img-one"
+                width="55%"
+                src="../assets/imgs/img.png"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="section-two-container">
-        <div class="section-two flex justify-center space-between">
-          <div class="flex column">
-            <h6>All favorite features</h6>
-            <h5>
-              Get the same functionality<br />
-              with better design<br />
-              You don`t even need account to start. <br />
-              Explore and enjoy
-            </h5>
+        <div class="layout">
+          <div class="section-two flex justify-center space-between">
+            <div class="flex column">
+              <h6>All Favorite Things Included</h6>
+              <h5>
+                Get the same functionality<br />
+                with better design<br />
+                You don't even need account to start. <br />
+                Explore and enjoy
+              </h5>
+            </div>
+            <img
+              class="img-two"
+              width="500px"
+              src="../assets/imgs/orange.jpg"
+              alt=""
+            />
           </div>
-          <img
-            class="img-two"
-            width="500px"
-            src="../assets/imgs/orange.jpg"
-            alt=""
-          />
         </div>
       </div>
       <div class="section-three-container">
         <div class="grid-container">
           <h6>Core features</h6>
           <div class="section flex">
-              <h5>
-                Redesigned <br />
-                Interface
-              </h5>
-              <span>
-                Designed to put focus on your needs and comfort. <br />
-                Enjoy an intuitive UI that’s out of your way, keeping you in
-                <br />
-                the zone, working the way you want.
-              </span>
+            <h5>
+              Redesigned <br />
+              Interface
+            </h5>
+            <span>
+              Designed to put focus on your needs and comfort. <br />
+              Enjoy an intuitive UI that’s out of your way, keeping you in
+              <br />
+              the zone, working the way you want.
+            </span>
           </div>
           <div class="section flex">
             <h5>
@@ -81,14 +96,24 @@
             <span>
               Whether it’s for work, a side project <br />
               or even the next family vacation, <br />
-              Trello helps your team stay organized.
+              Treeller helps your team stay organized.
             </span>
           </div>
         </div>
       </div>
     </div>
 
-    <footer class="footer">Coming Soon</footer>
+    <footer class="footer">
+      <h6>Let's stay in touch</h6>
+      <h4>Get our updates straight to your inbox</h4>
+      <div>
+        <input type="text" placeholder="Enter email address" />
+        <button class="subscribe-btn">Subscribe</button>
+      </div>
+      <small
+        >By signing up, you consent to the <span>privacy policy</span></small
+      >
+    </footer>
   </section>
 </template>
 
@@ -103,7 +128,7 @@ export default {
   computed: {
 
   },
-  created(){
+  created() {
     this.$store.dispatch({ type: 'loadUsers' });
   },
   methods: {

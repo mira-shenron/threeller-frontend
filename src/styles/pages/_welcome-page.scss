@@ -1,16 +1,33 @@
 .welcome-container{
-    // background: rgb(225,224,255);
-    // background: linear-gradient(112deg, rgba(225,224,255,1) 0%, rgba(116,127,255,1) 100%);
-
+    color:white;
+    .layout{
+        margin: 0 150px;
+    }
     .main-section{
+        .with-pic{
+            background-image: url('../assets/imgs/new.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height:93vh;
+        }
+        .hero{
+            padding-top: 10px;
+        }
         .section-one{
             text-align: center;
             min-height: 100vh;
 
+            .hero-text{
+                padding-top: 25px;
+                padding-right: 80px;
+                p{
+                    text-align: left;
+                    margin-bottom: 100px;
+                }
+            }
+
             h2{
-                color: #0f0f0f;
                 font-size: 60px;
-                text-align: center;
                 font-weight: 600;
                 letter-spacing: -.005em;
                 margin-bottom: 25px;
@@ -18,36 +35,30 @@
         }
        min-height: 80vh;
        .img-one{
-           margin-top: 30px;
            border-radius: 5px;
        }
 
        .section-two-container{
-            background-color: #f0f6f5;
+            background-color: white;
             min-height: 100vh;
             padding-bottom:150px;
        }
        .section-two{
-           margin: 0 100px;
            height: 100vh;
-           padding-top: 170px;
-           color: black;
+            padding-top: 30px;
+           color: rgb(49, 47, 47);
            vertical-align: middle;
            font-size: 100px;
-
-           
-           h6{
-            text-align: left;
-        }
        }
 
        .img-two{
+           margin-top: 100px;
            border-radius: 25px;
        }
 
        .section-three-container{
             min-height: 100vh;
-
+            background-color: rgba(191, 108, 205, 0.3);
             .grid-container{
                 display: grid;
                 justify-content: center;
@@ -63,14 +74,14 @@
             }
 
             h6{
-                text-align: left;
+                margin-bottom: 40px;
             }
 
             .section{
                 display: grid;
                 grid-template-columns: 200px auto;
                 grid-column-gap: 100px;
-                color: black;
+                color: #0f0f0f;
                 margin-bottom: 100px;
             }
        }
@@ -80,70 +91,103 @@
 
 .welcome-header{
     height: 20vh;
-    color: #0f0f0f;
 }
 
 .welcome-nav{
-    margin: 0 150px;
-    padding: 30px;
-    // background-image: url('../assets/imgs/background.png');
+    // padding: 20px 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 .logo{
-    font-size: 25px;
+    font-size: 30px;
 }
 .logo-first{
     font-weight: bold;
 }
 
 .nav-links > *{
-    margin-inline-start: 20px;
-    color: #000000b3;
+    margin-inline-start: 30px;
 }
 
 .nav-links > *{
     &:hover{
-        color:rgb(168, 168, 168);
+        color:#FFC244;
     }
 }
 
 .footer{
-    color: #989898;
-    height: 300px;
-    background-color: #e6e6e6;
+    height: 200px;
+    background-color: #B967CD;
+    text-align: center;
+
+    h4{
+        font-size: smaller;
+    }
+    small{
+        font-size: x-small;
+    }
+
+    h6{
+        padding-top: 40px;
+        text-align: center;
+    }
+    .subscribe-btn{
+        color:  #8747C9;
+        text-transform: uppercase;
+        background: #f0f6f5;
+        border-radius: 10px;
+        padding:10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .046em;
+        border: none;
+        outline: none;
+    }
+    input{
+        height: 35px;
+        margin-inline-end: 15px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+    }
 }
 
 .start-here{
-    color: black;
+    color:  #8747C9;
     text-transform: uppercase;
     background: #f0f6f5;
     border-radius: 15px;
-    padding:0 18px;
-    font-size: 13px;
+    padding:18px 20px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: .046em;
+    width: 150px;
 }
 
-.start-here:hover{
-    background: #d9dbda;
+.start-here:hover, .subscribe-btn:hover{
+    background: #FFC244;
 }
 
 h6{
-    color: #5E6ECC;
+    color: #8747C9;
     font-size: 18px;
     font-weight: 600;
     letter-spacing: .05em;
     text-transform: uppercase;
-    text-align: center;
+    text-align: left;
 }
 
 h5{
     font-size: 23px;
-    line-height: 1.2;
+    line-height: 1.3;
     font-weight: 600;
     letter-spacing: -.005em;
-    color: black;
+    color: rgb(39, 37, 37);
 }
 
-.footer{
-    text-align: center;
+h2{
+    text-align: left;
 }
+
+
+
