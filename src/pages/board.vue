@@ -3,7 +3,7 @@
     v-if="board"
     class="main-board-content"
     :class="{ [board.style.bgc]: board.style.bgc }"
-    :style="{backgroundImage: 'url(' + board.style.url + ')'}"
+    :style="{ backgroundImage: 'url(' + board.style.url + ')' }"
   >
     <main class="board-container">
       <div class="board-header flex space-between">
@@ -140,7 +140,7 @@ import {
   CHANGE_BGC,
   CLOSE_MEMBERS_LIST,
   SAVE_ORIG_BOARD,
-  CHANGE_BGP
+  CHANGE_BGP,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -167,9 +167,6 @@ export default {
     backgroundPhotoChooser,
   },
   computed: {
-    board() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    },
     boardMembers() {
       return this.board.members;
     },
@@ -237,7 +234,7 @@ export default {
         board,
       });
       socketService.emit("on newBoard", board);
-      
+      this.$forceUpdate();
     },
     saveOriginalBoard(board) {
       console.log(board);
@@ -392,15 +389,15 @@ export default {
       board.style.bgc = color;
       this.saveBoard();
     },
-    changeBgp(url){
+    changeBgp(url) {
       const board = this.board;
       if (board.style.bgc) board.style.bgc = null;
       board.style.url = url;
       this.saveBoard();
-    }
+    },
   },
   created() {
-    // this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
