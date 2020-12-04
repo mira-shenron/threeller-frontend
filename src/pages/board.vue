@@ -155,6 +155,7 @@ export default {
       boardTitle: null,
       isShowEditTitle: false,
       isShowBoardMenu: false,
+      //board:null
     };
   },
   methods: {
