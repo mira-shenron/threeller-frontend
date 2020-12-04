@@ -28,9 +28,10 @@
                 }
 
                 .board-input-container {
+                    order: -1;
                     border-radius: 3px;
                     height: rem(32px);
-                    width: 100%;
+                    width: fit-content;
 
                     .el-input__inner {
                         font-family: Poppins;
@@ -181,6 +182,7 @@
 
 //DnD
 .column-ghost {
+    cursor: grab;
     transition: transform 0.18s ease;
     transform: rotateZ(5deg);
 }
@@ -191,9 +193,9 @@
 }
 
 .cards-drop-preview {
-    background-color: rgba(150, 150, 200, 0.1);
+    // background-color: rgba(150, 150, 200, 0.1);
     border-radius: 3px;
-    max-height: fit-content;
+    max-height: inherit;
 }
 
 .smooth-dnd-container.horizontal {

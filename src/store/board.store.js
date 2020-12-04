@@ -30,14 +30,17 @@ export default {
         },
         setCurrBoard(state, { boardId }) {
             state.currBoard = state.boards.find(board => board._id === boardId);
+            console.log(state.currBoard);
         },
         saveBoard(state, { board }) {
-            state.currBoard = board;
-            const idx = state.boards.findIndex(currBoard => currBoard._id === board._id);
-            state.boards.splice(idx,1,board);
+                state.currBoard = board;
+                const idx = state.boards.findIndex(currBoard => currBoard._id === board._id);
+                if (idx < 0) return;
+                state.boards.splice(idx, 1, board);
+                state.isSocket = true
         },
         addBoard(state, { savedBoard }) {
-            console.log('mutation', savedBoard)
+            console.log('mutation', savedBoard);
             state.boards.push(savedBoard);
             state.currBoard = savedBoard;
         },
@@ -63,8 +66,9 @@ export default {
         },
         async addBoard({ commit }, { board }) {
             const savedBoard = await boardService.save(board);
-            console.log('saved board',savedBoard)
+            console.log('saved board', savedBoard);
             commit({ type: 'addBoard', savedBoard });
+            return savedBoard._id
         },
     }
 

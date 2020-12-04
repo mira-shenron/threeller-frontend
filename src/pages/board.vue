@@ -1,5 +1,9 @@
 <template>
-  <section v-if="board" class="main-board-content">
+  <section
+    v-if="board"
+    class="main-board-content"
+    :class="{ [board.style.bgc]: board.style.bgc }"
+  >
     <main class="board-container">
       <div class="board-header flex space-between">
         <div class="board-title-container flex justify-center align-center">
@@ -87,8 +91,21 @@
     </main>
     <transition name="menu-slide">
       <aside v-if="isShowBoardMenu" class="board-menu">
-        wassap menu
-        <span @click="toggleBoardMenu" class="clickable">CloseX</span>
+        <board-menu
+          @emmiToggleBoardMenu="toggleBoardMenu"
+          :actionType="boardAction"
+          @emitChangeMenuAction="changeMenuAction"
+        >
+          <background-chooser
+            @emitChangeMenuAction="changeMenuAction"
+            v-if="boardAction === 'Change Background'"
+            slot="edit-body"
+          />
+          <background-color-chooser
+            v-if="boardAction === 'Colors'"
+            slot="edit-body"
+          />
+        </board-menu>
       </aside>
     </transition>
   </section>
@@ -100,6 +117,9 @@
 import list from "@/cmps/list.vue";
 import listAdd from "@/cmps/list-add.vue";
 import cardDetails from "@/cmps/card-details.vue";
+import boardMenu from "@/cmps/board-menu.vue";
+import backgroundChooser from "@/cmps/background-chooser.vue";
+import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
 import {
   eventBus,
   MOVE_CARD,
@@ -111,16 +131,17 @@ import {
   MOVE_LIST,
   DELETE_CARD,
   SAVE_LIST,
+  CHANGE_BGC,
   CLOSE_MEMBERS_LIST,
-  SAVE_ORIG_BOARD
+  SAVE_ORIG_BOARD,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag } from "@/services/dnd.service.js";
 import socketService from "@/services/socket.service";
-import { boardService } from '../services/board.service';
+import { boardService } from "../services/board.service";
 import membersList from "@/cmps/members-list.vue";
-import Avatar from 'vue-avatar-component';
+import Avatar from "vue-avatar-component";
 
 export default {
   name: "board",
@@ -131,8 +152,11 @@ export default {
     listAdd,
     Container,
     Draggable,
+    boardMenu,
+    backgroundChooser,
+    backgroundColorChooser,
     membersList,
-    Avatar
+    Avatar,
   },
   computed: {
     board() {
@@ -140,7 +164,7 @@ export default {
     },
     boardMembers() {
       return this.board.members;
-    }
+    },
   },
   data() {
     return {
@@ -160,20 +184,22 @@ export default {
   },
   methods: {
     deleteMemberFromBoard(member) {
-      var idx = this.board.members.findIndex(mem => mem._id === member._id);
+      var idx = this.board.members.findIndex((mem) => mem._id === member._id);
       if (idx != -1) this.board.members.splice(idx, 1);
 
       //remove from all cards
-      this.board.groups.forEach(group => {
+      this.board.groups.forEach((group) => {
         if (group.cards) {
-          group.cards.forEach(card => {
+          group.cards.forEach((card) => {
             if (card.members) {
-              var idx = card.members.findIndex(cardMember => cardMember._id === member._id);
+              var idx = card.members.findIndex(
+                (cardMember) => cardMember._id === member._id
+              );
               if (idx != -1) card.members.splice(idx, 1);
             }
-          })
+          });
         }
-      })
+      });
 
       this.saveBoard();
     },
@@ -197,8 +223,7 @@ export default {
           this.board.colorList = info;
         }
       }
-      // this.$store.getters.boards
-      const board = JSON.parse(JSON.stringify(this.board));
+      const board = Object.assign({},this.board);
       this.$store.dispatch({
         type: "saveBoard",
         board,
@@ -206,7 +231,7 @@ export default {
       socketService.emit("on newBoard", board);
     },
     saveOriginalBoard(board) {
-      console.log(board)
+      console.log(board);
       this.$store.dispatch({
         type: "saveBoard",
         board,
@@ -239,27 +264,20 @@ export default {
       this.saveBoard();
     },
     updateCardInBoard(card) {
-      var groupIdx = -1;
-      var cardIdx = -1;
-      for (let i = 0; i < this.board.groups.length; i++) {
-        for (let j = 0; j < this.board.groups[i].cards.length; j++) {
-          if (this.board.groups[i].cards[j].id === card.id) {
-            groupIdx = i;
-            cardIdx = j;
-            break;
-          }
-        }
-      }
-      this.board.groups[groupIdx].cards.splice(cardIdx, 1, card);
-
+      const board = this.board;
+      const list = board.groups.find((group) =>
+        group.cards.find((currCard) => currCard.id === card.id)
+      );
+      const idx = list.cards.findIndex((currCard) => currCard.id === card.id);
+      if (idx < 0) return;
+      list.cards.splice(idx, 1, card)
+      this.cardDetailsToShow = Object.assign({},card)
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);
 
         //reset activity
-        this.$store.commit(
-          { type: 'setCurrActivityText', activityTxt: '' }
-        )
+        this.$store.commit({ type: "setCurrActivityText", activityTxt: "" });
       }
       this.saveBoard();
     },
@@ -321,6 +339,7 @@ export default {
       this.$nextTick(() => this.$refs.boardInput.focus());
     },
     changeBoardTitle() {
+      if (!this.boardTitle) return;
       this.isShowEditTitle = false;
       const board = this.board;
       const newTitle = this.boardTitle;
@@ -328,12 +347,13 @@ export default {
       this.saveBoard();
     },
     toggleBoardMenu() {
+      this.boardAction = "";
       this.isShowBoardMenu = !this.isShowBoardMenu;
     },
     socketSaveBoard(board) {
       this.$store.dispatch({
         type: "updateBoard",
-        board
+        board,
       });
     },
     createActivity(card) {
@@ -347,13 +367,19 @@ export default {
       }
       console.log(activity);
       return activity;
-    }
-
+    },
+    changeMenuAction(actionType) {
+      this.boardAction = actionType;
+    },
+    changeBgc(color) {
+      const board = this.board;
+      if (board.style.photo) board.style.photo = null;
+      board.style.bgc = color;
+      this.saveBoard();
+    },
   },
   created() {
-    this.board=JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    console.log('this.board',this.board)
-    console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
+    // this.board = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     eventBus.$on(MOVE_CARD, this.moveCard);
     eventBus.$on(COPY_CARD, this.copyCard);
     eventBus.$on(COPY_LIST, this.copyList);
@@ -363,13 +389,14 @@ export default {
     eventBus.$on(SAVE_MEMBERS, this.updateCardInBoard);
     eventBus.$on(DELETE_CARD, this.deleteCard);
     eventBus.$on(SAVE_LIST, this.saveList);
+    eventBus.$on(CHANGE_BGC, this.changeBgc);
     eventBus.$on(CLOSE_MEMBERS_LIST, this.toggleMembersList);
     eventBus.$on(SAVE_ORIG_BOARD, this.saveOriginalBoard);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);
     socketService.on("update board", this.socketSaveBoard);
-        // console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
+    // console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
   },
   destroyed() {
     socketService.off("update board", this.socketSaveBoard);

@@ -1,31 +1,35 @@
 .card-due-date{
     // width: 100%;
-    .el-input__inner{
-        margin: 5px 0;
-        box-shadow: inset 0 0 0 2px #dfe1e6;
-        background-color: #fafbfc;
-        box-sizing: border-box;
-        border-radius: 3px;
-        display: block;
-        line-height: 20px;
-        padding: 8px 12px;
-        transition-property: background-color,border-color,box-shadow;
-        transition-duration: 85ms;
-        transition-timing-function: ease;
+    .el-date-editor.el-input{
         width: 100%;
-        // width: 280px;
-        text-align: center;
-        &:focus{
-            // border-color: #409EFF;
-            box-shadow: inset 0 0 0 2px #2f6aa5;
-            background-color: #ffffff;
-            &:hover{
+    
+        .el-input__inner{
+            margin: 5px 0;
+            box-shadow: inset 0 0 0 2px #dfe1e6;
+            background-color: #fafbfc;
+            box-sizing: border-box;
+            border-radius: 3px;
+            display: block;
+            line-height: 20px;
+            padding: 8px 12px;
+            transition-property: background-color,border-color,box-shadow;
+            transition-duration: 85ms;
+            transition-timing-function: ease;
+            
+            // width: 280px;
+            text-align: center;
+            &:focus{
+                // border-color: #409EFF;
+                box-shadow: inset 0 0 0 2px #2f6aa5;
                 background-color: #ffffff;
+                &:hover{
+                    background-color: #ffffff;
+                }
+                outline: 0;
             }
-            outline: 0;
-        }
-        &:hover{
-            background-color: #ebecf0;
+            &:hover{
+                background-color: #ebecf0;
+            }
         }
     }
 

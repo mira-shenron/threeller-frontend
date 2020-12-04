@@ -3,7 +3,7 @@
     background-color: #B967CD;
     height: rem(40px);
     justify-content: space-between;
-    padding: 2px;
+    padding: 4px;
 
     .show-log-out{
         display: none;
@@ -39,7 +39,7 @@
 
     nav {
         &>:not(:last-child) {
-            margin-right: 2px;
+            margin-right: 4px;
         }
     }
 

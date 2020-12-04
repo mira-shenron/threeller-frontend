@@ -4,7 +4,11 @@
             v-if="(bgColorOfCard && bgColorOfCard!=='white')"
             class="cover-card"
             :class="{ [bgColorOfCard]: (bgColorOfCard && bgColorOfCard!=='white') }"
-        ></div>
+        >
+         <span class="x-btn clickable" @click="isShowDetails"
+                    ><i class="el-icon-close"></i
+                ></span>
+        </div>
         <div class="card-details">
             <div class="header-card flex space-between">
                 <div class="flex align-center">
