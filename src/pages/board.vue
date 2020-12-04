@@ -168,7 +168,7 @@ export default {
   },
   computed: {
     board(){
-        return this.$store.currBoard
+        return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     },
     boardMembers() {
       return this.board.members;

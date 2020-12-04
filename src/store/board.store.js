@@ -69,5 +69,4 @@ export default {
             commit({ type: 'addBoard', savedBoard });
         },
     }
-
 };
