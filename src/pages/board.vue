@@ -18,7 +18,7 @@
 
             <div
               @click.stop="deleteMemberFromBoard(member)"
-              class="flex"
+              class="flex board-members"
               v-for="member in boardMembers"
               :key="member._id"
             >

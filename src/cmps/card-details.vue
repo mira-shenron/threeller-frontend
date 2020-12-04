@@ -13,7 +13,7 @@
             <div class="header-card flex space-between">
                 <div class="flex align-center">
                     <img
-                        width="45px"
+                        width="40px"
                         src="../assets/card-icons/card.png"
                         alt=""
                     />
@@ -58,14 +58,14 @@
                         >
                             {{ descriptionOnDiv }}
                         </div>
-                        <div v-else>
+                        <div v-else class="items-container flex column">
                             <textarea
                                 rows="10"
                                 cols="80"
                                 v-model="descriptionOnText"
                                 placeholder="Add new description"
                             ></textarea>
-                            <div>
+                            <div class="flex todos-btns">
                                 <el-button
                                     size="small"
                                     type="success"
@@ -75,7 +75,7 @@
                                 <span
                                     class="clickable"
                                     @click.stop="closeDescriptionEdit"
-                                    ><i class="el-icon-close"></i
+                                    ><i class="el-icon-close close-btn"></i
                                 ></span>
                             </div>
                         </div>

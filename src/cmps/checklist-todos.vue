@@ -5,7 +5,7 @@
         <img src="../assets/action-icons/checkmarks.png" alt="" />
         <div>{{ checklist.title }}</div>
       </div>
-      <button class="delete-checklist-btn" @click="deleteChecklist">
+      <button class="checklist-btn clickable" @click="deleteChecklist">
         Delete
       </button>
     </div>
@@ -20,20 +20,20 @@
         ></todo>
       </div>
     </div>
-    <button v-if="closedEdit" class="delete-checklist-btn" @click="toggleEdit">
+    <button v-if="closedEdit" class="checklist-btn clickable" @click="toggleEdit">
       Add an item
     </button>
-    <div v-else>
+    <div v-else class="items-container flex column">
       <textarea
         rows="3"
         cols="80"
         v-model="newTodoTitle"
         placeholder="Add an item"
       ></textarea>
-      <div>
+      <div class="todos-btns flex">
         <el-button size="small" type="success" @click="addTodo">Add</el-button>
         <span class="clickable" @click.stop="toggleEdit"
-          ><i class="el-icon-close"></i
+          ><i class="el-icon-close close-btn"></i
         ></span>
       </div>
     </div>

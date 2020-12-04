@@ -66,14 +66,12 @@
                 padding: 8px 12px;
                 margin-right: 4px;
                 font-family: poppins;
-                // background-color: #8c9df4a2;
-                background-color: #FFC244;
-                // border-color: #505ABA;
-                color: #ffffff;
+                background-color: #f0f6f5;
+                color:  #8747C9;
                 transition: .15s ease-in;
+                border:none;
 
                 &:hover {
-                    // background-color: #8c9df44f;
                     background-color: lighten(#FFC244, 10%);
                 }
             }

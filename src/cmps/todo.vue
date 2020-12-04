@@ -5,12 +5,12 @@
       <span v-if="editClosed" class="clickable" @click.stop="toggleEdit">{{ todo.title }}</span>
       <span v-else>
         <input class="title-input" v-model="todo.title" />
-        <div class="btn-container">
+        <div class="btn-container todos-btns flex">
           <el-button size="small" type="success" @click="saveTodo"
             >Save</el-button
           >
           <span class="clickable" @click.stop="toggleEdit"
-            ><i class="el-icon-close"></i
+            ><i class="el-icon-close close-btn"></i
           ></span>
         </div>
       </span>
