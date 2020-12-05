@@ -84,7 +84,6 @@
           <card-details
             @emitSaveBoard="updateCardInBoard"
             @closeModal="closeModal"
-            @saveBoard="saveBoard"
             :card="cardDetailsToShow"
             :members="board.members"
           >
@@ -143,6 +142,7 @@ import {
   CLOSE_MEMBERS_LIST,
   SAVE_ORIG_BOARD,
   CHANGE_BGP,
+  UPDATE_COLORLIST,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -227,13 +227,15 @@ export default {
     closeModal() {
       this.isShowDetails = false;
     },
-    saveBoard(info) {
-      if (info) {
-        if (info[0] && info[0].blindMode) {
-          this.board.colorList = info;
-        }
-      }
-      const board = Object.assign({}, this.board);
+    saveBoard() {
+      // if (info) {
+      //   if (info[0] && info[0].blindMode) {
+      //     this.board.colorList = info;
+      //     console.log('this.boardUpdatColorsList',this.board)
+      //   }
+      // }
+      const board = Object.assign({},this.board);
+      console.log('board',board)
       this.$store.dispatch({
         type: "saveBoard",
         board,
@@ -392,6 +394,12 @@ export default {
       board.style.url = url;
       this.saveBoard();
     },
+    updateColorList(color){
+      console.log("🚀updateColorList ~ color", color)
+      this.board.colorList.push(color);
+      console.log("🚀updateColorList ~ board",  this.board)
+      this.saveBoard();
+    }
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
@@ -407,14 +415,15 @@ export default {
     eventBus.$on(CLOSE_MEMBERS_LIST, this.toggleMembersList);
     eventBus.$on(SAVE_ORIG_BOARD, this.saveOriginalBoard);
     eventBus.$on(CHANGE_BGP, this.changeBgp);
+    eventBus.$on(UPDATE_COLORLIST, this.updateColorList);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);
     socketService.on("update board", this.socketSaveBoard);
-    // console.log('this.$store.getters.currBoard',this.$store.getters.currBoard)
+    console.log('currBoard',this.$store.getters.currBoard)
   },
   destroyed() {
-    socketService.off("update board", this.socketSaveBoard);
+    socketService.off("update board", this.board);
     socketService.terminate();
   },
   directives: {

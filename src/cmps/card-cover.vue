@@ -71,7 +71,8 @@ export default {
                 "black",
             ],
             pickedCover: null,
-            pickedColor:null
+            pickedColor:null,
+            copyCard:null
         };
     },
     computed: {
@@ -79,13 +80,13 @@ export default {
     },
     methods: {
          onClickOutside() {
-           if (this.card) {
-               this.card.style={
+           if (this.copyCard) {
+               this.copyCard.style={
                    color:this.pickedColor,
                    type:this.pickedCover
                }
                 eventBus.$emit(CLOSE_EDIT);
-                this.$emit("updatingCard", this.card);
+                this.$emit("updatingCard",this.copyCard);
             // console.log('this.card',this.card)
             }
         },
@@ -100,7 +101,7 @@ export default {
             }
             if(color==='white')return;
             this.$emit('changeBgColor',{color,type:this.pickedCover})
-            this.$emit("updatingCard", this.card)
+            // this.$emit("updatingCard", this.copyCard)
             // console.log('this.card',this.card)
         },
         removeBgColor(){
@@ -110,8 +111,9 @@ export default {
         }
     },
     created() {
-        console.log('this.card',this.card)
-        this.style = this.card.style;
+        this.copyCard=JSON.parse(JSON.stringify(this.card))
+        console.log('this.copyCard', this.copyCard)
+        this.style = this.copyCard.style;
     },
     directives: {
         clickOutside: vClickOutside.directive,

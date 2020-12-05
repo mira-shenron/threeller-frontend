@@ -141,9 +141,6 @@ export default {
     },
   },
   created() {
-    if (this.card.style) {
-      this.card.style={color: "white",type: null}
-    }
   },
 };
 </script>
