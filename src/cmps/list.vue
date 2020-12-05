@@ -19,6 +19,7 @@
         <i class="el-icon-more"></i>
       </div>
       <list-menu
+        :listId="list.id"
         v-if="isShowListMenu && !listActionType"
         v-click-outside="closeListMenu"
         @emitCloseMenu="closeListMenu"
@@ -181,7 +182,7 @@ export default {
     },
     openNameEditor() {
       this.isShowEditName = true;
-      this.$nextTick(() => this.$refs.listInput.focus())
+      this.$nextTick(() => this.$refs.listInput.focus());
     },
     changeListName() {
       if (!this.copiedList.title) return;
@@ -194,7 +195,6 @@ export default {
     // }
   },
   created() {
-    console.log('this.list',this.list)
     this.copiedList = JSON.parse(JSON.stringify(this.list));
   },
   directives: {

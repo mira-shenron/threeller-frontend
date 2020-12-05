@@ -1,13 +1,13 @@
 <template>
-  <section class="card" :class="{ [coverColor]:  coverStyle === 'full-cover' }">
+  <section class="card" :class="{ [coverColor]: coverStyle === 'full-cover' }">
     <div
       v-if="coverStyle === 'half-cover'"
       class="cover"
-      :class="{ [coverColor]:  coverStyle === 'half-cover' }"
+      :class="{ [coverColor]: coverStyle === 'half-cover' }"
     ></div>
     <div class="card-container">
       <div
-        v-if="card.labels &&  coverStyle !== 'full-cover'"
+        v-if="card.labels && coverStyle !== 'full-cover'"
         class="card-labels flex"
       >
         <div
@@ -19,12 +19,12 @@
       </div>
       <div
         class="card-title"
-        :class="{ 'covered-text':  coverStyle === 'full-cover' }"
-        :style="{color:ligthMode}"
+        :class="{ 'covered-text': coverStyle === 'full-cover' }"
+        :style="{ color: ligthMode }"
       >
         {{ card.title }}
       </div>
-      <div v-if=" coverStyle !== 'full-cover'" class="card-badges">
+      <div v-if="coverStyle !== 'full-cover'" class="card-badges">
         <div v-if="card.dueDate" class="due-date" :class="dueDateClass">
           <i class="el-icon-time"></i>
           <div class="badge-text">
@@ -43,16 +43,26 @@
             {{ card.comments }}
           </div>
         </div>
-        <div v-if="card.checklists" class="card-checklist" :class="todoClass">
+        <div
+          v-if="card.checklists && allTodos !== 0"
+          class="card-checklist"
+          :class="todoClass"
+        >
           <i class="el-icon-s-order"></i>
           <div class="badge-text">{{ doneTodos }}/{{ allTodos }}</div>
         </div>
       </div>
       <div
-        v-if="card.members &&  coverStyle !== 'full-cover'"
+        v-if="card.members && coverStyle !== 'full-cover'"
         class="card-members"
       >
-        <avatar v-for="member in card.members" :key="member._id" class="card-member" :fullname="member.fullName" :size="28"></avatar>
+        <avatar
+          v-for="member in card.members"
+          :key="member._id"
+          class="card-member"
+          :fullname="member.fullName"
+          :size="28"
+        ></avatar>
       </div>
     </div>
   </section>
@@ -76,21 +86,25 @@ export default {
     };
   },
   computed: {
-    ligthMode(){
-       if(!this.card.style)return null;
-       if (this.card.style.type==='full-cover'){
-         if (this.card.style.color==='blue'||this.card.style.color=='black'||this.card.style.color=='green'){
-           return 'white'
-         }else return 'black'
-       }else return 'black'
+    ligthMode() {
+      if (!this.card.style) return null;
+      if (this.card.style.type === "full-cover") {
+        if (
+          this.card.style.color === "blue" ||
+          this.card.style.color == "black" ||
+          this.card.style.color == "green"
+        ) {
+          return "white";
+        } else return "black";
+      } else return "black";
     },
-    coverStyle(){
-      if(!this.card.style) return;
-      return this.card.style.type
+    coverStyle() {
+      if (!this.card.style) return;
+      return this.card.style.type;
     },
-    coverColor(){
-      if(!this.card.style)return;
-      return this.card.style.color
+    coverColor() {
+      if (!this.card.style) return;
+      return this.card.style.color;
     },
     isShowYear() {
       if (!this.card.dueDate) return;
@@ -112,28 +126,28 @@ export default {
     },
     doneTodos() {
       if (!this.card.checklists) return;
-      const counter = this.card.checklists.reduce((acc,checklist)=>{
-        checklist.todos.forEach(todo => {
-          if (todo.isDone) acc++
+      const counter = this.card.checklists.reduce((acc, checklist) => {
+        checklist.todos.forEach((todo) => {
+          if (todo.isDone) acc++;
         });
-        return acc
-      },0)
+        return acc;
+      }, 0);
       return counter;
     },
     allTodos() {
       if (!this.card.checklists) return;
-            const counter = this.card.checklists.reduce((acc,checklist)=>{
+      const counter = this.card.checklists.reduce((acc, checklist) => {
         checklist.todos.forEach(() => {
-           acc++
+          acc++;
         });
-        return acc
-      },0)
+        return acc;
+      }, 0);
       return counter;
     },
-    todoClass(){
-      if (this.allTodos === this.doneTodos) return 'done';
-      else return null
-    }
+    todoClass() {
+      if (this.allTodos === this.doneTodos) return "done";
+      else return null;
+    },
   },
   methods: {
     onEmitDeleteCard() {

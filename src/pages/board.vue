@@ -143,6 +143,8 @@ import {
   SAVE_ORIG_BOARD,
   CHANGE_BGP,
   UPDATE_COLORLIST,
+  OPEN_DETAILS,
+  DELETE_LIST,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -191,7 +193,8 @@ export default {
       isShowBoardMenu: false,
       //board:null
       boardAction: false,
-      homeHeader: false
+      homeHeader: false,
+      isUpdated: false,
     };
   },
   methods: {
@@ -241,6 +244,7 @@ export default {
         board,
       });
       socketService.emit("on newBoard", board);
+      this.isUpdated = true;
       this.$forceUpdate();
     },
     saveOriginalBoard(board) {
@@ -283,11 +287,12 @@ export default {
       );
       const idx = list.cards.findIndex((currCard) => currCard.id === card.id);
       if (idx < 0) return;
-      list.cards.splice(idx, 1, card)
-      this.cardDetailsToShow = Object.assign({}, card)
+      list.cards.splice(idx, 1, card);
+      this.cardDetailsToShow = Object.assign({}, card);
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
-        this.board.activities.push(activity);
+        this.board.activities.unshift(activity);
+
         //reset activity
         this.$store.commit({ type: "setCurrActivityText", activityTxt: "" });
       }
@@ -305,6 +310,13 @@ export default {
             break;
           }
         }
+      }
+      if (this.$store.getters.getCurrActivityText) {
+        var activity = this.createActivity(card);
+        this.board.activities.unshift(activity);
+
+        //reset activity
+        this.$store.commit({ type: "setCurrActivityText", activityTxt: "" });
       }
       this.closeModal();
       this.board.groups[groupIdx].cards.splice(cardIdx, 1);
@@ -363,10 +375,13 @@ export default {
       this.isShowBoardMenu = !this.isShowBoardMenu;
     },
     socketSaveBoard(board) {
-      this.$store.dispatch({
-        type: "updateBoard",
-        board,
-      });
+      if (!this.isUpdated) {
+        this.$store.dispatch({
+          type: "updateBoard",
+          board,
+        });
+      }
+      this.isUpdated = false;
     },
     createActivity(card) {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
@@ -383,15 +398,30 @@ export default {
       this.boardAction = actionType;
     },
     changeBgc(color) {
-      const board = this.board;
-      if (board.style.photo) board.style.photo = null;
-      board.style.bgc = color;
+      this.$store.dispatch({
+        type: "changeBg",
+        style: { bgc: color },
+      });
       this.saveBoard();
     },
     changeBgp(url) {
-      const board = this.board;
-      if (board.style.bgc) board.style.bgc = null;
-      board.style.url = url;
+      this.$store.dispatch({
+        type: "changeBg",
+        style: { url },
+      });
+      this.saveBoard();
+    },
+    openDetails(cardId) {
+      const list = this.board.groups.find((group) =>
+        group.cards.find((card) => card.id === cardId)
+      );
+      if (!list) return;
+      const card = list.cards.find((card) => card.id === cardId);
+      this.showCardDetails(card);
+    },
+    deleteList(listId) {
+      const idx = this.board.groups.findIndex((group) => group.id === listId);
+      this.board.groups.splice(idx, 1);
       this.saveBoard();
     },
     updateColorList(color){
@@ -416,6 +446,8 @@ export default {
     eventBus.$on(SAVE_ORIG_BOARD, this.saveOriginalBoard);
     eventBus.$on(CHANGE_BGP, this.changeBgp);
     eventBus.$on(UPDATE_COLORLIST, this.updateColorList);
+    eventBus.$on(OPEN_DETAILS, this.openDetails);
+    eventBus.$on(DELETE_LIST, this.deleteList);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);

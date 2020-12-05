@@ -26,16 +26,31 @@
           </li>
           <li>Search Cards</li>
         </ul>
+        <ul v-if="activities.length" class="board-actions clean-list">
+          <li v-for="activity in activities" :key="activity.id">
+            <menu-activity-details :activity="activity"/>
+          </li>
+        </ul>
       </slot>
     </div>
   </div>
 </template>
 <script>
+import menuActivityDetails from '@/cmps/menu-activity-details.vue'
 export default {
   props: {
     actionType: {
       type: String,
     },
+  },
+  components:{
+    menuActivityDetails
+  },
+  computed: {
+    activities(){
+      const activities = JSON.parse(JSON.stringify(this.$store.getters.currBoard.activities))
+      return activities.sort((act1, act2) => act2.createdAt - act1.createdAt)
+    }
   },
   methods: {
     closeBoardMenu() {
