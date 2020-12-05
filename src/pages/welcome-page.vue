@@ -49,7 +49,8 @@
                 Get the same functionality<br />
                 with better design<br />
                 You don't even need account to start. <br />
-                Explore and enjoy
+                Explore and enjoy our desktop <br />
+                and mobile app. 
               </h5>
             </div>
             <img
