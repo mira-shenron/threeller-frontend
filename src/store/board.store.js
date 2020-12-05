@@ -14,7 +14,7 @@ export default {
             return JSON.parse(JSON.stringify(state.boards));
         },
         currBoard(state) {
-            return state.currBoard;
+            return JSON.parse(JSON.stringify(state.currBoard));
         },
         getLists(state) {
             return JSON.parse(JSON.stringify(state.currBoard.groups));
@@ -30,14 +30,12 @@ export default {
         },
         setCurrBoard(state, { boardId }) {
             state.currBoard = state.boards.find(board => board._id === boardId);
-            console.log(state.currBoard);
         },
         saveBoard(state, { board }) {
-                state.currBoard = board;
+                state.currBoard = JSON.parse(JSON.stringify(board));
                 const idx = state.boards.findIndex(currBoard => currBoard._id === board._id);
                 if (idx < 0) return;
                 state.boards.splice(idx, 1, board);
-                state.isSocket = true
         },
         addBoard(state, { savedBoard }) {
             console.log('mutation', savedBoard);
@@ -47,6 +45,9 @@ export default {
         setCurrActivityText(state, {activityTxt}) {
             console.log('curr activity text', activityTxt);
             state.currActivityTxt = activityTxt;
+        },
+        changeBg(state, {style}){
+            state.currBoard.style = JSON.parse(JSON.stringify(style))
         }
     },
     actions: {
@@ -57,8 +58,9 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             // commit({ type: 'saveBoard', board });
-            boardService.save(board);
+            const newBoard = await boardService.save(board);
             commit({ type: 'saveBoard', board });
+            return newBoard
         },
         async updateBoard({ commit }, { board }) {
             // boardService.save(board);
@@ -70,6 +72,9 @@ export default {
             commit({ type: 'addBoard', savedBoard });
             return savedBoard._id
         },
+        async changeBg({commit}, payload){
+            commit(payload)
+        }
     }
 
 };

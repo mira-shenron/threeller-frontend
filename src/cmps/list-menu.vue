@@ -12,7 +12,16 @@
           <li @click="chooseAction('moveList')">Move List...</li>
         </ul>
         <ul class="clean-list list-actions">
-          <li @click="onEmitDeleteList">Delete This List</li>
+          <li>
+            <span @click="toggleDeletelist" v-if="!isShowDelete"
+              >Delete This List</span
+            >
+            <list-delete
+              :listId="listId"
+              @emmitToggleDeletelist="toggleDeletelist"
+              v-if="isShowDelete"
+            ></list-delete>
+          </li>
         </ul>
       </div>
     </div>
@@ -20,21 +29,33 @@
 </template>
 
 <script>
+import listDelete from "@/cmps/list-delete";
 export default {
   name: "list-menu",
+  props: {
+    listId: String,
+  },
+  data() {
+    return {
+      isShowDelete: null,
+    };
+  },
+  components: {
+    listDelete,
+  },
   methods: {
-      closeListMenu(){
-          this.$emit('emitCloseMenu')
-      },
-      chooseAction(type){
-          this.$emit('emitChooseAction',type)
-      },
-      openAddCardCmp(){
-        this.$emit('emitOpenAddCard')
-      },
-      onEmitDeleteList(){
-        this.$emit('on')
-      }
+    closeListMenu() {
+      this.$emit("emitCloseMenu");
+    },
+    chooseAction(type) {
+      this.$emit("emitChooseAction", type);
+    },
+    openAddCardCmp() {
+      this.$emit("emitOpenAddCard");
+    },
+    toggleDeletelist() {
+      this.isShowDelete = !this.isShowDelete;
+    },
   },
 };
 </script>

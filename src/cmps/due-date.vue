@@ -14,7 +14,6 @@
   </div>
 </template>
 <script>
-
 export default {
   props: {
     card: {
@@ -24,25 +23,34 @@ export default {
   data() {
     return {
       // time: "",
-      dueDate:{
-        time:'',
-        isComplete:false
-      }
+      dueDate: {
+        time: "",
+        isComplete: false,
+      },
     };
   },
   methods: {
+    addActivity(txt) {
+      this.$store.commit({ type: "setCurrActivityText", activityTxt: txt });
+    },
     changeDueDate() {
+      if(this.card.dueDate) this.addActivity('added due-date')
+      else this.addActivity('changed due-date')
       this.card.dueDate = this.dueDate;
-      console.log('this.card:  ',this.card)
+      console.log("this.card:  ", this.card);
       this.$emit("updatingCard", this.card);
       // eventBus.$emit(SAVE_BOARD);
     },
   },
   created() {
-    if(typeof(this.card.dueDate)==='number'){
-      this.card.dueDate ? this.dueDate.time = this.card.dueDate : this.dueDate;
-    }else if(typeof(this.card.dueDate)==='object'){
-      this.card.dueDate ? this.dueDate.time = this.card.dueDate.time : this.dueDate;
+    if (typeof this.card.dueDate === "number") {
+      this.card.dueDate
+        ? (this.dueDate.time = this.card.dueDate)
+        : this.dueDate;
+    } else if (typeof this.card.dueDate === "object") {
+      this.card.dueDate
+        ? (this.dueDate.time = this.card.dueDate.time)
+        : this.dueDate;
     }
   },
 };

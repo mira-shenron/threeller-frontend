@@ -1,0 +1,31 @@
+.menu-activity-container {
+    cursor: default;
+    font-size: (14px);
+    
+    .time {
+        margin-inline-start: 8px;
+        font-size: smaller;
+    }
+    
+    .activities-text{
+        margin-inline-start: 8px;
+        .menu-fullname {
+            font-weight: bold;
+        }
+        
+        a{
+            cursor: pointer;
+            text-decoration: underline;
+            &:hover{
+                color: #797979;
+            }
+        }
+    }
+    
+    
+    .avatar {
+        border-radius: 50%;
+        height: 32px;
+    }
+
+}

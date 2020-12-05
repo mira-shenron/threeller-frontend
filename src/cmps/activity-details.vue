@@ -18,7 +18,7 @@ import Avatar from 'vue-avatar-component';
 
 export default {
   props: {
-    activity:Object
+    activity:Object,
   } ,
   components:{
     Avatar
