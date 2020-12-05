@@ -26,7 +26,7 @@
                     >
                         {{ card.title }}
                     </h2>
-                    <div v-show="isShowEditName" class="card-input-container">
+                    <div v-show="isShowEditName" class="card-input-container search">
                         <el-input
                             ref="cardInput"
                             @change="changeCardName"
@@ -193,7 +193,6 @@
                                 :card="card"
                                 slot="edit-body"
                                 @openColorModale="openColorModale"
-                                @updatListOfColors="updatListOfColors"
                             />
                         </edit-container>
                         <edit-container
@@ -407,9 +406,6 @@ export default {
         },
         openLabels() {
             this.edit("labels");
-        },
-        updatListOfColors(list) {
-            this.$emit("emitSaveBoard", list);
         },
         openShowDesc() {
             this.showDesc = !this.showDesc;

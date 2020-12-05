@@ -9,7 +9,6 @@
                 v-for="color in colors"
                 :key="color"
             ></span>
-            {{pickedColor}}
         </div>
         <div v-if="!value.color">
         <el-button @click.stop="addLabel('Create')" type="success">Create</el-button>
@@ -57,10 +56,11 @@ export default {
         },
         addLabel(str) {
             console.log('str',str,'this.pickedColor',this.pickedColor)
-            if (this.pickedColor.color !== "grey")
+            if (this.pickedColor.color !== "grey"){
                 this.$emit("input", {pickedColor:this.pickedColor,str});
                 this.$emit('openLabelsModal')
             this.isPick = false;
+            }
         },
     },
     created(){
