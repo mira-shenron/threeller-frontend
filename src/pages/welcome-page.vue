@@ -43,19 +43,19 @@
       <div class="section-two-container">
         <div class="layout">
           <div class="section-two flex justify-center space-between">
-            <div class="flex column">
+            <div class="text flex column">
               <h6>All Favorite Things Included</h6>
               <h5>
                 Get the same functionality<br />
                 with better design<br />
                 You don't even need account to start. <br />
-                Explore and enjoy
+                Explore and enjoy our desktop <br />
+                and mobile app. 
               </h5>
             </div>
             <img
               class="img-two"
-              width="500px"
-              src="../assets/imgs/orange.jpg"
+              src="../assets/imgs/mobile.png"
               alt=""
             />
           </div>
@@ -107,8 +107,8 @@
       <h6>Let's stay in touch</h6>
       <h4>Get our updates straight to your inbox</h4>
       <div>
-        <input type="text" placeholder="Enter email address" />
-        <button class="subscribe-btn">Subscribe</button>
+        <input type="text" placeholder="Enter email address" v-model="emailInput"/>
+        <button class="subscribe-btn" @click="clearInput">Subscribe</button>
       </div>
       <small
         >By signing up, you consent to the <span>privacy policy</span></small
@@ -122,11 +122,10 @@
 
 
 export default {
-  components: {
-
-  },
-  computed: {
-
+  data(){
+    return {
+      emailInput: ''
+    }
   },
   created() {
     this.$store.dispatch({ type: 'loadUsers' });
@@ -145,6 +144,9 @@ export default {
       }
       await this.$store.dispatch({ type: 'login', userCred: cred })
       this.$router.push('/threeller/home');
+    },
+    clearInput(){
+      this.emailInput = '';
     }
   }
 };
