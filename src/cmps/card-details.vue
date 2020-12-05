@@ -104,7 +104,7 @@
               <div class="activities-list">
                 <div class="flex align-center">
                   <avatar
-                    :src="imgUrl"
+                    :image="imgUrl"
                     :fullname="currUser"
                     :size="40"
                   ></avatar>

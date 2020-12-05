@@ -14,7 +14,7 @@
       ></el-input>
       <div v-for="member in membersToShow" :key="member._id">
         <div class="names-container flex align-center">
-          <avatar :src="imgUrl" :fullname="member.fullName" :size="32"></avatar>
+          <avatar :image="member.imgUrl" :fullname="member.fullName" :size="32"></avatar>
           <span class="clickable" @click.stop="addToBoard(member)">
             {{ member.fullName }}
           </span>
@@ -46,9 +46,6 @@ export default {
       if (!this.searchBy) return this.members;
       else return this.members.filter(member => member.fullName.toLowerCase().includes(this.searchBy.toLowerCase()));
     },
-    imgUrl(){
-      return this.$store.getters.loggedInUser.imgUrl
-    }
   },
   methods: {
     closeMembersList() {

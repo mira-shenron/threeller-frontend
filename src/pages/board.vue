@@ -26,7 +26,7 @@
               >
                 <avatar
                   :fullname="member.fullName"
-                  :src="imgUrl"
+                  :image="member.imgUrl"
                   :size="30"
                 ></avatar>
               </div>
@@ -181,9 +181,6 @@ export default {
     },
     boardMembers() {
       return this.board.members;
-    },
-    imgUrl() {
-      return this.$store.getters.loggedInUser.imgUrl;
     },
   },
   data() {

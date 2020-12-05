@@ -9,7 +9,6 @@
                 v-for="color in colors"
                 :key="color"
             ></span>
-            {{pickedColor}}
         </div>
         <div v-if="!value.color">
         <el-button @click.stop="addLabel('Create')" type="success">Create</el-button>

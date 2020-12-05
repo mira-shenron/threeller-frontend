@@ -12,10 +12,10 @@ a<template>
     <nav class="right-nav flex justify-center align-center">
       <div class="flex relative">
         <avatar
-        :src="imgUrl"
           class="user-avatar clickable"
           @click.native="toggleShowProfileMenu"
           :fullname="username"
+        :image="imgUrl"
           :size="32"
         ></avatar>
         <button class="clickable logout-btn" @click="logout">Logout</button>

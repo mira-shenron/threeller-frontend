@@ -22,17 +22,15 @@ export default {
   methods: {
     async onUploadImg(ev) {
       const res = await uploadImg(ev);
-      const url = await uploadImg(ev).url;
-      console.log(res);
-      const user = JSON.parse(JSON.stringify(this.user));
-      user.imgUrl = url;
-      if (!url) return;
+      const userCred = JSON.parse(JSON.stringify(this.user));
+      userCred.imgUrl = res.url;
+      if (!userCred.imgUrl) return;
       this.$emit("onCloseProfileMenu");
       this.$store.dispatch({
         type: "updateUser",
-        user,
+        userCred,
       });
-      eventBus.$emit(UPDATE_USER, url);
+      eventBus.$emit(UPDATE_USER, userCred);
     },
   },
   created() {

@@ -17,8 +17,9 @@
             @click="addLabel(color)"
             >{{ color.txt }}</span
           >
-          {{ colorLabel[idx].isPicked }}
-          <button @click.stop="updatLabel(color)">🖊</button>
+          <button @click.stop="updatLabel(color)" class="flex align-center justify-center">
+            <i class="el-icon-edit"></i>
+          </button>
         </li>
       </ul>
     </div>
