@@ -117,7 +117,6 @@
     </section>
   </section>
 </template>
-
 <script>
 // import cardPreview from "@/cmps/card-preview.vue";
 // @ is an alias to /src
@@ -152,7 +151,6 @@ import socketService from "@/services/socket.service";
 import { boardService } from "../services/board.service";
 import membersList from "@/cmps/members-list.vue";
 import Avatar from "vue-avatar-component";
-
 export default {
   name: "board",
   components: {
@@ -200,7 +198,6 @@ export default {
     deleteMemberFromBoard(member) {
       var idx = this.board.members.findIndex((mem) => mem._id === member._id);
       if (idx != -1) this.board.members.splice(idx, 1);
-
       //remove from all cards
       this.board.groups.forEach((group) => {
         if (group.cards) {
@@ -214,7 +211,6 @@ export default {
           });
         }
       });
-
       this.saveBoard();
     },
     toggleMembersList() {
@@ -290,7 +286,6 @@ export default {
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);
-
         //reset activity
         this.$store.commit({ type: "setCurrActivityText", activityTxt: "" });
       }
@@ -375,7 +370,6 @@ export default {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
       activity.byMember = this.$store.getters.loggedinUser;
       activity.txt = this.$store.getters.getCurrActivityText;
-
       if (card) {
         activity.card.id = card.id;
         activity.card.title = card.title;
@@ -429,6 +423,3 @@ export default {
 };
 </script>
   
-
-
-

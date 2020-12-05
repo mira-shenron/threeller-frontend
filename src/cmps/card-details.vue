@@ -1,13 +1,15 @@
 <template>
     <div class="card-detail-main">
         <div
-            v-if="(bgColorOfCard && bgColorOfCard!=='white')"
+            v-if="bgColorOfCard && bgColorOfCard !== 'white'"
             class="cover-card"
-            :class="{ [bgColorOfCard]: (bgColorOfCard && bgColorOfCard!=='white') }"
+            :class="{
+                [bgColorOfCard]: bgColorOfCard && bgColorOfCard !== 'white',
+            }"
         >
-         <span class="x-btn clickable" @click="isShowDetails"
-                    ><i class="el-icon-close"></i
-                ></span>
+            <span class="x-btn-cover clickable" @click="isShowDetails"
+                ><i class="el-icon-close"></i
+            ></span>
         </div>
         <div class="card-details">
             <div class="header-card flex space-between">
@@ -17,15 +19,33 @@
                         src="../assets/card-icons/card.png"
                         alt=""
                     />
-                    <span class="card-title">{{ card.title }}</span>
+                    <h2
+                        v-if="!isShowEditName"
+                        @click="openNameEditor"
+                        class="card-title"
+                    >
+                        {{ card.title }}
+                    </h2>
+                    <div v-show="isShowEditName" class="card-input-container">
+                        <el-input
+                            ref="cardInput"
+                            @change="changeCardName"
+                            @blur="changeCardName"
+                            v-model="card.title"
+                            class="flex"
+                        ></el-input>
+                    </div>
+                    <div
+                        v-if="!(bgColorOfCard && bgColorOfCard !== 'white')"
+                        class="x-btn clickable"
+                        @click="isShowDetails"
+                        ><i class="el-icon-close"></i
+                    ></div>
                 </div>
-                <span class="x-btn clickable" @click="isShowDetails"
-                    ><i class="el-icon-close"></i
-                ></span>
             </div>
             <div class="main-card flex space-between">
                 <div class="main-content">
-                    <div class="flex">
+                    <div class="flex warp label-member-date-to-show">
                         <div v-if="card.members">
                             <card-details-members
                                 :members="card.members"
@@ -38,7 +58,9 @@
                         </div>
                         <div>
                             <card-details-due-date
-                                :card="card" @updatingCard="updatingCard" v-if="card.dueDate"
+                                :card="card"
+                                @updatingCard="updatingCard"
+                                v-if="card.dueDate"
                             ></card-details-due-date>
                         </div>
                     </div>
@@ -220,7 +242,11 @@
                             :feature="'Change Due Date'"
                             v-if="currEdit === 'dueDate'"
                         >
-                            <due-date slot="edit-body" :card="card" @updatingCard="updatingCard"/>
+                            <due-date
+                                slot="edit-body"
+                                :card="card"
+                                @updatingCard="updatingCard"
+                            />
                         </edit-container>
                     </div>
                     <div class="flex align-center card-action clickable">
@@ -291,14 +317,21 @@
                         @click="edit('delete')"
                     >
                         <div class="flex align-center">
-                           <img src="../assets/action-icons/trash.png" alt="" />
+                            <img
+                                src="../assets/action-icons/trash.png"
+                                alt=""
+                            />
                             <div class="action-name">Delete</div>
                         </div>
                         <edit-container
                             :feature="'Delete Card ?'"
                             v-if="currEdit === 'delete'"
                         >
-                            <card-delete slot="edit-body" :card="card" @onDeleteCard="onDeleteCard" />
+                            <card-delete
+                                slot="edit-body"
+                                :card="card"
+                                @onDeleteCard="onDeleteCard"
+                            />
                         </edit-container>
                     </div>
                 </div>
@@ -348,6 +381,7 @@ export default {
             closeEditor: null,
             bgColorOfCard: null,
             bgcCoverType: null,
+            isShowEditName: false,
         };
     },
     methods: {
@@ -363,11 +397,11 @@ export default {
         updatingCard(card) {
             console.log("card-details card", card);
             this.card = card;
-            this.$emit("emitSaveBoard",this.card);
+            this.$emit("emitSaveBoard", this.card);
         },
         openColorModale(label) {
-            if(label){
-                this.chooseColor=label
+            if (label) {
+                this.chooseColor = label;
             }
             this.edit("colorPicker");
         },
@@ -400,13 +434,22 @@ export default {
         },
         changeBgColor(cover) {
             if (!cover) return;
-            if (cover.color==='white')return;
+            if (cover.color === "white") return;
             this.bgColorOfCard = cover.color;
-            this.card.style=cover
-            console.log('card in bgChnage', this.card);
-            this.updatingCard(this.card)
+            this.card.style = cover;
+            console.log("card in bgChnage", this.card);
+            this.updatingCard(this.card);
             // console.log("this.bgColorOfCard",this.card)
             // this.$emit("emitSaveBoard",this.card);
+        },
+        openNameEditor() {
+            this.isShowEditName = true;
+            this.$nextTick(() => this.$refs.cardInput.focus());
+        },
+        changeCardName() {
+            if (!this.card.title) return;
+            this.isShowEditName = false;
+            this.$emit("emitSaveBoard", this.card);
         },
     },
     components: {
@@ -425,7 +468,7 @@ export default {
         cardDetailsLabels,
         cardDetailsMembers,
         cardDetailsDueDate,
-        cardDelete
+        cardDelete,
     },
     computed: {
         acts() {
@@ -445,9 +488,9 @@ export default {
         eventBus.$on(CLOSE_EDIT, () => {
             this.currEdit = null;
         });
-        console.log(this.card)
-        if(this.card.style){
-            this.bgColorOfCard=this.card.style.color
+        console.log(this.card);
+        if (this.card.style) {
+            this.bgColorOfCard = this.card.style.color;
         }
 
         this.descriptionOnDiv = this.card.description
