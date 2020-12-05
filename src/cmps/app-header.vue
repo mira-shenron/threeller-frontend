@@ -2,10 +2,10 @@ a<template>
   <header class="app-header flex align-center space-between">
     <nav class="left-nav flex">
       <div class="nav-btn flex align-center">
-        <i class="el-icon-s-grid"></i>
+        <i @click.stop="goToWelcomePage" class="el-icon-s-home"></i>
       </div>
       <div class="nav-btn flex align-center">
-        <i @click.stop="goToHomePage" class="el-icon-s-home"></i>
+        <i  @click.stop="goToHomePage" class="el-icon-s-grid"></i>
       </div>
     </nav>
     <h1 class="logo"><span>Three</span>ller</h1>
@@ -50,6 +50,9 @@ export default {
     };
   },
   methods: {
+    goToWelcomePage(){
+       this.$router.push("/");
+    },
     goToHomePage() {
       this.$router.push("/threeller/home");
     },
@@ -75,7 +78,7 @@ export default {
     username() {
       return this.$store.getters.loggedInUser.fullName;
     },
-    imgUrl(){
+    imgUrl() {
       return this.$store.getters.loggedInUser.imgUrl;
     }
   },
