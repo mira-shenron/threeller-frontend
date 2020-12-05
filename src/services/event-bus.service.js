@@ -15,4 +15,5 @@ export const SAVE_ORIG_BOARD = 'save-origin-board';
 export const CHANGE_BGP = 'change-bgp';
 export const OPEN_DETAILS = 'open-details';
 export const DELETE_LIST = 'delete-list';
+export const UPDATE_USER = 'update-user';
 export const eventBus = new Vue();

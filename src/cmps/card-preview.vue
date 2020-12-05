@@ -57,6 +57,7 @@
         class="card-members"
       >
         <avatar
+          :src="imgUrl"
           v-for="member in card.members"
           :key="member._id"
           class="card-member"
@@ -148,6 +149,9 @@ export default {
       if (this.allTodos === this.doneTodos) return "done";
       else return null;
     },
+    imgUrl(){
+      return this.$store.getters.loggedInUser.imgUrl
+    }
   },
   methods: {
     onEmitDeleteCard() {

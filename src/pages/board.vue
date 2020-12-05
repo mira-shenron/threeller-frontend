@@ -24,7 +24,11 @@
                 v-for="member in boardMembers"
                 :key="member._id"
               >
-                <avatar :fullname="member.fullName" :size="30"></avatar>
+                <avatar
+                  :fullname="member.fullName"
+                  :src="imgUrl"
+                  :size="30"
+                ></avatar>
               </div>
 
               <div
@@ -145,6 +149,7 @@ import {
   CHANGE_BGP,
   OPEN_DETAILS,
   DELETE_LIST,
+  UPDATE_USER,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -168,7 +173,7 @@ export default {
     membersList,
     Avatar,
     backgroundPhotoChooser,
-    appHeader
+    appHeader,
   },
   computed: {
     board() {
@@ -176,6 +181,9 @@ export default {
     },
     boardMembers() {
       return this.board.members;
+    },
+    imgUrl() {
+      return this.$store.getters.loggedInUser.imgUrl;
     },
   },
   data() {
@@ -383,7 +391,7 @@ export default {
     },
     createActivity(card) {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
-      activity.byMember = this.$store.getters.loggedinUser;
+      activity.byMember = this.$store.getters.loggedInUser;
       activity.txt = this.$store.getters.getCurrActivityText;
       if (card) {
         activity.card.id = card.id;
@@ -422,6 +430,14 @@ export default {
       this.board.groups.splice(idx, 1);
       this.saveBoard();
     },
+    updateUser(user) {
+      const idx = this.boardMembers.findIndex(
+        (currUser) => currUser._id === user._id
+      );
+      if (idx < 0) return;
+      this.boardMembers.splice(idx, 1, user);
+      this.saveOriginalBoard(this.board);
+    },
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
@@ -439,6 +455,7 @@ export default {
     eventBus.$on(CHANGE_BGP, this.changeBgp);
     eventBus.$on(OPEN_DETAILS, this.openDetails);
     eventBus.$on(DELETE_LIST, this.deleteList);
+    eventBus.$on(UPDATE_USER, this.updateUser);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);

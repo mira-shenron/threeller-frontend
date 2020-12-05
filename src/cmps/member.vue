@@ -3,7 +3,7 @@
     <div class="members-list flex space-between align-center">
       <div class="flex align-center">
         <div class="custom-avatar">
-          <avatar :fullname="member.fullName" :size="32"></avatar>
+          <avatar :src="imgUrl" :fullname="member.fullName" :size="32"></avatar>
         </div>
         <span class="member-name">{{ member.fullName }}</span>
       </div>
@@ -37,6 +37,9 @@ export default {
       } else {
         return false;
       }
+    },
+    imgUrl(){
+      return this.$store.getters.loggedInUser.imgUrl
     }
   },
   methods: {

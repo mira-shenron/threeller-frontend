@@ -68,15 +68,6 @@ export default {
       homeHeader:true
     };
   },
-  computed: {
-    boards() {
-      var currUser = this.$store.getters.loggedinUser;
-      return this.$store.getters.boards.filter(
-        (board) => 
-           board.createdBy._id === currUser._id || this.checkIfMember(board.members, currUser)
-        );
-    },
-  },
   methods: {
     checkIfMember(boardMembers, currUser) {
       boardMembers.forEach((member) => {
@@ -90,7 +81,7 @@ export default {
     },
     async createBoard() {
       if (!this.newBoardName) return;
-      var currUser = this.$store.getters.loggedinUser;
+      var currUser = this.$store.getters.loggedInUser;
       console.log("user:", currUser);
       var emptyBoard = boardService.getEmptyBoard(this.newBoardName, currUser);
       this.isShowAddBoard = false;
@@ -110,7 +101,7 @@ export default {
     },
   },
   created() {
-    const currUser = this.$store.getters.loggedinUser;
+    const currUser = this.$store.getters.loggedInUser;
     this.boards = this.$store.getters.boards.filter(
       (board) =>
         board.createdBy._id === currUser._id ||

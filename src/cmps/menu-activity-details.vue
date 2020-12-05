@@ -1,6 +1,6 @@
 <template>
   <section class="flex menu-activity-container">
-    <avatar :fullname="activity.byMember.fullName" :size="32"></avatar>
+    <avatar :src="imgUrl" :fullname="activity.byMember.fullName" :size="32"></avatar>
     <div>
       <div class="activities-text">
         <span class="menu-fullname">{{ activity.byMember.fullName }} </span>
@@ -41,6 +41,9 @@ export default {
     time() {
       return utilService.showTime(this.activity.createdAt);
       //   return new Date(this.activity.createdAt).toLocaleString();
+    },
+    imgUrl() {
+      return this.$store.getters.loggedInUser.imgUrl;
     },
   },
 };

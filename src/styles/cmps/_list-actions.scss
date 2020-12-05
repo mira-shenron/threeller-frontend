@@ -15,7 +15,9 @@
     }
 
     .el-textarea__inner {
+        font-family: sans-serif;
         margin: 4px 0 12px;
+
     }
 
     .select-display {
@@ -26,7 +28,7 @@
         position: relative;
 
         :hover {
-            background-color: rgba(9,30,66,.08);
+            background-color: rgba(9, 30, 66, .08);
         }
 
         .position-span {
@@ -48,5 +50,16 @@
             opacity: 0;
 
         }
+    }
+}
+
+.change-profile-container {
+    .el-input__inner {
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+    .el-button--success{
+        float: left;
     }
 }
