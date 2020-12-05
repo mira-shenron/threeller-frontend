@@ -34,7 +34,7 @@
 import { boardService } from "../services/board.service.js";
 // import editContainer from "../cmps/edit-container.vue";
 import vClickOutside from "v-click-outside";
-import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST} from "@/services/event-bus.service.js";
+import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST,DELETE_COLORLIST} from "@/services/event-bus.service.js";
 
 export default {
   name: "card-labels",
@@ -111,15 +111,15 @@ export default {
       );
       this.colorLabel = JSON.parse(JSON.stringify(this.colorLabel));
       console.log('have a pro')
-      // this.card.labels= JSON.parse(JSON.stringify(copyCardLabels));
       copyCardLabels.forEach((label,idx)=>{
         console.log('idx',idx)
-        if(label.id){
+        if(label){
           this.card.labels.splice(idx,1,label)
         }else {
           this.card.labels=[]
         }
       })
+      this.card.labels= JSON.parse(JSON.stringify(copyCardLabels));
       console.log("this.card", this.card);
       this.$emit("updatingCard", this.card);
     },
@@ -167,6 +167,8 @@ export default {
           (currlabel) => currlabel.id === this.chooseColor.pickedColor.id
         );
         this.colorLabel.splice(idx, 1);
+        console.log('this.colorLabel delete',this.colorLabel)
+         eventBus.$emit(DELETE_COLORLIST,this.chooseColor.pickedColor);
       }
     }
 
