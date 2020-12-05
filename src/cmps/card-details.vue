@@ -190,7 +190,7 @@
                             <card-labels
                                 :chooseColor="chooseColor"
                                 @updatingCard="updatingCard"
-                                :card="card"
+                                :propcard="card"
                                 slot="edit-body"
                                 @openColorModale="openColorModale"
                             />

@@ -39,7 +39,7 @@ import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST} from "@/services/event-bus.servi
 export default {
   name: "card-labels",
   props: {
-    card: Object,
+    propcard: Object,
     chooseColor: Object,
   },
   components: {
@@ -53,6 +53,7 @@ export default {
       addColorsLabels: [],
       labelPicked: null,
       searchBy: "",
+      card:null,
       // pickedColor:['#89b4c4'],
     };
   },
@@ -124,6 +125,7 @@ export default {
     },
   },
   created() {
+    this.card=JSON.parse(JSON.stringify(this.propcard));
     var colorList =JSON.parse(JSON.stringify(this.$store.getters.currBoard.colorList));
     if (!colorList) {
       const basicColor = ["green", "yellow", "orange", "red", "purple", "blue"];
