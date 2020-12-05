@@ -13,4 +13,7 @@ export const CHANGE_BGC = 'change-bgc';
 export const CLOSE_MEMBERS_LIST = 'close-members-list';
 export const SAVE_ORIG_BOARD = 'save-origin-board';
 export const CHANGE_BGP = 'change-bgp';
+export const UPDATE_COLORLIST= 'update-colorlist';
+export const OPEN_DETAILS = 'open-details';
+export const DELETE_LIST = 'delete-list';
 export const eventBus = new Vue();

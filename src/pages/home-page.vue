@@ -37,7 +37,7 @@
           </div>
         </transition>
       </div>
-      <div class="board-preview-grid">
+      <div v-if="boards" class="board-preview-grid">
         <board-preview
           v-for="board in boards"
           :key="board._id"
@@ -108,6 +108,14 @@ export default {
           this.$refs.boardAddInput.focus();
         });
     },
+  },
+  created() {
+    const currUser = this.$store.getters.loggedinUser;
+    this.boards = this.$store.getters.boards.filter(
+      (board) =>
+        board.createdBy._id === currUser._id ||
+        this.checkIfMember(board.members, currUser)
+    );
   },
 };
 </script>

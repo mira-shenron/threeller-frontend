@@ -17,7 +17,6 @@
             @click="addLabel(color)"
             >{{ color.txt }}</span
           >
-          {{ colorLabel[idx].isPicked }}
           <button @click.stop="updatLabel(color)">🖊</button>
         </li>
       </ul>
@@ -35,7 +34,7 @@
 import { boardService } from "../services/board.service.js";
 // import editContainer from "../cmps/edit-container.vue";
 import vClickOutside from "v-click-outside";
-import { eventBus, CLOSE_EDIT } from "@/services/event-bus.service.js";
+import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST} from "@/services/event-bus.service.js";
 
 export default {
   name: "card-labels",
@@ -83,27 +82,44 @@ export default {
       this.$emit("openColorModale");
     },
     addLabel(color) {
+      console.log('problem0')
       const colorIdxfromCard = this.card.labels.findIndex(
         (currColor) => currColor.id === color.id
       );
+      var copyCardLabels= JSON.parse(JSON.stringify(this.card.labels))
+      console.log('copyCardLabels1',copyCardLabels)
       const colorIdxfromBoard = this.colorLabel.findIndex(
         (currColor) => currColor.id === color.id
       );
       if (colorIdxfromCard === -1) {
-        this.card.labels.push(color);
+        copyCardLabels.push(color);
+        console.log('copyCardLabels1push',copyCardLabels)
         this.colorLabel[colorIdxfromBoard].isPicked = true;
       } else {
-        this.card.labels.splice(colorIdxfromCard, 1);
+        console.log('problem1')
+        copyCardLabels.splice(colorIdxfromCard, 1);
+        console.log('copyCardLabelssplice',copyCardLabels)
         this.colorLabel[colorIdxfromBoard].isPicked = false;
+        console.log('problem2')
       }
       console.log(
-        "this.card.labels",
-        this.card.labels,
+        "copyCardLabels",
+        copyCardLabels,
         "colorLabel",
         this.colorLabel
       );
       this.colorLabel = JSON.parse(JSON.stringify(this.colorLabel));
-      // console.log("this.card", this.card);
+      console.log('have a pro')
+      // this.card.labels= JSON.parse(JSON.stringify(copyCardLabels));
+      copyCardLabels.forEach((label,idx)=>{
+        console.log('idx',idx)
+        if(label.id){
+          this.card.labels.splice(idx,1,label)
+        }else {
+          this.card.labels=[]
+        }
+      })
+      console.log("this.card", this.card);
       this.$emit("updatingCard", this.card);
     },
   },
@@ -130,9 +146,9 @@ export default {
         this.chooseColor.pickedColor.color &&
         this.chooseColor.str === "Create"
       ) {
-        console.log("add label");
-        this.colorLabel.push(this.chooseColor.pickedColor);
-        this.$emit("saveBoard", this.colorLabel);
+        eventBus.$emit(UPDATE_COLORLIST,this.chooseColor.pickedColor);
+         var newcolorList =JSON.parse(JSON.stringify(this.$store.getters.currBoard.colorList));
+        this.colorLabel = newcolorList;
       } else if (
         this.chooseColor.pickedColor.color &&
         this.chooseColor.str === "Save"
@@ -140,7 +156,6 @@ export default {
         const idx = this.colorLabel.findIndex(
           (currlabel) => currlabel.id === this.chooseColor.pickedColor.id
         );
-        //  this.colorLabel[idx]=this.chooseColor.pickedColor
         this.colorLabel.splice(idx, 1, this.chooseColor.pickedColor);
       } else if (
         this.chooseColor.pickedColor.color &&
@@ -154,23 +169,32 @@ export default {
     }
 
     this.colorLabel.forEach((label) => {
-      if (!label.isPicked) {
         label.isPicked = false;
-      }
     });
 
-    console.log("this.card.labels", this.card.labels); // if (!this.card.labels.length) return;
-    this.card.labels.forEach((label) => {
-      console.log("label", label);
-      if (label.isPicked) {
-        const idx = this.colorLabel.findIndex(
-          (currlabel) => currlabel.id === label.id
-        );
-        if (idx === -1) {
-          this.colorLabel.push(label);
-        } else this.colorLabel[idx].isPicked = true;
-      }
-    });
+    console.log("this.card.labels", this.card.labels); // 
+    if (this.card.labels.length) {
+      this.card.labels.forEach((label) => {
+        console.log("label", label);
+        if (label.isPicked) {
+          const idx = this.colorLabel.findIndex(
+            (currlabel) => currlabel.id === label.id
+          );
+          if (idx === -1) {
+            this.colorLabel.push(label);
+          } else {
+            this.colorLabel[idx].isPicked = true;
+            this.colorLabel.splice(idx,1,this.colorLabel[idx]);
+            console.log('this.colorLabel[idx]',this.colorLabel[idx])
+            }
+        }
+      });
+
+    }else {
+      this.colorLabel.forEach((label) => {
+        label.isPicked = false;
+      })
+    }
   },
   directives: {
     clickOutside: vClickOutside.directive,
