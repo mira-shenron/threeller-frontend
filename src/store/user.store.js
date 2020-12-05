@@ -1,16 +1,16 @@
 import userService from '../services/user.service.js'
 
-var localLoggedinUser = null;
-if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);
+var localLoggedInUser = null;
+if (sessionStorage.user) localLoggedInUser = JSON.parse(sessionStorage.user);
 
 export default {
     state: {
         users: [],
-        loggedinUser: localLoggedinUser,
+        loggedInUser: localLoggedInUser,
     },
     getters: {
-        loggedinUser(state) {
-            return state.loggedinUser
+        loggedInUser(state) {
+            return JSON.parse(JSON.stringify(state.loggedInUser))
         },
         users(state) {
             return state.users;
@@ -18,8 +18,8 @@ export default {
     },
     mutations: {
         setUser(state, { user }) {
-            console.log('setUser', state.loggedinUser)
-            state.loggedinUser = user;
+            console.log('setUser', state.loggedInUser)
+            state.loggedInUser = user;
         },
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)

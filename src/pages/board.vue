@@ -24,7 +24,11 @@
                 v-for="member in boardMembers"
                 :key="member._id"
               >
-                <avatar :fullname="member.fullName" :size="30"></avatar>
+                <avatar
+                  :fullname="member.fullName"
+                  :src="imgUrl"
+                  :size="30"
+                ></avatar>
               </div>
 
               <div
@@ -146,6 +150,7 @@ import {
   OPEN_DETAILS,
   DELETE_LIST,
   DELETE_COLORLIST,
+  UPDATE_USER,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -169,7 +174,7 @@ export default {
     membersList,
     Avatar,
     backgroundPhotoChooser,
-    appHeader
+    appHeader,
   },
   computed: {
     board() {
@@ -177,6 +182,9 @@ export default {
     },
     boardMembers() {
       return this.board.members;
+    },
+    imgUrl() {
+      return this.$store.getters.loggedInUser.imgUrl;
     },
   },
   data() {
@@ -386,7 +394,7 @@ export default {
     },
     createActivity(card) {
       var activity = boardService.getEmptyActivity(); //comes with id and createdAt
-      activity.byMember = this.$store.getters.loggedinUser;
+      activity.byMember = this.$store.getters.loggedInUser;
       activity.txt = this.$store.getters.getCurrActivityText;
       if (card) {
         activity.card.id = card.id;
@@ -425,18 +433,14 @@ export default {
       this.board.groups.splice(idx, 1);
       this.saveBoard();
     },
-    updateColorList(color){
-      this.board.colorList.push(color);
-      this.saveBoard();
+    updateUser(user) {
+      const idx = this.boardMembers.findIndex(
+        (currUser) => currUser._id === user._id
+      );
+      if (idx < 0) return;
+      this.boardMembers.splice(idx, 1, user);
+      this.saveOriginalBoard(this.board);
     },
-    deleteColorList(color){
-      var idx=this.board.colorList.findIndex(label=>label.id===color.id)
-      if (idx>=0){
-        this.board.colorList.splice(idx,1)
-        this.saveBoard();
-      }
-      // console.log('this.board delet',this.board)
-    }
   },
   created() {
     eventBus.$on(MOVE_CARD, this.moveCard);
@@ -455,7 +459,7 @@ export default {
     eventBus.$on(UPDATE_COLORLIST, this.updateColorList);
     eventBus.$on(OPEN_DETAILS, this.openDetails);
     eventBus.$on(DELETE_LIST, this.deleteList);
-    eventBus.$on(DELETE_COLORLIST, this.deleteColorList);
+    eventBus.$on(UPDATE_USER, this.updateUser);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);

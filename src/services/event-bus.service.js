@@ -17,4 +17,5 @@ export const UPDATE_COLORLIST= 'update-colorlist';
 export const OPEN_DETAILS = 'open-details';
 export const DELETE_LIST = 'delete-list';
 export const DELETE_COLORLIST= 'delete-colorlist';
+export const UPDATE_USER = 'update-user';
 export const eventBus = new Vue();

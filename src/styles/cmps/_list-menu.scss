@@ -75,3 +75,13 @@
 
 
 }
+
+.right-nav{
+    .list-menu{
+        right: 0;
+        z-index: 30;
+        li{
+            text-align: left;
+        }
+    }
+} 
