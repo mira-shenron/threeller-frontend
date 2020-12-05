@@ -43,7 +43,7 @@
       <div class="section-two-container">
         <div class="layout">
           <div class="section-two flex justify-center space-between">
-            <div class="flex column">
+            <div class="text flex column">
               <h6>All Favorite Things Included</h6>
               <h5>
                 Get the same functionality<br />
@@ -54,8 +54,7 @@
             </div>
             <img
               class="img-two"
-              width="500px"
-              src="../assets/imgs/orange.jpg"
+              src="../assets/imgs/mobile.png"
               alt=""
             />
           </div>
