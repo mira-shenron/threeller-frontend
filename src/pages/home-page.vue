@@ -3,6 +3,7 @@
 <template>
   <section class="home-page">
     <div>
+      <app-header :class="[homeHeader ? 'homeHeader' : 'boardHeader']"/>
       <header class="home-header">
         <h2 class="header-text">Boards</h2>
       </header>
@@ -52,26 +53,28 @@
 // @ is an alias to /src
 import boardPreview from "@/cmps/board-preview.vue";
 import { boardService } from "../services/board.service.js";
+import appHeader from "../cmps/app-header.vue";
 
 export default {
   name: "home-page",
   components: {
     boardPreview,
+    appHeader
   },
   data() {
     return {
       newBoardName: "",
       isShowAddBoard: false,
+      homeHeader:true
     };
   },
   computed: {
     boards() {
       var currUser = this.$store.getters.loggedinUser;
       return this.$store.getters.boards.filter(
-        (board) =>
-          board.createdBy._id === currUser._id ||
-          this.checkIfMember(board.members, currUser)
-      );
+        (board) => 
+           board.createdBy._id === currUser._id || this.checkIfMember(board.members, currUser)
+        );
     },
   },
   methods: {

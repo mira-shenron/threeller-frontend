@@ -8,10 +8,19 @@
 
         .main-content {
             flex: 1;
-            &.main-board-content {
+            &.container{
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
                 overflow: hidden;
-                display: flex;
+                flex:1;
+                .main-board-content {
+                    overflow: hidden;
+                    display: flex;
+                    flex:1;
+                }
             }
+
         }
     }
 

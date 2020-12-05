@@ -1,23 +1,36 @@
 .app-header {
-    background-color: $clr2;
     height: rem(40px);
     justify-content: space-between;
     padding: 4px;
+    
+    &.boardHeader{
+        background-color: rgba(0, 0, 0, .1);
+    }
+
+    &.homeHeader{
+        background-color: $clr2;
+        // background-color: rgb(39, 37, 37);
+    }
 
     .logout-btn{
         font-size: rem(10px);
         font-family: poppinsM;
-        background-color: $clr2;
+        background-color: rgba(190, 190, 190, 0.329);
         transition: color 85ms ease-in;
-        color:  #8747C9;
+        color: white;
         text-transform: uppercase;
-        background: #f0f6f5;
         border-radius: 5px;
         letter-spacing: .046em;
         border:none;
         margin-inline-start: 10px;
         outline:none;
+
+        &:hover{
+            background-color: rgba(0, 0, 0, .1);
+        }
     }
+
+
 
     .logo {
         margin: 0;
@@ -44,8 +57,7 @@
         border-radius: 5px;
         padding: rem(4px);
         position: relative;
-        // background-color: $clr3;
-        background-color: #B967CD;
+        background-color: rgba(190, 190, 190, 0.329);
         cursor: pointer;
 
         .kiwi {
@@ -54,6 +66,7 @@
 
         &:hover {
             background-color: lighten(#B967CD, 4%);
+            background-color: rgba(0, 0, 0, .1);
         }
         
 

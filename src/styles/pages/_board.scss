@@ -1,7 +1,5 @@
 .main-board-content {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+        flex:1;
     .board-container {
         flex: 1;
         display: flex;
@@ -19,14 +17,19 @@
                     padding: 0 12px;
                     line-height: rem(32px);
                     margin: 0;
-                    font-size: rem(18px);
-                    font-family: poppins;
+                    margin-inline-end: 50px;
                     border-radius: 3px;
                     transition: .1s ease;
+                    font-size: rem(16px);
+                    font-family: poppinsM;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    letter-spacing: .046em;
+                    background-color: rgba(190, 190, 190, 0.329);
 
                     &:hover {
-                        color: #fff;
-                        background-color: rgba(190, 190, 190, 0.329);
+                        background-color: rgba(144, 144, 144, 0.32);
                     }
                 }
 
@@ -216,3 +219,4 @@
         height: fit-content;
     }
 }
+

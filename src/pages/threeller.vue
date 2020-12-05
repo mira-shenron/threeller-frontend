@@ -1,6 +1,5 @@
 <template>
   <div class="main-layout" id="app">
-    <app-header />
     <router-view class="main-content"/>
   </div>
 </template>
@@ -18,10 +17,9 @@
 </style>
 
 <script>
-import appHeader from "../cmps/app-header.vue";
 export default {
   components: {
-    appHeader,
+
   },
   created() {
       this.$store.dispatch({

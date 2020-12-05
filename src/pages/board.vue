@@ -1,118 +1,120 @@
 <template>
   <section
-    v-if="board"
-    class="main-board-content"
+    class="container flex column"
     :class="{ [board.style.bgc]: board.style.bgc }"
     :style="{ backgroundImage: 'url(' + board.style.url + ')' }"
   >
-    <main class="board-container">
-      <div class="board-header flex space-between">
-        <div class="board-title-container flex justify-center align-center">
-          <div class="flex align-center justtify-center">
-            <h1
-              v-if="!isShowEditTitle"
-              @click="openTitleEditor"
-              class="board-title clickable"
-            >
-              {{ board.title }}
-            </h1>
+    <app-header :class="[homeHeader ? 'homeHeader' : 'boardHeader']" />
+    <section v-if="board" class="main-board-content flex">
+      <main class="board-container">
+        <div class="board-header flex space-between">
+          <div class="board-title-container flex justify-center align-center">
+            <div class="flex align-center justtify-center">
+              <h1
+                v-if="!isShowEditTitle"
+                @click="openTitleEditor"
+                class="board-title clickable"
+              >
+                {{ board.title }}
+              </h1>
 
-            <div
-              @click.stop="deleteMemberFromBoard(member)"
-              class="flex board-members"
-              v-for="member in boardMembers"
-              :key="member._id"
-            >
-              <avatar :fullname="member.fullName" :size="30"></avatar>
+              <div
+                @click.stop="deleteMemberFromBoard(member)"
+                class="flex board-members"
+                v-for="member in boardMembers"
+                :key="member._id"
+              >
+                <avatar :fullname="member.fullName" :size="30"></avatar>
+              </div>
+
+              <div
+                class="board-menu-btn clickable invite-btn"
+                @click="toggleMembersList"
+              >
+                Add Member
+              </div>
+              <div v-if="showMembersList" class="members-list">
+                <members-list :board="board"></members-list>
+              </div>
             </div>
 
-            <div
-              class="board-menu-btn clickable invite-btn"
-              @click="toggleMembersList"
-            >
-              Add Member
-            </div>
-            <div v-if="showMembersList" class="members-list">
-              <members-list :board="board"></members-list>
+            <div v-show="isShowEditTitle" class="board-input-container">
+              <el-input
+                ref="boardInput"
+                @change="changeBoardTitle"
+                @blur="changeBoardTitle"
+                v-model="boardTitle"
+              ></el-input>
             </div>
           </div>
-
-          <div v-show="isShowEditTitle" class="board-input-container">
-            <el-input
-              ref="boardInput"
-              @change="changeBoardTitle"
-              @blur="changeBoardTitle"
-              v-model="boardTitle"
-            ></el-input>
-          </div>
+          <transition name="menu-icn-animation">
+            <div
+              v-if="!isShowBoardMenu"
+              class="board-menu-btn clickable flex"
+              @click="toggleBoardMenu"
+            >
+              <div class="board-menu-icn flex align-center">
+                <i class="el-icon-more"></i>
+              </div>
+              <div class="board-menu-text flex align-center">Show Menu</div>
+            </div>
+          </transition>
         </div>
-        <transition name="menu-icn-animation">
-          <div
-            v-if="!isShowBoardMenu"
-            class="board-menu-btn clickable flex"
-            @click="toggleBoardMenu"
+        <div class="board flex column">
+          <Container
+            orientation="horizontal"
+            drag-handle-selector=".list-header"
+            @drop="onColumnDrop($event)"
+            drag-class="column-ghost"
+            drop-class="column-ghost-drop"
+            :drop-placeholder="upperDropPlaceholderOptions"
           >
-            <div class="board-menu-icn flex align-center">
-              <i class="el-icon-more"></i>
-            </div>
-            <div class="board-menu-text flex align-center">Show Menu</div>
-          </div>
-        </transition>
-      </div>
-      <div class="board flex column">
-        <Container
-          orientation="horizontal"
-          drag-handle-selector=".list-header"
-          @drop="onColumnDrop($event)"
-          drag-class="column-ghost"
-          drop-class="column-ghost-drop"
-          :drop-placeholder="upperDropPlaceholderOptions"
-        >
-          <Draggable v-for="list in board.groups" :key="list.id">
-            <list
-              @emitSaveBoard="saveBoard"
-              @showCardDetails="showCardDetails"
-              @emitCardDrop="onCardDrop"
-              :list="list"
-            ></list>
-          </Draggable>
-          <list-add @emitAddList="addList" />
-        </Container>
-      </div>
-      <div class="popup-details" v-if="isShowDetails">
-        <card-details
-          @emitSaveBoard="updateCardInBoard"
-          @closeModal="closeModal"
-          @saveBoard="saveBoard"
-          :card="cardDetailsToShow"
-          :members="board.members"
-        >
-        </card-details>
-      </div>
-    </main>
-    <transition name="menu-slide">
-      <aside v-if="isShowBoardMenu" class="menu-aside">
-        <board-menu
-          @emmiToggleBoardMenu="toggleBoardMenu"
-          :actionType="boardAction"
-          @emitChangeMenuAction="changeMenuAction"
-        >
-          <background-chooser
+            <Draggable v-for="list in board.groups" :key="list.id">
+              <list
+                @emitSaveBoard="saveBoard"
+                @showCardDetails="showCardDetails"
+                @emitCardDrop="onCardDrop"
+                :list="list"
+              ></list>
+            </Draggable>
+            <list-add @emitAddList="addList" />
+          </Container>
+        </div>
+        <div class="popup-details" v-if="isShowDetails">
+          <card-details
+            @emitSaveBoard="updateCardInBoard"
+            @closeModal="closeModal"
+            @saveBoard="saveBoard"
+            :card="cardDetailsToShow"
+            :members="board.members"
+          >
+          </card-details>
+        </div>
+      </main>
+      <transition name="menu-slide">
+        <aside v-if="isShowBoardMenu" class="menu-aside">
+          <board-menu
+            @emmiToggleBoardMenu="toggleBoardMenu"
+            :actionType="boardAction"
             @emitChangeMenuAction="changeMenuAction"
-            v-if="boardAction === 'Change Background'"
-            slot="edit-body"
-          />
-          <background-color-chooser
-            v-if="boardAction === 'Colors'"
-            slot="edit-body"
-          />
-          <background-photo-chooser
-            v-if="boardAction === 'Photos'"
-            slot="edit-body"
-          />
-        </board-menu>
-      </aside>
-    </transition>
+          >
+            <background-chooser
+              @emitChangeMenuAction="changeMenuAction"
+              v-if="boardAction === 'Change Background'"
+              slot="edit-body"
+            />
+            <background-color-chooser
+              v-if="boardAction === 'Colors'"
+              slot="edit-body"
+            />
+            <background-photo-chooser
+              v-if="boardAction === 'Photos'"
+              slot="edit-body"
+            />
+          </board-menu>
+        </aside>
+      </transition>
+    </section>
   </section>
 </template>
 
@@ -126,6 +128,7 @@ import boardMenu from "@/cmps/board-menu.vue";
 import backgroundChooser from "@/cmps/background-chooser.vue";
 import backgroundColorChooser from "@/cmps/background-color-chooser.vue";
 import backgroundPhotoChooser from "@/cmps/background-photo-chooser.vue";
+import appHeader from "../cmps/app-header.vue";
 import {
   eventBus,
   MOVE_CARD,
@@ -165,10 +168,11 @@ export default {
     membersList,
     Avatar,
     backgroundPhotoChooser,
+    appHeader
   },
   computed: {
-    board(){
-        return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    board() {
+      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     },
     boardMembers() {
       return this.board.members;
@@ -189,6 +193,7 @@ export default {
       isShowBoardMenu: false,
       //board:null
       boardAction: false,
+      homeHeader: false
     };
   },
   methods: {
@@ -232,7 +237,7 @@ export default {
           this.board.colorList = info;
         }
       }
-      const board = Object.assign({},this.board);
+      const board = Object.assign({}, this.board);
       this.$store.dispatch({
         type: "saveBoard",
         board,
@@ -281,7 +286,7 @@ export default {
       const idx = list.cards.findIndex((currCard) => currCard.id === card.id);
       if (idx < 0) return;
       list.cards.splice(idx, 1, card)
-      this.cardDetailsToShow = Object.assign({},card)
+      this.cardDetailsToShow = Object.assign({}, card)
       if (this.$store.getters.getCurrActivityText) {
         var activity = this.createActivity(card);
         this.board.activities.push(activity);
