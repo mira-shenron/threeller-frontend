@@ -49,17 +49,17 @@ export default {
       if (!this.isCardMember) {
         if (!this.card.members) {
           this.card.members = [this.member];
-          this.addActivity(`added member ${this.member.fullName} to card`);
+          this.addActivity(`added member ${this.member.fullName}`);
           eventBus.$emit(SAVE_MEMBERS, this.card);
         } else {
           this.card.members.push(this.member);
-          this.addActivity(`added member ${this.member.fullName} to card`);
+          this.addActivity(`added member ${this.member.fullName}`);
           eventBus.$emit(SAVE_MEMBERS, this.card);
         }
       } else {
         var idx = this.card.members.findIndex(member => member._id === this.member._id);
         var removedCards = this.card.members.splice(idx, 1);
-        this.addActivity(`removed member ${removedCards[0].fullName} from card`);
+        this.addActivity(`removed member ${removedCards[0].fullName}`);
         eventBus.$emit(SAVE_MEMBERS, this.card);
       }
     }

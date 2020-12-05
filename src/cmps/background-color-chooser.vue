@@ -1,7 +1,7 @@
 <template>
   <div class="color-chooser-container">
     <div class="color-chooser-grid">
-      <div @click="changeBgc(color)" v-for="(color, idx) in colors" :key="idx" :class="color" class="grid-color clickable">
+      <div @click.stop="changeBgc(color)" v-for="(color, idx) in colors" :key="idx" :class="color" class="grid-color clickable">
       <div class="cover"></div>
       </div>
     </div>

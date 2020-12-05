@@ -106,6 +106,8 @@
             border-radius: 3px;
 
             .list-placeholder {
+                border-radius: 3px;
+
                 padding: 6px 8px;
                 color: #ffffff;
                 transition: color 85ms ease-in;
@@ -172,7 +174,7 @@
 }
 
 .popup-details {
-    z-index: 1;
+    z-index: 20;
     position: absolute;
     overflow-y: auto;
     top: 0;

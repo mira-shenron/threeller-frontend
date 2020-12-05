@@ -61,6 +61,7 @@
 
         .list-actions {
             li {
+                position: relative;
                 cursor: pointer;
                 display: block;
                 font-weight: 400;
@@ -71,5 +72,6 @@
             }
         }
     }
+
 
 }
