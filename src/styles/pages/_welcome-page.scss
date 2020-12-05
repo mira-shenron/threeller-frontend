@@ -43,10 +43,10 @@
        .section-two-container{
             background-color: white;
             min-height: 100vh;
-            padding-bottom:150px;
        }
        .section-two{
            height: 100vh;
+           margin-top: 100px;
             padding-top: 30px;
            color: rgb(49, 47, 47);
            vertical-align: middle;
@@ -54,8 +54,13 @@
        }
 
        .img-two{
-           margin-top: 100px;
            border-radius: 25px;
+           width: 60%;
+           height: 75%;
+       }
+
+       .text{
+           margin-top : 20px
        }
 
        .section-three-container{
@@ -96,7 +101,6 @@
 }
 
 .welcome-nav{
-    // padding: 20px 100px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
