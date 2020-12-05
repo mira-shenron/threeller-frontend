@@ -16,4 +16,5 @@ export const CHANGE_BGP = 'change-bgp';
 export const UPDATE_COLORLIST= 'update-colorlist';
 export const OPEN_DETAILS = 'open-details';
 export const DELETE_LIST = 'delete-list';
+export const DELETE_COLORLIST= 'delete-colorlist';
 export const eventBus = new Vue();

@@ -145,6 +145,7 @@ import {
   UPDATE_COLORLIST,
   OPEN_DETAILS,
   DELETE_LIST,
+  DELETE_COLORLIST,
 } from "@/services/event-bus.service.js";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
@@ -425,10 +426,16 @@ export default {
       this.saveBoard();
     },
     updateColorList(color){
-      console.log("🚀updateColorList ~ color", color)
       this.board.colorList.push(color);
-      console.log("🚀updateColorList ~ board",  this.board)
       this.saveBoard();
+    },
+    deleteColorList(color){
+      var idx=this.board.colorList.findIndex(label=>label.id===color.id)
+      if (idx>=0){
+        this.board.colorList.splice(idx,1)
+        this.saveBoard();
+      }
+      // console.log('this.board delet',this.board)
     }
   },
   created() {
@@ -448,11 +455,12 @@ export default {
     eventBus.$on(UPDATE_COLORLIST, this.updateColorList);
     eventBus.$on(OPEN_DETAILS, this.openDetails);
     eventBus.$on(DELETE_LIST, this.deleteList);
+    eventBus.$on(DELETE_COLORLIST, this.deleteColorList);
     this.boardTitle = this.board.title;
     socketService.setup();
     socketService.emit("join board", this.board._id);
     socketService.on("update board", this.socketSaveBoard);
-    console.log('currBoard',this.$store.getters.currBoard)
+    // console.log('currBoard',this.$store.getters.currBoard)
   },
   destroyed() {
     socketService.off("update board", this.board);

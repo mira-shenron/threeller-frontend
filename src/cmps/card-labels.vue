@@ -34,12 +34,12 @@
 import { boardService } from "../services/board.service.js";
 // import editContainer from "../cmps/edit-container.vue";
 import vClickOutside from "v-click-outside";
-import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST} from "@/services/event-bus.service.js";
+import { eventBus, CLOSE_EDIT,UPDATE_COLORLIST,DELETE_COLORLIST} from "@/services/event-bus.service.js";
 
 export default {
   name: "card-labels",
   props: {
-    card: Object,
+    propcard: Object,
     chooseColor: Object,
   },
   components: {
@@ -53,6 +53,7 @@ export default {
       addColorsLabels: [],
       labelPicked: null,
       searchBy: "",
+      card:null,
       // pickedColor:['#89b4c4'],
     };
   },
@@ -82,48 +83,49 @@ export default {
       this.$emit("openColorModale");
     },
     addLabel(color) {
-      console.log('problem0')
+      // console.log('problem0')
       const colorIdxfromCard = this.card.labels.findIndex(
         (currColor) => currColor.id === color.id
       );
       var copyCardLabels= JSON.parse(JSON.stringify(this.card.labels))
-      console.log('copyCardLabels1',copyCardLabels)
+      // console.log('copyCardLabels1',copyCardLabels)
       const colorIdxfromBoard = this.colorLabel.findIndex(
         (currColor) => currColor.id === color.id
       );
       if (colorIdxfromCard === -1) {
         copyCardLabels.push(color);
-        console.log('copyCardLabels1push',copyCardLabels)
+        // console.log('copyCardLabels1push',copyCardLabels)
         this.colorLabel[colorIdxfromBoard].isPicked = true;
       } else {
-        console.log('problem1')
+        // console.log('problem1')
         copyCardLabels.splice(colorIdxfromCard, 1);
-        console.log('copyCardLabelssplice',copyCardLabels)
+        // console.log('copyCardLabelssplice',copyCardLabels)
         this.colorLabel[colorIdxfromBoard].isPicked = false;
-        console.log('problem2')
+        // console.log('problem2')
       }
-      console.log(
-        "copyCardLabels",
-        copyCardLabels,
-        "colorLabel",
-        this.colorLabel
-      );
+      // console.log(
+      //   "copyCardLabels",
+      //   copyCardLabels,
+      //   "colorLabel",
+      //   this.colorLabel
+      // );
       this.colorLabel = JSON.parse(JSON.stringify(this.colorLabel));
-      console.log('have a pro')
-      // this.card.labels= JSON.parse(JSON.stringify(copyCardLabels));
+      // console.log('have a pro')
       copyCardLabels.forEach((label,idx)=>{
-        console.log('idx',idx)
-        if(label.id){
+        // console.log('idx',idx)
+        if(label){
           this.card.labels.splice(idx,1,label)
         }else {
           this.card.labels=[]
         }
       })
-      console.log("this.card", this.card);
+      this.card.labels= JSON.parse(JSON.stringify(copyCardLabels));
+      // console.log("this.card", this.card);
       this.$emit("updatingCard", this.card);
     },
   },
   created() {
+    this.card=JSON.parse(JSON.stringify(this.propcard));
     var colorList =JSON.parse(JSON.stringify(this.$store.getters.currBoard.colorList));
     if (!colorList) {
       const basicColor = ["green", "yellow", "orange", "red", "purple", "blue"];
@@ -165,6 +167,8 @@ export default {
           (currlabel) => currlabel.id === this.chooseColor.pickedColor.id
         );
         this.colorLabel.splice(idx, 1);
+        // console.log('this.colorLabel delete',this.colorLabel)
+         eventBus.$emit(DELETE_COLORLIST,this.chooseColor.pickedColor);
       }
     }
 
@@ -172,10 +176,10 @@ export default {
         label.isPicked = false;
     });
 
-    console.log("this.card.labels", this.card.labels); // 
+    // console.log("this.card.labels", this.card.labels); // 
     if (this.card.labels.length) {
       this.card.labels.forEach((label) => {
-        console.log("label", label);
+        // console.log("label", label);
         if (label.isPicked) {
           const idx = this.colorLabel.findIndex(
             (currlabel) => currlabel.id === label.id
@@ -185,7 +189,7 @@ export default {
           } else {
             this.colorLabel[idx].isPicked = true;
             this.colorLabel.splice(idx,1,this.colorLabel[idx]);
-            console.log('this.colorLabel[idx]',this.colorLabel[idx])
+            // console.log('this.colorLabel[idx]',this.colorLabel[idx])
             }
         }
       });
