@@ -96,8 +96,8 @@ export default {
           this.card.style.color == "green"
         ) {
           return "white";
-        } else return "black";
-      } else return "black";
+        } else return "#5e6c84";
+      } else return "#5e6c84";
     },
     coverStyle() {
       if (!this.card.style) return;
