@@ -15,7 +15,7 @@
     <div class="list-menu-content">
       <slot name="edit-profile">
         <ul class="clean-list list-actions">
-          <li @click="changeAction('Change Profile Picture')">Chanage Profile Picture</li>
+          <li @click="changeAction('Change Profile Picture')">Change Profile Picture</li>
         </ul>
       </slot>
     </div>
