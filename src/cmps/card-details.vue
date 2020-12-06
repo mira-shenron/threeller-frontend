@@ -87,6 +87,19 @@
                 ></span>
               </div>
             </div>
+            <div class="card-attachments">
+              <div class="flex align-center">
+                <img
+                  width="40px"
+                  src="../assets/action-icons/attachment.png"
+                  alt=""
+                />
+                <div class="second-header">Attachments</div>
+                <div class="attachments-content flex">
+                  <img class="attach-img" :src="card.attachment">
+                </div>
+              </div>
+            </div>
           </div>
           <div v-if="card.checklists">
             <card-details-checklist :card="card"></card-details-checklist>
@@ -204,18 +217,23 @@
               />
             </edit-container>
           </div>
-          <div @click="edit('attach')" class="flex relative align-center card-action clickable">
+          <div
+            @click="edit('attach')"
+            class="flex relative align-center card-action clickable"
+          >
             <img src="../assets/action-icons/attachment.png" alt="" />
             <div class="action-name" @click="edit('attachment')">
               Attachment
             </div>
-            <edit-container :feature="'Attach From...'" v-if="currEdit === 'attach'">
-              <card-cover
+            <edit-container
+              :feature="'Attach From...'"
+              v-if="currEdit === 'attach'"
+            >
+              <card-attach
                 @updatingCard="updatingCard"
                 slot="edit-body"
-                :card="card"
-                @changeBgColor="changeBgColor"
-              ></card-cover>
+                :currCard="card"
+              ></card-attach>
             </edit-container>
           </div>
           <div
@@ -307,6 +325,7 @@ import cardDetailsLabels from "./card-details-labels";
 import cardDetailsMembers from "./card-details-members.vue";
 import cardDetailsDueDate from "./card-details-due-date.vue";
 import cardDelete from "./card-delete.vue";
+import cardAttach from "./card-attach.vue";
 
 export default {
   name: "card-details",
@@ -371,7 +390,7 @@ export default {
       this.showDesc = !this.showDesc;
     },
     saveDescription() {
-      const card = JSON.parse(JSON.stringify(this.card))
+      const card = JSON.parse(JSON.stringify(this.card));
       card.description = this.descriptionOnText;
       this.descriptionOnDiv = this.descriptionOnText;
       this.$emit("emitSaveBoard", card);
@@ -414,6 +433,7 @@ export default {
     cardDetailsMembers,
     cardDetailsDueDate,
     cardDelete,
+    cardAttach,
   },
   computed: {
     currUser() {

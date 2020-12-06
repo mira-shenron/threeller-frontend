@@ -1,10 +1,11 @@
 <template>
   <section class="card" :class="{ [coverColor]: coverStyle === 'full-cover' }">
     <div
-      v-if="coverStyle === 'half-cover'"
+      v-if="coverStyle === 'half-cover' || card.attachment"
       class="cover"
       :class="{ [coverColor]: coverStyle === 'half-cover' }"
-    ></div>
+    >
+    <img :src="card.attachment" alt=""></div>
     <div class="card-container">
       <div
         v-if="card.labels && coverStyle !== 'full-cover'"
@@ -42,6 +43,9 @@
           <div class="badge-text">
             {{ card.comments }}
           </div>
+        </div>
+        <div v-if="card.attachment" class="card-attach">
+          <i class="el-icon-paperclip"></i>
         </div>
         <div
           v-if="card.checklists && allTodos !== 0"
