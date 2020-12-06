@@ -6,8 +6,12 @@
         margin-inline-start: 8px;
         font-size: smaller;
     }
-    
+    .avatar-container{
+        width: 32px;
+    }
+
     .activities-text{
+        flex:1;
         margin-inline-start: 8px;
         .menu-fullname {
             font-weight: bold;
@@ -25,7 +29,7 @@
     
     .avatar {
         border-radius: 50%;
-        height: 32px;
+         height: 32px;
     }
 
 }

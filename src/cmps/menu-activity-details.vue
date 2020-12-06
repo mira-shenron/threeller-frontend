@@ -1,6 +1,8 @@
 <template>
   <section class="flex menu-activity-container">
+    <div class="avatar-container">
     <avatar :image="activity.byMember.imgUrl" :fullname="activity.byMember.fullName" :size="32"></avatar>
+    </div>
     <div>
       <div class="activities-text">
         <span class="menu-fullname">{{ activity.byMember.fullName }} </span>

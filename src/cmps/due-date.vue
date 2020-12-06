@@ -34,7 +34,7 @@ export default {
       this.$store.commit({ type: "setCurrActivityText", activityTxt: txt });
     },
     changeDueDate() {
-      if(this.card.dueDate) this.addActivity('added due-date')
+      if(!this.card.dueDate) this.addActivity('added due-date')
       else this.addActivity('changed due-date')
       this.card.dueDate = this.dueDate;
       console.log("this.card:  ", this.card);
