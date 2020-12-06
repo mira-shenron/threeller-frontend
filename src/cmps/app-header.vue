@@ -7,7 +7,7 @@ a<template>
       <div class="nav-btn flex align-center">
         <i  @click.stop="goToHomePage" class="el-icon-s-grid"></i>
       </div>
-    </nav>
+  </nav>
     <h1 class="logo"><span>Three</span>ller</h1>
     <nav class="right-nav flex justify-center align-center">
       <div class="flex relative">

@@ -1,6 +1,6 @@
 <template>
   <section class="flex details-container">
-    <avatar :fullname="activity.byMember.fullName" :size="40"></avatar>
+    <avatar :image="activity.byMember.imgUrl" :fullname="activity.byMember.fullName" :size="40"></avatar>
     <div>
       <div class="flex align-center">
         <span class="user">{{ activity.byMember.fullName }}</span>
