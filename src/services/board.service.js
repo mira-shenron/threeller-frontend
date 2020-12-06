@@ -89,7 +89,7 @@ function getEmptyBoard(boardName, currUser) {
         createdAt: Date.now(),
         createdBy: currUser,
         style: {},
-        members: [],
+        members: [currUser],
         groups: [],
         activities: [],
         colorList: [
