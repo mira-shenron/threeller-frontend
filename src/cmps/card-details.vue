@@ -204,11 +204,19 @@
               />
             </edit-container>
           </div>
-          <div class="flex align-center card-action clickable">
+          <div @click="edit('attach')" class="flex relative align-center card-action clickable">
             <img src="../assets/action-icons/attachment.png" alt="" />
             <div class="action-name" @click="edit('attachment')">
               Attachment
             </div>
+            <edit-container :feature="'Attach From...'" v-if="currEdit === 'attach'">
+              <card-cover
+                @updatingCard="updatingCard"
+                slot="edit-body"
+                :card="card"
+                @changeBgColor="changeBgColor"
+              ></card-cover>
+            </edit-container>
           </div>
           <div
             class="flex relative align-center card-action clickable"

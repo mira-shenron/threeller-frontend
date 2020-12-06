@@ -19,7 +19,7 @@
         <i class="el-icon-more"></i>
       </div>
       <list-menu
-        :listId="list.id"
+      :listId="list.id"
         v-if="isShowListMenu && !listActionType"
         v-click-outside="closeListMenu"
         @emitCloseMenu="closeListMenu"
@@ -32,7 +32,7 @@
         v-click-outside="closeListMenu"
         @emitCloseMenu="closeListMenu"
         @emitClearMenuAction="chooseAction"
-        :actionType="'Copy List'"
+        actionType="Copy List"
       >
         <list-copy
           slot="edit-body"
@@ -45,7 +45,7 @@
         v-click-outside="closeListMenu"
         @emitCloseMenu="closeListMenu"
         @emitClearMenuAction="chooseAction"
-        :actionType="'Move List'"
+        actionType="Move List"
       >
         <list-move
           slot="edit-body"
@@ -182,7 +182,7 @@ export default {
     },
     openNameEditor() {
       this.isShowEditName = true;
-      this.$nextTick(() => this.$refs.listInput.focus());
+      this.$nextTick(() => this.$refs.listInput.focus())
     },
     changeListName() {
       if (!this.copiedList.title) return;
