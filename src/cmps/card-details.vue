@@ -363,9 +363,10 @@ export default {
       this.showDesc = !this.showDesc;
     },
     saveDescription() {
-      this.card.description = this.descriptionOnText;
+      const card = JSON.parse(JSON.stringify(this.card))
+      card.description = this.descriptionOnText;
       this.descriptionOnDiv = this.descriptionOnText;
-      this.$emit("emitSaveBoard");
+      this.$emit("emitSaveBoard", card);
       this.showDesc = !this.showDesc;
     },
     changeBgColor(cover) {

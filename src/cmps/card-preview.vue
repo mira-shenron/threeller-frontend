@@ -35,7 +35,7 @@
           </div>
         </div>
         <div v-if="card.description" class="card-description">
-          <i class="el-icon-s-document"></i>
+          <i class="el-icon-document"></i>
         </div>
         <div v-if="card.comments" class="card-comment">
           <i class="el-icon-s-comment"></i>

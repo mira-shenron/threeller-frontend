@@ -3,7 +3,7 @@
 <template>
   <section class="home-page">
     <div>
-      <app-header :class="[homeHeader ? 'homeHeader' : 'boardHeader']"/>
+      <app-header :class="[homeHeader ? 'homeHeader' : 'boardHeader']" />
       <header class="home-header">
         <h2 class="header-text">Boards</h2>
       </header>
@@ -59,21 +59,24 @@ export default {
   name: "home-page",
   components: {
     boardPreview,
-    appHeader
+    appHeader,
   },
   data() {
     return {
       newBoardName: "",
       isShowAddBoard: false,
-      homeHeader:true
+      homeHeader: true,
     };
   },
   methods: {
     checkIfMember(boardMembers, currUser) {
+      var isMember = false;
       boardMembers.forEach((member) => {
-        if (member._id === currUser._id) return true;
+        if (member._id === currUser._id) {
+          isMember = true;
+        }
       });
-      return false;
+      return isMember;
     },
     openBoard(boardId) {
       this.$store.commit({ type: "setCurrBoard", boardId });
