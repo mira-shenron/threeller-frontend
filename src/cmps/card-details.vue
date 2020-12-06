@@ -95,10 +95,10 @@
                   alt=""
                 />
                 <div class="second-header">Attachments</div>
-                <div class="attachments-content flex">
-                  <img class="attach-img" :src="card.attachment">
-                </div>
               </div>
+                <div class="attachments-content">
+                  <img v-if="card.attachment" class="attach-img" :src="card.attachment">
+                </div>
             </div>
           </div>
           <div v-if="card.checklists">

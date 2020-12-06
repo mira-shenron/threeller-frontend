@@ -243,9 +243,13 @@ textarea {
 }
 
 .attachments-content{
+    display: flex;
+    margin-inline-start: 45px;
+    margin-bottom: 20px;
     .attach-img{
-        width: rem(100px);
+        width: rem(120px);
         height: 100%;
         object-fit: cover;
     }
+    
 }
