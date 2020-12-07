@@ -1,5 +1,6 @@
 .main-board-content {
-        flex:1;
+    flex: 1;
+
     .board-container {
         flex: 1;
         display: flex;
@@ -8,6 +9,7 @@
 
         .board-header {
             padding: 8px;
+            flex-wrap: wrap;
 
             .board-title-container {
                 width: auto;
@@ -45,7 +47,8 @@
                         width: fit;
                         font-size: rem(18px);
                         height: rem(32px);
-                        &::placeholder{
+
+                        &::placeholder {
                             color: black;
                         }
                     }
@@ -58,7 +61,7 @@
 
                 }
 
-                .board-members{
+                .board-members {
                     margin-inline-start: 5px;
                 }
             }
@@ -186,7 +189,7 @@
     overflow-y: auto;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,.64);
+    background-color: rgba(0, 0, 0, .64);
     height: 100vh;
     width: 100%;
 }
@@ -222,3 +225,8 @@
     }
 }
 
+@media (max-width: 440px){
+    .board-menu-btn{
+        margin-top: 10px;
+    }
+}
