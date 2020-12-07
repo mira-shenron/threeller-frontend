@@ -86,10 +86,8 @@
         margin-bottom: 10px;
         border-radius: 5px;
         border: 0.2px solid rgb(212, 212, 212);
-        &::placeholder{
-            font-family: poppins;
-            padding: 5px;
-        }
+        padding: 10px;
+        font-family: poppins;
     }
 
     .todos-btns > *{

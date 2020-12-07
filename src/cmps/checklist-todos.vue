@@ -29,6 +29,7 @@
         cols="80"
         v-model="newTodoTitle"
         placeholder="Add an item"
+        @keydown.enter="addTodo"
       ></textarea>
       <div class="todos-btns flex">
         <el-button size="small" type="success" @click="addTodo">Add</el-button>

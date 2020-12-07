@@ -77,6 +77,7 @@
                 cols="80"
                 v-model="descriptionOnText"
                 placeholder="Add new description"
+                @keydown.enter="saveDescription"
               ></textarea>
               <div class="flex todos-btns">
                 <el-button size="small" type="success" @click="saveDescription"
