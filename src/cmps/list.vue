@@ -157,7 +157,6 @@ export default {
     toggleListMenu() {
       this.isShowListMenu = !this.isShowListMenu;
       this.listActionType = null;
-      console.log("wassap", this.isShowListMenu, this.listActionType);
     },
     closeListMenu() {
       this.isShowListMenu = false;
