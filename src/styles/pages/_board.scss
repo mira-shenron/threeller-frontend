@@ -215,7 +215,7 @@
 
 .smooth-dnd-container.horizontal {
     flex: 1;
-    display: flex;
+    display: flex !important;
     margin-left: 4px;
 
     .smooth-dnd-draggable.wrapper {
