@@ -43,6 +43,8 @@
           :key="board._id"
           @click.native="openBoard(board._id)"
           :board="board"
+          :class="{ [board.style.bgc]: board.style.bgc }"
+          :style="{ backgroundImage: 'url(' + board.style.thumb + ')' }"
         ></board-preview>
       </div>
     </div>
