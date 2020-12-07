@@ -19,7 +19,10 @@
         :key="photo.id"
       >
         <img class="unsplash-photo" :src="photo.urls.thumb" />
-        <div @click="changeBg(photo.urls.raw)" class="cover"></div>
+        <div
+          @click="changeBg(photo.urls.raw, photo.urls.thumb)"
+          class="cover"
+        ></div>
       </div>
     </div>
   </div>
@@ -40,8 +43,8 @@ export default {
       const res = await unsplashService.searchPhotos(this.txt);
       this.photos = res;
     },
-    changeBg(url) {
-      eventBus.$emit(CHANGE_BGP, url);
+    changeBg(url, thumb) {
+      eventBus.$emit(CHANGE_BGP, url, thumb);
     },
   },
 };

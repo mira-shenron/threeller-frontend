@@ -407,10 +407,10 @@ export default {
       });
       this.saveBoard();
     },
-    changeBgp(url) {
+    changeBgp(url, thumb) {
       this.$store.dispatch({
         type: "changeBg",
-        style: { url },
+        style: { url,thumb },
       });
       this.saveBoard();
     },

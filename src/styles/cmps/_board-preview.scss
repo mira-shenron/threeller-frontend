@@ -1,25 +1,26 @@
 .board-preview {
-    color: rgb(98, 98, 98);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     padding: 6px;
-    height: 100px;
-    width: 200px;
+    height: 150px;
+    width: 250px;
     text-align: center;
     position: relative;
     transition: .3s ease;
-    background-color: #ffffffde;
-    box-shadow: 0px 3px 5px 3px #dadada;
+    box-shadow: 0px 3px 5px 3px #0000005b;
 
     // color:  #8747C9;
-    background:#f0f6f5;
     border-radius: 15px;
     // font-weight: 700;
     letter-spacing: .046em;
 
     &:hover {
-        box-shadow: 0px 5px 8px 6px #BFBFBF,
-        0 -20px 9px 0 inset rgba(165, 165, 165, 0.555);
+        box-shadow: 0px 5px 8px 6px #00000094,
+            0 -20px 9px 0 inset rgba(165, 165, 165, 0.555);
+
         .board-preview-content {
-            bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.726);
         }
     }
 
@@ -33,6 +34,10 @@
     }
 
     .board-preview-content {
+        color: #ffe;
+        font-size: rem(20px);
+        background-color: rgba(0, 0, 0, 0.33);
+        border-radius: 0 0 15px 15px;
         position: absolute;
         bottom: 0;
         left: 0;

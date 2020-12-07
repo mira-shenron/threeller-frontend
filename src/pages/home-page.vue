@@ -48,6 +48,8 @@
         ></board-preview>
       </div>
     </div>
+    <div class="background-container">
+    </div>
   </section>
 </template>
 
