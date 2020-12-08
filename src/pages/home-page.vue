@@ -4,9 +4,6 @@
   <section class="home-page">
     <div>
       <app-header :class="[homeHeader ? 'homeHeader' : 'boardHeader']" />
-      <header class="home-header">
-        <h2 class="header-text">Boards</h2>
-      </header>
       <div class="add-board-container">
         <transition name="board-composer-animation">
           <div
